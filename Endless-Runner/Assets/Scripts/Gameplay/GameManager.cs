@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+    
         characterDeath = false;
         playerStartPoint = new Vector3(0, 1, 0);
         zVelAdj = 1;
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 
         Instantiate(Character, playerStartPoint, Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
-
+        
         selfDestruct = FindObjectOfType<SelfDestruct>();
         spawner = FindObjectOfType<Spawner>();
 
