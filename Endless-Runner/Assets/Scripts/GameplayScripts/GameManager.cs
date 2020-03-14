@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
         if (waitToLoad > 2)
         {
-            SceneManager.LoadScene("Complete");
+            SceneManager.LoadScene("GameOverMenu");
         }
 
     }
