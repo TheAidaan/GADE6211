@@ -5,19 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
-    private KeyCode moveR = KeyCode.D;
-    private KeyCode moveL = KeyCode.A;
-    private KeyCode jump = KeyCode.Space;
+    KeyCode moveR = KeyCode.D;
+    KeyCode moveL = KeyCode.A;
+    KeyCode jump = KeyCode.Space;
 
-    public float horizVel = 0;
+    float horizVel;
 
     public Material orange;
     public Material blue;
     public Renderer Object;
 
 
-    public int laneNum = 2;
-    public bool ControlLocked = false;
+    int laneNum;
+    bool ControlLocked = false;
+
+    private Rigidbody Self;
 
     bool resistant;
 
@@ -27,14 +29,17 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-
+        horizVel = 0;
+        laneNum = 2;
+        Self = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //GetComponent<Rigidbody>().velocity = new Vector3(horizVel, 0, 4);
-        GetComponent<Rigidbody>().velocity = new Vector3(horizVel, GameManager.vertVel, 4 * GameManager.zVelAdj);
+      
+        Self.velocity = new Vector3(horizVel, GameManager.vertVel, 4 * GameManager.zVelAdj);
+
         if ((Input.GetKey(moveL)) && (laneNum > 1) && (ControlLocked == false))
         {
             horizVel = -2;

@@ -14,12 +14,7 @@ public class GameManager : MonoBehaviour
     public static bool characterDeath;
     float waitToLoad = 0;
 
-    private Vector3 playerStartPoint;
-
     private Spawner spawner;
-    private SelfDestruct selfDestruct;
-
-
     public Transform Character;
     public static Transform Player;
 
@@ -28,19 +23,18 @@ public class GameManager : MonoBehaviour
     {
     
         characterDeath = false;
-        playerStartPoint = new Vector3(0, 1, 0);
+    
         zVelAdj = 1;
         vertVel = 0;
         coinTotal = 0;
         timeTotal = 0;
 
-        Instantiate(Character, playerStartPoint, Character.rotation);
+        Instantiate(Character, new Vector3(0, 1, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
         
-        selfDestruct = FindObjectOfType<SelfDestruct>();
         spawner = FindObjectOfType<Spawner>();
 
-        spawner.playerPosZ = playerStartPoint.z;
+        spawner.playerPosZ = 0;
 
 
     }
@@ -57,7 +51,6 @@ public class GameManager : MonoBehaviour
         {
             spawner.playerPosZ = Player.position.z;
             spawner.SpawnBuildingBlocks();
-            //selfDestruct.playerPosZ = Player.position.z;
             timeTotal += Time.deltaTime;
         }
 
