@@ -34,12 +34,13 @@ public class GameManager : MonoBehaviour
         
         spawner = FindObjectOfType<Spawner>();
 
-        spawner.playerPosZ = 0;
+        spawner.playerPosZ = 8;
 
 
     }
     void Start()
-    {   
+    {
+        
         spawner.SpawnBuildingBlocks();
 
     }
@@ -52,6 +53,11 @@ public class GameManager : MonoBehaviour
             spawner.playerPosZ = Player.position.z;
             spawner.SpawnBuildingBlocks();
             timeTotal += Time.deltaTime;
+            if (timeTotal >10)
+            {
+                zVelAdj = timeTotal / 10;
+            }
+            
         }
 
 

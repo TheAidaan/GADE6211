@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] Transform bbNoPit;
-    [SerializeField] Transform bbPit;
+    [SerializeField] Transform[] paths = new Transform[3];
 
     [SerializeField] Transform enemyObjects;
     [SerializeField] Transform collectorsObjects;
@@ -13,7 +12,7 @@ public class Spawner : MonoBehaviour
 
     public float playerPosZ;
     float zSpawnPos;
-
+    float ySpawnPos = 0;
 
     public int randNumber;
 
@@ -21,8 +20,20 @@ public class Spawner : MonoBehaviour
     {
         if (zSpawnPos <= (playerPosZ + 32f))
         {
-            Instantiate(bbNoPit, new Vector3(0, 0, zSpawnPos), bbNoPit.rotation);
-            zSpawnPos += 4f;
+            randNumber = Random.Range(0, 3);
+            Instantiate(paths[randNumber], new Vector3(0, ySpawnPos, zSpawnPos), paths[randNumber].rotation);
+
+            if (randNumber == 1)
+            {
+                
+                ySpawnPos += 2;
+                zSpawnPos += 7.47f;
+            }else
+            {
+                zSpawnPos += 4f;
+            }
+
+            
             SpawnObjects();
         }
     }
@@ -32,19 +43,19 @@ public class Spawner : MonoBehaviour
         randNumber = Random.Range(0, 10);
         if (randNumber < 3)
         {
-            Instantiate(collectorsObjects, new Vector3(-1f, 1f, zSpawnPos), collectorsObjects.rotation);
+            Instantiate(collectorsObjects, new Vector3(-1f, ySpawnPos+ 1f, zSpawnPos), collectorsObjects.rotation);
         }
         if (randNumber < 7)
         {
-            Instantiate(collectorsObjects, new Vector3(1f, 1f, zSpawnPos), collectorsObjects.rotation);
+            Instantiate(powerUpObjects, new Vector3(1f, ySpawnPos+ 1f, zSpawnPos), powerUpObjects.rotation);
         }
         if (randNumber == 4)
         {
-            Instantiate(enemyObjects, new Vector3(-1f, 1f, zSpawnPos), enemyObjects.rotation); ;
+            Instantiate(enemyObjects, new Vector3(-1f, ySpawnPos+ 1f, zSpawnPos), enemyObjects.rotation); ;
         }
         if (randNumber == 5)
         {
-            Instantiate(enemyObjects, new Vector3(0f, 1f, zSpawnPos), enemyObjects.rotation);
+            Instantiate(enemyObjects, new Vector3(0f, ySpawnPos+1f, zSpawnPos), enemyObjects.rotation);
         }
     }
 }
