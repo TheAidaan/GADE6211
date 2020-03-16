@@ -11,7 +11,7 @@ public class GameplayUI : MonoBehaviour
 
     void Update()
     {
-        score.text = "Score: " + GameManager.coinTotal;
+        score.text = "Coins: " + GameManager.coinTotal;
 
     }
 }

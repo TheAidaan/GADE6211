@@ -2,32 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+abstract class Obstacle :MonoBehaviour{
+   
+}
+abstract class PickUps : MonoBehaviour{
+    public abstract void IdleEffect();
+    public abstract void CollisionEffect();
+}
+abstract class CollectorObjects : MonoBehaviour {}
 
-public class Effects : MonoBehaviour  
+class Immunity : PickUps 
 {
-    
-    
-    bool isPlayer;
-    // Start is called before the first frame update
-    void Start()
+    GameObject Self;
+    public Immunity(GameObject self)
     {
-        isPlayer = false;
-        
+        Self = self;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+        public override void IdleEffect()
     {
-        //if (gameObject.name == "PowerUp")
-        //{
-        //    transform.Rotate(3, 0, 0);
-        //}
+        Self.transform.Rotate(3, 0, 0);
+    }
+    public override void CollisionEffect()
+    {
+        CharacterEffects.resistant = true;
+        CharacterEffects.Object.material = CharacterEffects.blue;
 
-        if (gameObject.name == "Coin(Clone)")
+        Destroy(Self);
+    }
+    
+}
+
+public class Effects : MonoBehaviour
+{
+    [SerializeField] bool immunity, coin, block;
+    private void Update()
+    {
+        if (immunity)
         {
-            transform.Rotate(0, 0, 3);
+            Immunity immunity = new Immunity(gameObject);
+                       
         }
 
+        if (coin)
+        {
+
+        }
+
+        if (block)
+        {
+
+        }
 
     }
 }
+
+
+

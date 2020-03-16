@@ -474,6 +474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741124542a7735a4b92eea607fe82c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinsTot: {fileID: 0}
+  timetot: {fileID: 0}
 --- !u!1 &518046596
 GameObject:
   m_ObjectHideFlags: 0

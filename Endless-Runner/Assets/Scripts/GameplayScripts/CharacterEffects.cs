@@ -11,17 +11,6 @@ public class CharacterEffects : MonoBehaviour
 
     public static Renderer Object;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Lethal")
@@ -41,7 +30,7 @@ public class CharacterEffects : MonoBehaviour
             }
 
         }
-        if (other.gameObject.name == "PowerUp")
+        if (other.gameObject.name == "PowerUp(clone)")
         {
             Destroy(other.gameObject);
             Object.material = blue;
@@ -53,20 +42,6 @@ public class CharacterEffects : MonoBehaviour
             GameManager.coinTotal += 1;
             Destroy(other.gameObject);
         }
-
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name == "RampTriggerBot")
-        {
-            GameManager.vertVel = 1f;
-
-        }
-        if (other.gameObject.name == "RampTriggerTop")
-        {
-            GameManager.vertVel = 0f;
-        }
-       
 
     }
 }

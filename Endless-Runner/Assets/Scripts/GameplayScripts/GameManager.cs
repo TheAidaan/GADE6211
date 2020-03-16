@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         spawner.playerPosZ = 8;
 
 
+
     }
     void Start()
     {
