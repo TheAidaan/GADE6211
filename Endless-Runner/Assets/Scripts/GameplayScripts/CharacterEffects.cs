@@ -7,7 +7,7 @@ public class CharacterEffects : MonoBehaviour
     public static bool resistant;
 
     public static Material orange;
-        public static Material blue;
+    public static Material blue;
 
     public static Renderer Object;
 

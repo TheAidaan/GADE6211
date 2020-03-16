@@ -3,31 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ObjectEffects : MonoBehaviour  
+public class ObjectEffects : MonoBehaviour
 {
-    
-    
-    bool isPlayer;
-    // Start is called before the first frame update
-    void Start()
-    {
-        isPlayer = false;
-        
-    }
+    [SerializeField] bool _immunity, _coin,_staicObstacle;
+
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.name == "PowerUp(Clone)")
+
+        if (_immunity)
         {
-            transform.Rotate(3, 0, 0);
+            Immunity immunity = new Immunity();
         }
 
-        if (gameObject.name == "Coin(Clone)")
+        if (_coin)
         {
-            transform.Rotate(0, 0, 3);
+            Coin coin = new Coin();
         }
+
+        if (_staicObstacle)
+        {
+            StaticObstacle obstacle = new StaticObstacle();
+        }
+        
+        
+        SelfDestruct selfDestruct = new SelfDestruct();
+
 
 
     }
 }
+
+ 

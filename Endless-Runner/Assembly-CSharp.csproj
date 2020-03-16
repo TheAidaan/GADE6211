@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D0A416CE-6D74-343F-B7EE-28C1EA9AD608}</ProjectGuid>
+    <ProjectGuid>{678B333A-8600-0809-A01B-F24AE77B27E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -93,22 +93,22 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -294,13 +294,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Semester 1/Game Development/Lessons/tesWork/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

@@ -2,60 +2,115 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class Obstacle :MonoBehaviour{
-   
-}
-abstract class PickUps : MonoBehaviour{
-    public abstract void IdleEffect();
-    public abstract void CollisionEffect();
-}
-abstract class CollectorObjects : MonoBehaviour {}
-
-class Immunity : PickUps 
+public abstract class PickUps : MonoBehaviour
 {
-    GameObject Self;
-    public Immunity(GameObject self)
+    public virtual void IdleEffect(float xROt, float yRot, float zRot)
     {
-        Self = self;
+        transform.Rotate(xROt, yRot, zRot);
     }
-    
-        public override void IdleEffect()
+    public virtual void OnCollisionEnter(Collision other)
     {
-        Self.transform.Rotate(3, 0, 0);
+        CollisionEffect();
     }
+
+    public virtual void CollisionEffect()
+    {
+        Destroy(gameObject);
+    }
+
+}
+
+
+public abstract class Obstacle : MonoBehaviour
+{
+    public virtual void CollisionEffect()
+    {
+        GameManager.characterDeath = true; Destroy(gameObject);
+    }
+    public virtual void OnCollisionEnter(Collision other)
+    {
+        CollisionEffect();
+    }
+
+}
+
+
+public abstract class SharedBehaviour : MonoBehaviour
+{
+    public virtual void SelfDestruct()
+    {
+        if (GameManager.characterDeath == false)
+        {
+            if (transform.position.z < GameManager.Player.position.z - 10f)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+}
+
+
+#region PickUp Subclasses
+
+
+public class Coin : PickUps
+{
+
+    public Coin()
+    {
+        IdleEffect(0f, 0f, 3f);
+
+        CollisionEffect();
+    }
+
+    public override void CollisionEffect()
+    {
+        GameManager.coinTotal++;
+
+        base.CollisionEffect();
+    }
+
+}
+
+public class Immunity : PickUps
+{
+
+    public Immunity()
+    {
+        IdleEffect(3f, 0f, 0f);
+
+        CollisionEffect();
+    }
+
     public override void CollisionEffect()
     {
         CharacterEffects.resistant = true;
         CharacterEffects.Object.material = CharacterEffects.blue;
 
-        Destroy(Self);
+        base.CollisionEffect();
     }
-    
+
 }
 
-public class Effects : MonoBehaviour
+
+#endregion
+
+#region Obstacle Subclasses
+public class StaticObstacle : Obstacle
 {
-    [SerializeField] bool immunity, coin, block;
-    private void Update()
+
+    public StaticObstacle()
     {
-        if (immunity)
-        {
-            Immunity immunity = new Immunity(gameObject);
-                       
-        }
 
-        if (coin)
-        {
-
-        }
-
-        if (block)
-        {
-
-        }
-
+        CollisionEffect();
     }
+
+
+
 }
+#endregion
+
 
 
 
