@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1661202694314353681}
   - component: {fileID: 1661202694314353686}
   - component: {fileID: 1661202694314353685}
-  - component: {fileID: 190610142080246202}
+  - component: {fileID: -1796894646888635341}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8e9a597a68ecf4f914115e7394930f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &190610142080246202
+--- !u!114 &-1796894646888635341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,9 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032cb8ca122c1e043ab3592e5b8fcac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orange: {fileID: 2100000, guid: 03fd384b40bc290429ce30bf663e5e2a, type: 2}
-  blue: {fileID: 2100000, guid: c44098caeef500946af57c5fb601ad52, type: 2}
-  Object: {fileID: 1661202694314353682}
 --- !u!1 &1661202694514378989
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,3 +340,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741124542a7735a4b92eea607fe82c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinsTot: {fileID: 0}
+  timetot: {fileID: 0}

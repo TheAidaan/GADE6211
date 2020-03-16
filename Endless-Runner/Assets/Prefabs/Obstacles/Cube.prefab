@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1212437479135883379}
   - component: {fileID: 1212437479135883378}
   - component: {fileID: 1212437479135883377}
-  - component: {fileID: -3554601758830393298}
+  - component: {fileID: 3563694460006293789}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Lethal
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3554601758830393298
+--- !u!114 &3563694460006293789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,6 +101,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1212437479135883376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f6038802b8804419537e28b6b76c62, type: 3}
+  m_Script: {fileID: 11500000, guid: 615c0ad7865687e4db648de185b864c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _immunity: 0
+  _coin: 0
+  _staticObstacle: 1

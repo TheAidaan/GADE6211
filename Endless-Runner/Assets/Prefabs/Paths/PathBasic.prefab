@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 1472988903395190386}
   - component: {fileID: 4539164774346146099}
   - component: {fileID: 1400380451337607024}
-  - component: {fileID: 2437406876428019874}
+  - component: {fileID: 8378841596858679815}
   m_Layer: 0
   m_Name: PathBasic
   m_TagString: Untagged
@@ -942,7 +942,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2437406876428019874
+--- !u!114 &8378841596858679815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -951,9 +951,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3308325161098810466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f6038802b8804419537e28b6b76c62, type: 3}
+  m_Script: {fileID: 11500000, guid: 615c0ad7865687e4db648de185b864c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _immunity: 0
+  _coin: 0
+  _staticObstacle: 0
 --- !u!1 &3340965384232164693
 GameObject:
   m_ObjectHideFlags: 0

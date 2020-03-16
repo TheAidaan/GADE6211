@@ -4,18 +4,11 @@ using UnityEngine;
 
 public abstract class PickUps : MonoBehaviour
 {
-    public virtual void IdleEffect(float xROt, float yRot, float zRot)
-    {
-        transform.Rotate(xROt, yRot, zRot);
-    }
-    public virtual void OnCollisionEnter(Collision other)
-    {
-        CollisionEffect();
-    }
+    public virtual void IdleEffect(){}
 
-    public virtual void CollisionEffect()
+    public virtual void CollisionEffect(GameObject destroy)
     {
-        Destroy(gameObject);
+        Destroy(destroy);
     }
 
 }
@@ -23,13 +16,10 @@ public abstract class PickUps : MonoBehaviour
 
 public abstract class Obstacle : MonoBehaviour
 {
-    public virtual void CollisionEffect()
+    public virtual void CollisionEffect(GameObject destroy, bool isDead)
     {
-        GameManager.characterDeath = true; Destroy(gameObject);
-    }
-    public virtual void OnCollisionEnter(Collision other)
-    {
-        CollisionEffect();
+        GameManager.characterDeath = isDead; 
+        Destroy(destroy);
     }
 
 }
@@ -37,13 +27,13 @@ public abstract class Obstacle : MonoBehaviour
 
 public abstract class SharedBehaviour : MonoBehaviour
 {
-    public virtual void SelfDestruct()
+    public virtual void SelfDestruct(GameObject self)
     {
         if (GameManager.characterDeath == false)
         {
-            if (transform.position.z < GameManager.Player.position.z - 10f)
+            if (self.transform.position.z < GameManager.Player.position.z - 10f)
             {
-                Destroy(gameObject);
+                Destroy(self);
             }
         }
     }
@@ -56,19 +46,10 @@ public abstract class SharedBehaviour : MonoBehaviour
 
 public class Coin : PickUps
 {
-
-    public Coin()
+    public Coin(GameObject self)
     {
-        IdleEffect(0f, 0f, 3f);
+        self.transform.Rotate(0f, 0f, 3f);
 
-        CollisionEffect();
-    }
-
-    public override void CollisionEffect()
-    {
-        GameManager.coinTotal++;
-
-        base.CollisionEffect();
     }
 
 }
@@ -76,23 +57,58 @@ public class Coin : PickUps
 public class Immunity : PickUps
 {
 
-    public Immunity()
+    public Immunity(GameObject self)
     {
-        IdleEffect(3f, 0f, 0f);
+        self.transform.Rotate(3f, 0f, 0f);
 
-        CollisionEffect();
     }
 
-    public override void CollisionEffect()
-    {
-        CharacterEffects.resistant = true;
-        CharacterEffects.Object.material = CharacterEffects.blue;
-
-        base.CollisionEffect();
-    }
+    
 
 }
 
+#region character colliders
+public class ImmunityCollided: PickUps
+{
+    GameObject Collided;  
+    public ImmunityCollided(GameObject collided)
+    {
+        
+        Collided = collided;
+        CollisionEffect(Collided);
+    }
+    public override void CollisionEffect(GameObject destroy)
+    {
+        CharacterEffects.resistant = true;
+        base.CollisionEffect(Collided);
+    }
+}
+
+public class CoinCollided : PickUps
+{
+    GameObject Collided;
+    public CoinCollided(GameObject collided)
+
+    {
+        Collided = collided;
+        GameManager.coinTotal++;
+        base.CollisionEffect(Collided);
+    }
+}
+
+public class ObstacleCollided : Obstacle
+{
+    bool IsDead;
+    GameObject Self;
+    public ObstacleCollided(GameObject self, bool isDead)
+    {
+        IsDead = isDead;
+        Self = self;
+        base.CollisionEffect(Self,IsDead);
+    }
+        
+}
+#endregion
 
 #endregion
 
@@ -102,14 +118,23 @@ public class StaticObstacle : Obstacle
 
     public StaticObstacle()
     {
+        //void OnCollisionEnter(Collision other);
 
-        CollisionEffect();
+
     }
 
 
 
 }
 #endregion
+
+public class AllPrefabs : SharedBehaviour
+{
+    public AllPrefabs(GameObject self) 
+    {
+        base.SelfDestruct(self);
+    }
+}
 
 
 

@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 4121016120092352601}
   - component: {fileID: 4228726719633251427}
   - component: {fileID: 5236686482890621560}
-  - component: {fileID: 3243480441246477249}
   m_Layer: 0
   m_Name: Part2
   m_TagString: Untagged
@@ -209,18 +208,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3243480441246477249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448652398457940068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f6038802b8804419537e28b6b76c62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &484692980955894203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,7 +1499,7 @@ GameObject:
   - component: {fileID: 1472988903395190386}
   - component: {fileID: 4539164774346146099}
   - component: {fileID: 1400380451337607024}
-  - component: {fileID: 2437406876428019874}
+  - component: {fileID: 4042203864083302284}
   m_Layer: 0
   m_Name: patRising
   m_TagString: Untagged
@@ -1622,7 +1609,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2437406876428019874
+--- !u!114 &4042203864083302284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1631,9 +1618,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3308325161098810466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f6038802b8804419537e28b6b76c62, type: 3}
+  m_Script: {fileID: 11500000, guid: 615c0ad7865687e4db648de185b864c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _immunity: 0
+  _coin: 0
+  _staicObstacle: 0
 --- !u!1 &3340965384232164693
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2639,6 @@ GameObject:
   - component: {fileID: 8578867814007477041}
   - component: {fileID: 8054892635172045847}
   - component: {fileID: 5389357386446253710}
-  - component: {fileID: 32202638144746373}
   m_Layer: 0
   m_Name: PathHole (1)
   m_TagString: Untagged
@@ -2742,18 +2731,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &32202638144746373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4749930415555256370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f6038802b8804419537e28b6b76c62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4779721011201620809
 GameObject:
   m_ObjectHideFlags: 0
@@ -5594,6 +5571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7252526028448155908}
   - component: {fileID: 4199324258600373447}
+  - component: {fileID: 2866089855952883162}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Lethal
@@ -5610,7 +5588,7 @@ Transform:
   m_GameObject: {fileID: 8350523012232971497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.08, z: -5.98}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalScale: {x: 3, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 4711035421473674529}
   m_RootOrder: 29
@@ -5628,6 +5606,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2866089855952883162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8350523012232971497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615c0ad7865687e4db648de185b864c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _immunity: 0
+  _coin: 0
+  _staicObstacle: 1
 --- !u!1 &8665662513571223574
 GameObject:
   m_ObjectHideFlags: 0
