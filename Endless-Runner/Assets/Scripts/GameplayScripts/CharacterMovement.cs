@@ -9,66 +9,55 @@ public class CharacterMovement : MonoBehaviour
     KeyCode moveL = KeyCode.A;
     KeyCode jump = KeyCode.Space;
 
-    float horizVel;
+    enum Lanes { Left = 1, Center, Right};
+    Lanes lane = Lanes.Center;
 
-    int laneNum;
-    bool ControlLocked = false;
-
-    Rigidbody Self;
-
-
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        horizVel = 0;
-        laneNum = 2;
-        Self = GetComponent<Rigidbody>();
-    }
+    bool jumpLock = false;
+    float yPos = 1;
 
     // Update is called once per frame
     void Update()
     {
-      
-        Self.velocity = new Vector3(horizVel, GameManager.vertVel, 4 * GameManager.zVelAdj);
-        
 
-        if ((Input.GetKey(moveL)) && (laneNum > 1) && (ControlLocked == false))
+        transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+       
+        if ((Input.GetKey(moveL)) && ((int)lane > 1))
         {
-            horizVel = -2;
-            StartCoroutine(stopSlide());
-            laneNum -= 1;
-            ControlLocked = true;
+            lane -= 1;
+            transform.position = Vector3.Lerp(transform.position, goTo(), 3f);
         }
 
-        if ((Input.GetKey(moveR)) && (laneNum < 3) && (ControlLocked == false))
-        {
-            horizVel = 2;
-            StartCoroutine(stopSlide());
-            laneNum += 1;
-            ControlLocked = true;
+        if ((Input.GetKey(moveR)) && ((int)lane < 3))
+        {    
+            lane += 1;
+            transform.position = Vector3.Lerp(transform.position, goTo(), 3f);
         }
 
-        if ((Input.GetKey(jump)) && (GameManager.vertVel == 0) && (ControlLocked == false))
+        if ((Input.GetKey(jump)) && (jumpLock == false))
         {
-            GameManager.vertVel = 2;
+            yPos = 2;
+            transform.position = Vector3.Lerp(transform.position, goTo(), 3f);
             StartCoroutine(stopJump());
-            ControlLocked = true;
+            jumpLock = true;
         }
     }
-    IEnumerator stopSlide()
+    public Vector3 goTo()
     {
-        yield return new WaitForSeconds(.55f);
-        horizVel = 0;
-        ControlLocked = false;
+        switch ((int)lane)
+        {
+            case 1: return new Vector3(-1, yPos,transform.position.z);
+            case 2: return new Vector3(0, yPos, transform.position.z);
+            case 3: return new Vector3(1, yPos, transform.position.z);
+            default: return transform.position;
+        }
+
     }
+
     IEnumerator stopJump()
-    {
-        yield return new WaitForSeconds(.5f);
-        GameManager.vertVel = -2;
-        yield return new WaitForSeconds(.5f);
-        GameManager.vertVel = 0;
-        ControlLocked = false;
+    {       
+        yield return new WaitForSeconds(.125f);
+        yPos = 1;
+        jumpLock = false;
     }
     
 

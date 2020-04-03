@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     Transform player;
-    [SerializeField] private Vector3 m_CameraOffset = new Vector3(0, 5, -4);
-    [SerializeField] private float m_FollowSpeed = 10;
+    Vector3 m_CameraOffset = new Vector3(0, 2.4f, -5.65f);
+    private float m_FollowSpeed = 10;
     private Quaternion _rotation;
 
     public Vector3 Offset
@@ -33,10 +33,9 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.characterDeath == false)
-        {
-            transform.position = Vector3.Lerp(transform.position, Offset, Time.deltaTime * m_FollowSpeed);
-        }
+       
+      transform.position = Vector3.Lerp(transform.position, Offset, Time.deltaTime * m_FollowSpeed);
+        
     }
 
 }

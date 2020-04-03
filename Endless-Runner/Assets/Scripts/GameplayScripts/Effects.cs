@@ -31,7 +31,7 @@ public abstract class SharedBehaviour : MonoBehaviour
     {
         if (GameManager.characterDeath == false)
         {
-            if (self.transform.position.z < GameManager.Player.position.z - 10f)
+            if (self.transform.position.z < GameManager.Player.position.z - 2f)
             {
                 Destroy(self);
             }

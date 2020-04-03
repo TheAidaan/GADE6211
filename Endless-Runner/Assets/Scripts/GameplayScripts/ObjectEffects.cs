@@ -26,9 +26,8 @@ public class ObjectEffects : MonoBehaviour
         {
             StaticObstacle obstacle = new StaticObstacle();
         }
-        
-        
-        AllPrefabs selfDestruct = new AllPrefabs(gameObject);
+
+       AllPrefabs selfDestruct = new AllPrefabs(gameObject);
     }
 
     public bool isImmunity()

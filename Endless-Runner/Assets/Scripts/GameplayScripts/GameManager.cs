@@ -9,41 +9,46 @@ public class GameManager : MonoBehaviour
     public static float timeTotal;
 
     public static float zVelAdj;
-    public static float vertVel;
 
     public static bool characterDeath;
     float waitToLoad = 0;
 
-    private Spawner spawner;
+    Spawn spawn;
     public Transform Character;
     public static Transform Player;
+
+    Transform[,] Objects = new Transform[3, 3];
+    
+
+    int spawnPoint = 12;
 
     // Start is called before the first frame update
     void Awake()
     {
     
         characterDeath = false;
-    
+
         zVelAdj = 1;
-        vertVel = 0;
         coinTotal = 0;
         timeTotal = 0;
 
         Instantiate(Character, new Vector3(0, 1, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        spawn = FindObjectOfType<Spawn>();
+        spawn.AssignObjects();
+
         
-        spawner = FindObjectOfType<Spawner>();
-
-        spawner.playerPosZ = 8;
-
 
 
     }
     void Start()
     {
-        
-        spawner.SpawnBuildingBlocks();
 
+        for (int spawnPoint = 0; spawnPoint < 12; spawnPoint++)
+        {
+            spawn.SpawnBuildingBlocks(spawnPoint,null);
+        }
     }
 
     // Update is called once per frame
@@ -51,9 +56,14 @@ public class GameManager : MonoBehaviour
     {
         if (characterDeath == false)
         {
-            spawner.playerPosZ = Player.position.z;
-            spawner.SpawnBuildingBlocks();
+            if (Player.position.z>(spawnPoint-15))
+             {
+                spawn.SpawnBuildingBlocks(spawnPoint, spawn.spawnObject());
+                spawnPoint++;
+            }
+
             timeTotal += Time.deltaTime;
+            
             if (timeTotal >10)
             {
                 zVelAdj = timeTotal / 10;
@@ -73,5 +83,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-   
-}
+
+
+
+}//Gamemanager
