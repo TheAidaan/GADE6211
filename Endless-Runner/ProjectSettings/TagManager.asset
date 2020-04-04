@@ -4,10 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacle
-  - snail
-  - coin
-  - exit
+  - World
+  - Lethal
   layers:
   - Default
   - TransparentFX

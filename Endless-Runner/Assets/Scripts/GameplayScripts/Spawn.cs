@@ -42,11 +42,13 @@ public class Spawn : MonoBehaviour
    public Transform spawnObject()
     {
         int randNumber;
+        int randObstacle;
         randNumber = Random.Range(0, 10);
+        randObstacle = Random.Range(0, 3);
 
         if (randNumber < 4)
         {
-            return Objects[0, 0];
+            return Objects[0, randObstacle];
             
         }
         else
@@ -73,7 +75,10 @@ public class Spawn : MonoBehaviour
     public void SpawnBuildingBlocks(int zSpawnPoint, Transform Object)
     {
         int randNumber;
+        bool maySpawnObject;
+
         randNumber = Random.Range(-1, 3);
+        maySpawnObject = true;
 
         if (Object == null)
         {
@@ -83,14 +88,27 @@ public class Spawn : MonoBehaviour
         Instantiate(World[1], new Vector3(-2f, .25f, zSpawnPoint), World[1].rotation);
         for (int i = -1; i < 2; i++)
         {
-            Instantiate(World[0], new Vector3(i, 0f, zSpawnPoint), World[0].rotation);
-            if (i == randNumber)
+            
+            if ((i == randNumber) && (maySpawnObject == true))
             {
-                Instantiate(Object, new Vector3(i, 1f, zSpawnPoint), Object.rotation);
+                if (Object.gameObject.name == "2.Hole")
+                {
+                    
+                    Instantiate(Object, new Vector3(i, 0f, zSpawnPoint), Object.rotation);
+                    maySpawnObject = false;
+                }else
+                {
+                    Instantiate(World[0], new Vector3(i, 0f, zSpawnPoint), World[0].rotation);
+                    Instantiate(Object, new Vector3(i, 1f, zSpawnPoint), Object.rotation);
+                    maySpawnObject = false;
+                }               
+            }else
+            {
+              Instantiate(World[0], new Vector3(i, 0f, zSpawnPoint), World[0].rotation);
             }
         }
         Instantiate(World[1], new Vector3(2f, .25f, zSpawnPoint), World[1].rotation);
-
+        
 
 
     }

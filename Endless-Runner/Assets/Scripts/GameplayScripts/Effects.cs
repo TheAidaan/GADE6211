@@ -16,6 +16,7 @@ public abstract class PickUps : MonoBehaviour
 
 public abstract class Obstacle : MonoBehaviour
 {
+    
     public virtual void CollisionEffect(GameObject destroy, bool isDead)
     {
         GameManager.characterDeath = isDead; 
@@ -120,11 +121,25 @@ public class StaticObstacle : Obstacle
     {
         //void OnCollisionEnter(Collision other);
 
-
     }
 
+}
 
+public class MovingObstacle : Obstacle
+{ 
+    public MovingObstacle(GameObject self, Vector3 goTo)
+    {
+        self.transform.position = Vector3.Lerp(self.transform.position, goTo, .05f);   
+    }
+}
 
+public class hole : Obstacle
+{
+    public hole(GameObject self)
+    {
+        self.transform.Translate(Vector3.down * 4 * Time.deltaTime);
+        CollisionEffect(self, true);
+    }
 }
 #endregion
 

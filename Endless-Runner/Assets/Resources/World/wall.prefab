@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5778816367984429232}
   m_Layer: 0
   m_Name: wall
-  m_TagString: Untagged
+  m_TagString: World
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,3 +107,5 @@ MonoBehaviour:
   _immunity: 0
   _coin: 0
   _staticObstacle: 0
+  _movingObstacle: 0
+  _whole: 0

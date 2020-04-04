@@ -11,7 +11,6 @@ public class CameraMovement : MonoBehaviour
 
     public Vector3 Offset
     {
-
         get
         {
             return player.position + transform.TransformDirection(m_CameraOffset);
@@ -33,8 +32,12 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.characterDeath ==false)
+        {
+            transform.position = Vector3.Lerp(transform.position, Offset, Time.deltaTime * m_FollowSpeed);
+        }
        
-      transform.position = Vector3.Lerp(transform.position, Offset, Time.deltaTime * m_FollowSpeed);
+     
         
     }
 

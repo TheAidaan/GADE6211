@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1212437479135883377}
   - component: {fileID: 3563694460006293789}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: 0.StaticObject
   m_TagString: Lethal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1212437479135883376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8, y: 1.04, z: 8.48}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -107,3 +107,5 @@ MonoBehaviour:
   _immunity: 0
   _coin: 0
   _staticObstacle: 1
+  _movingObstacle: 0
+  _whole: 0
