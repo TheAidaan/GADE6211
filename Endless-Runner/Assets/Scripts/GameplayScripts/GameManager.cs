@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static float timeTotal;
 
     public static float zVelAdj;
+    public static bool maySpawnObstacles;
 
     public static bool characterDeath;
     float waitToLoad = 0;
@@ -17,7 +18,6 @@ public class GameManager : MonoBehaviour
     public Transform Character;
     public static Transform Player;
 
-    Transform[,] Objects = new Transform[3, 3];
     
 
     int spawnPoint = 12;
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         zVelAdj = 1;
         coinTotal = 0;
         timeTotal = 0;
+        maySpawnObstacles = true;
 
         Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -55,7 +56,15 @@ public class GameManager : MonoBehaviour
         {
             if (Player.position.z>(spawnPoint-15))
              {
-                spawn.SpawnBuildingBlocks(spawnPoint, spawn.spawnObject());
+                if(maySpawnObstacles == true)
+                {
+                    spawn.SpawnBuildingBlocks(spawnPoint, spawn.spawnObject());
+                }
+                else
+                {
+                    spawn.SpawnBuildingBlocks(spawnPoint, null);
+                }
+                
                 spawnPoint++;
             }
 
@@ -80,6 +89,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
 
 
 }//Gamemanager

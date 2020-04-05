@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class ObjectEffects : MonoBehaviour
 {
-    [SerializeField] bool _immunity,_superSize, _coin, _staticObstacle,_movingObstacle, _hole;
+    [SerializeField] bool _immunity, _superSize, _fling;
+    [SerializeField] bool _coin;
+    [SerializeField] bool _staticObstacle,_movingObstacle, _hole;
 
     Vector3 movingObstacleGoTo;
 
@@ -32,15 +34,18 @@ public class ObjectEffects : MonoBehaviour
         {
             Immunity immunity = new Immunity(gameObject);
         }
+        
+        if (_superSize)
+        {
+            SuperSize superSize = new SuperSize(gameObject);
+        }
+
 
         if (_coin)
         {
             Coin coin = new Coin(gameObject);
         }
-        if (_superSize)
-        {
-            SuperSize superSize = new SuperSize(gameObject);
-        }
+        
 
         if (_staticObstacle)
         {
@@ -64,10 +69,21 @@ public class ObjectEffects : MonoBehaviour
     {
         return _immunity;
     }
+    public bool isFling()
+    {
+        return _fling;
+    }
+    public bool isSuperSize()
+    {
+        return _superSize;
+    }
+
+
     public bool isCoin()
     {
         return _coin;
     }
+
     public bool isStaticObstacle()
     {
         return _staticObstacle;
@@ -80,10 +96,7 @@ public class ObjectEffects : MonoBehaviour
     {
         return _hole;
     }
-    public bool isSuperSize()
-    {
-        return _superSize;
-    }
+    
 
     void ChangeSlide()
     {

@@ -12,8 +12,6 @@ public abstract class PickUps : MonoBehaviour
     }
 
 }
-
-
 public abstract class Obstacle : MonoBehaviour
 {
     
@@ -24,8 +22,6 @@ public abstract class Obstacle : MonoBehaviour
     }
 
 }
-
-
 public abstract class SharedBehaviour : MonoBehaviour
 {
     public virtual void SelfDestruct(GameObject self)
@@ -76,71 +72,6 @@ public class SuperSize : PickUps
     }
 }
 
-
-
-#region character colliders
-public class ImmunityCollided: PickUps
-{
-    public ImmunityCollided(GameObject collided)
-    {
-        base.CollisionEffect(collided);
-    }
-}
-
-public class SuperSizeCollided : PickUps
-{
-    GameObject Self;
-
-    public SuperSizeCollided(GameObject collided)
-    {
-
-        base.CollisionEffect(collided);
-    }
-
-}
-
-public class CoinCollided : PickUps
-{
-    GameObject Collided;
-    public CoinCollided(GameObject collided)
-
-    {
-        Collided = collided;
-        GameManager.coinTotal++;
-        base.CollisionEffect(Collided);
-    }
-}
-
-public class ObstacleCollided : Obstacle
-{
-    bool IsDead;
-    GameObject Self;
-    public ObstacleCollided(GameObject self, bool isDead)
-    {
-        IsDead = isDead;
-        Self = self;
-        base.CollisionEffect(Self,IsDead);
-    }
-        
-}
-
-public class holeCollided : Obstacle
-{
-    GameObject Self;
-    public holeCollided(GameObject self)
-    {
-        Self = self;
-
-        Self.transform.position = Vector3.Lerp(Self.transform.position, goTo(), .5f);
-    }
-
-    Vector3 goTo()
-    {
-        return new Vector3(Self.transform.position.x, Self.transform.position.y - 10, Self.transform.position.z);
-    }
-}
-#endregion
-
 #endregion
 
 #region Obstacle Subclasses
@@ -163,6 +94,93 @@ public class MovingObstacle : Obstacle
     }
 }
 
+#endregion
+
+#region character colliders
+public class ImmunityCollided : PickUps
+{
+    public ImmunityCollided(GameObject collided)
+    {
+        base.CollisionEffect(collided);
+    }
+}
+
+public class SuperSizeCollided : PickUps
+{
+    GameObject Self;
+
+    public SuperSizeCollided(GameObject collided)
+    {
+
+        base.CollisionEffect(collided);
+    }
+
+}
+public class FlingCollided : PickUps
+{
+    GameObject Self;
+    bool done;
+
+    public FlingCollided(GameObject collided, GameObject self)
+    {
+        Self = self;
+
+        Self.transform.position = Vector3.Lerp(Self.transform.position, GoTo(), 3f);
+        base.CollisionEffect(collided);
+    }
+        
+
+    
+
+    Vector3 GoTo()
+    {
+        return new Vector3(Self.transform.position.x, Self.transform.position.y + 6, Self.transform.position.z);               
+    }
+
+}
+
+
+
+public class CoinCollided : PickUps
+{
+    GameObject Collided;
+    public CoinCollided(GameObject collided)
+
+    {
+        Collided = collided;
+        GameManager.coinTotal++;
+        base.CollisionEffect(Collided);
+    }
+}
+
+public class ObstacleCollided : Obstacle
+{
+    bool IsDead;
+    GameObject Self;
+    public ObstacleCollided(GameObject self, bool isDead)
+    {
+        IsDead = isDead;
+        Self = self;
+        base.CollisionEffect(Self, IsDead);
+    }
+
+}
+
+public class holeCollided : Obstacle
+{
+    GameObject Self;
+    public holeCollided(GameObject self)
+    {
+        Self = self;
+
+        Self.transform.position = Vector3.Lerp(Self.transform.position, goTo(), .5f);
+    }
+
+    Vector3 goTo()
+    {
+        return new Vector3(Self.transform.position.x, Self.transform.position.y - 10, Self.transform.position.z);
+    }
+}
 #endregion
 
 public class AllPrefabs : SharedBehaviour

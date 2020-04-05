@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class CharacterEffects : MonoBehaviour
 {
-    Material[] materials = new Material[6];
-    Renderer rend;
+     Material[] materials = new Material[6];
+     Renderer rend;
 
 
-    bool _resistant;
-    bool _rangeResistant = false;
+     bool _resistant;
+     bool _rangeResistant = false;
 
-    bool _immunity, _superSize, _coin, _staticObstacle, _movingObstacle, _hole;
+     bool _immunity, _superSize, _fling;
+     bool _coin;
+     bool _staticObstacle, _movingObstacle, _hole;
 
     void Start()
     {
@@ -19,12 +21,14 @@ public class CharacterEffects : MonoBehaviour
         rend.enabled = true;
 
         materials = Resources.LoadAll<Material>("Materials");
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         _immunity = other.gameObject.GetComponent<ObjectEffects>().isImmunity();
-        _superSize = other.gameObject.GetComponent<ObjectEffects>().isSuperSize();
+        _superSize = other.gameObject.GetComponent<ObjectEffects>().isSuperSize(); 
+        _fling = other.gameObject.GetComponent<ObjectEffects>().isFling();
 
         _coin = other.gameObject.GetComponent<ObjectEffects>().isCoin();
 
@@ -44,6 +48,19 @@ public class CharacterEffects : MonoBehaviour
             }
         }
 
+        if (_fling)
+        {
+            if (_rangeResistant == false)
+            {
+                ChangeMaterial(3);
+                RangeResistant(true);
+                FlingCollided fling = new FlingCollided(other.gameObject, gameObject);
+                StartCoroutine(Stopfling());
+                
+            }
+
+        }
+
         if (_coin)
         {
             CoinCollided coinCollided = new CoinCollided(other.gameObject);
@@ -56,14 +73,14 @@ public class CharacterEffects : MonoBehaviour
                 SuperSizeCollided superSize = new SuperSizeCollided(other.gameObject);
                 StartCoroutine(resistantPeriod());
                 ChangeMaterial(2);              
-            }
-            
+            }            
         }
 
         if (_staticObstacle || _movingObstacle)
         {
             if (_rangeResistant == true)
             {
+
                 ObstacleCollided obstacleCollided = new ObstacleCollided(other.gameObject, false);
             }
             else
@@ -78,9 +95,7 @@ public class CharacterEffects : MonoBehaviour
                 {
                     ObstacleCollided obstacleCollided = new ObstacleCollided(gameObject, true);
                 }
-
-            }
-            
+            }            
         }
 
         if (_hole)
@@ -91,7 +106,6 @@ public class CharacterEffects : MonoBehaviour
                 GetComponent<CharacterMovement>().StopForward(true);
             }
         }
-
     }
     public void ChangeMaterial(int materialIndex)
     {
@@ -102,6 +116,15 @@ public class CharacterEffects : MonoBehaviour
     public void RangeResistant(bool resistance)
     {
         _rangeResistant = resistance;
+
+        if (_rangeResistant == false)
+        {
+            GameManager.maySpawnObstacles = true;
+            ChangeMaterial(0);
+        }else
+        {
+            GameManager.maySpawnObstacles = false;
+        }
     }
 
     IEnumerator resistantPeriod()
@@ -115,9 +138,17 @@ public class CharacterEffects : MonoBehaviour
         GetComponent<CharacterMovement>().superSized(false, .9f);
         transform.localScale = new Vector3(.8f, .8f, .8f);
 
-        ChangeMaterial(0);
         RangeResistant(false);
+    }
 
+    IEnumerator Stopfling()
+    {
+        Vector3 GoTo = new Vector3(transform.position.x, 0.9f, transform.position.z+5);
 
+        yield return new WaitForSeconds(1f);
+        transform.position = Vector3.Lerp(transform.position, GoTo, 3f);
+
+        RangeResistant(false);
+        
     }
 }
