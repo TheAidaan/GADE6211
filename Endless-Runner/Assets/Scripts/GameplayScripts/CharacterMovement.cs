@@ -12,17 +12,26 @@ public class CharacterMovement : MonoBehaviour
     enum Lanes { Left = 1, Center, Right};
     Lanes lane = Lanes.Center;
 
-    bool jumpLock = false;
+    bool _jumpLock = false;
+    bool _controlLock=false;
+    bool _stopForward = false;
+
     float yPos = 1;
     float zJumpAdj = 0;
 
     // Update is called once per frame
     void Update()
     {
-
-        transform.Translate(Vector3.forward * 4 * Time.deltaTime);
-       
-        if ((Input.GetKey(moveL)) && ((int)lane > 1))
+        if (_stopForward==false)
+        {
+            transform.Translate(Vector3.forward * 4 * Time.deltaTime);
+        }
+        if (transform.position.y <0)
+        {
+            GameManager.characterDeath = true;
+        }
+               
+        if ((Input.GetKey(moveL)) && ((int)lane > 1)&& (_controlLock==false))
         {
             lane -= 1;
             zJumpAdj = 0;
@@ -31,7 +40,7 @@ public class CharacterMovement : MonoBehaviour
 
         }
 
-        if ((Input.GetKey(moveR)) && ((int)lane < 3))
+        if ((Input.GetKey(moveR)) && ((int)lane < 3)&&(_controlLock==false))
         {    
             lane += 1;
             zJumpAdj = 0;
@@ -40,18 +49,18 @@ public class CharacterMovement : MonoBehaviour
             
         }
 
-        if ((Input.GetKey(jump)) && (jumpLock == false))
+        if ((Input.GetKey(jump)) && (_jumpLock == false))
         {
-            yPos = 2.75f;
+            yPos = 2f;
             zJumpAdj = 1f;
             transform.position = Vector3.Lerp(transform.position, goTo(), 3f);
             StartCoroutine(stopJump());
-            jumpLock = true;
+            _jumpLock = true;
         }
 
-        if (transform.position.y>.7)
+        if (transform.position.y<1.2f)
         {
-            jumpLock = false;
+            _jumpLock = false;
         }
     }
     public Vector3 goTo()
@@ -67,10 +76,36 @@ public class CharacterMovement : MonoBehaviour
 
     IEnumerator stopJump()
     {       
-        yield return new WaitForSeconds(1f);
-        yPos = 1;
+        yield return new WaitForSeconds(.3f);
+        yPos = .9f;
+        zJumpAdj = 1;
+        transform.position = Vector3.Lerp(transform.position, goTo(), 3f);
         zJumpAdj = 0;
     }
-    
+
+    public void superSized(bool enable,float newHeight)
+    {
+        yPos = newHeight;
+        if (enable)
+        {
+            lane = Lanes.Center;
+            _controlLock = true;
+            _jumpLock = true;
+            
+            transform.position = goTo();
+        }else
+        {
+            _controlLock = false;
+            _jumpLock = false;
+            transform.position = goTo();
+        }
+        
+    }
+
+    public void StopForward(bool stop)
+    {
+        _stopForward = stop;
+
+    }   
 
 }

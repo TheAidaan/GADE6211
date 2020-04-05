@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawn : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     
     Transform[,] Objects = new Transform[3, 3];
@@ -42,26 +42,27 @@ public class Spawn : MonoBehaviour
    public Transform spawnObject()
     {
         int randNumber;
-        int randObstacle;
+        int randObject;
+
         randNumber = Random.Range(0, 10);
-        randObstacle = Random.Range(0, 3);
+        randObject = Random.Range(0, 3);
 
         if (randNumber < 4)
         {
-            return Objects[0, randObstacle];
+            return Objects[0, randObject]; //obstacles
             
         }
         else
         {
             if ((3 < randNumber) && (randNumber < 6))
             {
-                return Objects[1, 0];
+                return Objects[1, 0]; //collector objects
             }
             else
             {
                 if ((5 < randNumber) && (randNumber < 8))
                 {
-                    return Objects[2, 0];
+                    return Objects[2, randObject]; //Power-Ups
                 }
                 else
                 {

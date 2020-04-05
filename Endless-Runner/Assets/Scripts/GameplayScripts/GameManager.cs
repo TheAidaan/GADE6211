@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static bool characterDeath;
     float waitToLoad = 0;
 
-    Spawn spawn;
+    Spawner spawn;
     public Transform Character;
     public static Transform Player;
 
@@ -32,14 +32,11 @@ public class GameManager : MonoBehaviour
         coinTotal = 0;
         timeTotal = 0;
 
-        Instantiate(Character, new Vector3(0, 1, 0), Character.rotation);
+        Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        spawn = FindObjectOfType<Spawn>();
+        spawn = FindObjectOfType<Spawner>();
         spawn.AssignObjects();
-
-        
-
 
     }
     void Start()
@@ -83,7 +80,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
 
 
 }//Gamemanager

@@ -60,29 +60,43 @@ public class Immunity : PickUps
 
     public Immunity(GameObject self)
     {
+        
         self.transform.Rotate(3f, 0f, 0f);
 
     }
-
-    
-
 }
+public class SuperSize : PickUps
+{
+
+    public SuperSize(GameObject self)
+    {
+
+        self.transform.Rotate(0f, 0f, 3f);
+
+    }
+}
+
+
 
 #region character colliders
 public class ImmunityCollided: PickUps
 {
-    GameObject Collided;  
     public ImmunityCollided(GameObject collided)
     {
-        
-        Collided = collided;
-        CollisionEffect(Collided);
+        base.CollisionEffect(collided);
     }
-    public override void CollisionEffect(GameObject destroy)
+}
+
+public class SuperSizeCollided : PickUps
+{
+    GameObject Self;
+
+    public SuperSizeCollided(GameObject collided)
     {
-        CharacterEffects.resistant = true;
-        base.CollisionEffect(Collided);
+
+        base.CollisionEffect(collided);
     }
+
 }
 
 public class CoinCollided : PickUps
@@ -109,6 +123,22 @@ public class ObstacleCollided : Obstacle
     }
         
 }
+
+public class holeCollided : Obstacle
+{
+    GameObject Self;
+    public holeCollided(GameObject self)
+    {
+        Self = self;
+
+        Self.transform.position = Vector3.Lerp(Self.transform.position, goTo(), .5f);
+    }
+
+    Vector3 goTo()
+    {
+        return new Vector3(Self.transform.position.x, Self.transform.position.y - 10, Self.transform.position.z);
+    }
+}
 #endregion
 
 #endregion
@@ -133,14 +163,6 @@ public class MovingObstacle : Obstacle
     }
 }
 
-public class hole : Obstacle
-{
-    public hole(GameObject self)
-    {
-        self.transform.Translate(Vector3.down * 4 * Time.deltaTime);
-        CollisionEffect(self, true);
-    }
-}
 #endregion
 
 public class AllPrefabs : SharedBehaviour
