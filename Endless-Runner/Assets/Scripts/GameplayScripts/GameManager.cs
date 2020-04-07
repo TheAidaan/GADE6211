@@ -90,6 +90,4 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-
 }//Gamemanager

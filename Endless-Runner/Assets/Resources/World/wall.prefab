@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4495451832117745941}
   - component: {fileID: 7881164060095030764}
   - component: {fileID: -882096131438279625}
-  - component: {fileID: -5778816367984429232}
+  - component: {fileID: 8646238641606631540}
   m_Layer: 0
   m_Name: wall
   m_TagString: World
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5778816367984429232
+--- !u!114 &8646238641606631540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,11 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8458695752101138736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615c0ad7865687e4db648de185b864c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 14dc65f32df08e34db3554d14631b426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _immunity: 0
-  _coin: 0
-  _staticObstacle: 0
-  _movingObstacle: 0
-  _whole: 0

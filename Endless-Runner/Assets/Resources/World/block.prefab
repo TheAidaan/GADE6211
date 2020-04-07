@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3570057110577343128}
   - component: {fileID: 7113415191598601825}
   - component: {fileID: 2375386990423473290}
-  - component: {fileID: -6587566901027278868}
+  - component: {fileID: 5171354242440407499}
   m_Layer: 0
   m_Name: block
   m_TagString: Untagged
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6587566901027278868
+--- !u!114 &5171354242440407499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,9 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8830216782565876413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615c0ad7865687e4db648de185b864c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 14dc65f32df08e34db3554d14631b426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _immunity: 0
-  _coin: 0
-  _staticObstacle: 0

@@ -64,12 +64,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameplayScripts\CameraMovement.cs" />
-    <Compile Include="Assets\Scripts\GameplayScripts\CharacterEffects.cs" />
-    <Compile Include="Assets\Scripts\GameplayScripts\CharacterMovement.cs" />
-    <Compile Include="Assets\Scripts\GameplayScripts\Effects.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\GameplayUI.cs" />
-    <Compile Include="Assets\Scripts\GameplayScripts\ObjectEffects.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Collectables\Coin_Collectable.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Effects.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Obstacles\Cube_Obstacle.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Obstacles\CubeMoving_Obstacle.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Obstacles\Hole_Obstacle.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Player\CharacterMovement.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Player\CharacterReact.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Player\CharacterStats.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Power-Ups\Fling_PowerUp.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Power-Ups\Immunity_PowerUp.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\Power-Ups\SuperSize_PowerUp.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Objects\World.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\GUIScripts\GUI.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
