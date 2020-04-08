@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    int coinTotal;
+    float distTotal;
     // Start is called before the first frame update
     void Start()
     {
-        
+        coinTotal = 0;
+        distTotal = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IncreaseCoins(int increment)
     {
-        
+        coinTotal += increment;
+    }
+
+    public int Coins()
+    {
+        return coinTotal;
+    }
+
+    public void IncreaseDistance(int increment)
+    {
+        distTotal += increment;
     }
 }

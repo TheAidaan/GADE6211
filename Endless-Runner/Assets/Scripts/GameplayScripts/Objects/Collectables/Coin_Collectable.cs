@@ -6,6 +6,7 @@ public class Coin_Collectable : PickUps
 {
     Vector3 _rotation = new Vector3(0f, 0f, 3f);
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class Coin_Collectable : PickUps
 
     public override void CollisionEffect(GameObject player)
     {
-        GameManager.coinTotal++;
+        player.GetComponent<CharacterStats>().IncreaseCoins(1);
         base.CollisionEffect(gameObject);
     }
 }

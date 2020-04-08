@@ -9,9 +9,16 @@ public class GameplayUI : MonoBehaviour
 
     [SerializeField] private Text score;
 
+    CharacterStats Stats;
+
+    void Awake()
+    {
+        Stats = FindObjectOfType<CharacterStats>();
+    }
+
     void Update()
     {
-        score.text = "Coins: " + GameManager.coinTotal;
+        score.text = "Coins: " + Stats.Coins();
 
     }
 }

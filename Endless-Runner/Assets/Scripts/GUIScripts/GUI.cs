@@ -9,6 +9,8 @@ public class GUI : MonoBehaviour
 {
    [SerializeField] Text coinsTot,timetot;
 
+    CharacterStats Stats;
+
     void PlayGame ()
     {
         SceneManager.LoadScene(1);
@@ -16,10 +18,12 @@ public class GUI : MonoBehaviour
 
     void Start()
     {
+        Stats = FindObjectOfType<CharacterStats>();
+
         if ((coinsTot!=null)&&(timetot!=null))
         {
-            coinsTot.text = "coinsTot:  " + GameManager.coinTotal.ToString();
-            timetot.text = "coinsTot:  " + GameManager.timeTotal.ToString();
+            coinsTot.text = "coinsTot:  " + Stats.Coins();
+            timetot.text = "coinsTot:  " + Stats.Coins();
         }
         
     }

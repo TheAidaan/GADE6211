@@ -5,10 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static int coinTotal;
-    public static float timeTotal;
-
-    public static float zVelAdj;
     public static bool maySpawnObstacles;
 
     public static bool characterDeath;
@@ -27,10 +23,6 @@ public class GameManager : MonoBehaviour
     {
     
         characterDeath = false;
-
-        zVelAdj = 1;
-        coinTotal = 0;
-        timeTotal = 0;
         maySpawnObstacles = true;
 
         Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
@@ -66,15 +58,7 @@ public class GameManager : MonoBehaviour
                 }
                 
                 spawnPoint++;
-            }
-
-            timeTotal += Time.deltaTime;
-            
-            if (timeTotal >10)
-            {
-                zVelAdj = timeTotal / 10;
-            }
-            
+            }            
         }
 
 
