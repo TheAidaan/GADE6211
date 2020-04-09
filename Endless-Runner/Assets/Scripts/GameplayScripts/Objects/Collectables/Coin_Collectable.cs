@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin_Collectable : PickUps
+public class Coin_Collectable : Collectable
 {
-    Vector3 _rotation = new Vector3(0f, 0f, 3f);
-
-
     // Start is called before the first frame update
     void Start()
     {
-        setRotation(_rotation);
+        Rotation = new Vector3(0f, 0f, 3f);
     }
 
     // Update is called once per frame
@@ -19,9 +16,9 @@ public class Coin_Collectable : PickUps
         IdleEffect();
     }
 
-    public override void CollisionEffect(GameObject player)
+    public override void Effect()
     {
-        player.GetComponent<CharacterStats>().IncreaseCoins(1);
-        base.CollisionEffect(gameObject);
+        Player.GetComponent<CharacterStats>().IncreaseCoins(1);
+        base.Effect();
     }
 }

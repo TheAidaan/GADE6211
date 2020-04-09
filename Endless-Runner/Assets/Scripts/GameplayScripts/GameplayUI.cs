@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameplayUI : MonoBehaviour
 {
 
-    [SerializeField] private Text score;
+    [SerializeField] TextMeshProUGUI score;
 
     CharacterStats Stats;
 

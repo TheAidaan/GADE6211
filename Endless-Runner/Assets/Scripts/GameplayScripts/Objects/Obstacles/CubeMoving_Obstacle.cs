@@ -22,6 +22,11 @@ public class CubeMoving_Obstacle : Obstacle
 
     void Update()
     {
+        IdleEffect();
+    }
+
+    public override void IdleEffect()
+    {
         transform.position = Vector3.Lerp(transform.position, GoTo, .01f);
         if ((transform.position.x > 1) || (transform.position.x < -1))
         {
@@ -29,8 +34,7 @@ public class CubeMoving_Obstacle : Obstacle
         }
 
     }
-    
-
+       
     void ChangeSlide()
     {
         if (GoTo.x < 0)
@@ -41,6 +45,18 @@ public class CubeMoving_Obstacle : Obstacle
         {
            GoTo = new Vector3(-2f, transform.position.y, transform.position.z);
         }
+    }
 
+    public override void Effect(bool simpleResistance)
+    {
+        if (simpleResistance)
+        {
+            Player.GetComponent<CharacterReact>().Hit();
+            Destroy(gameObject);
+        }
+        else
+        {
+            base.Effect(simpleResistance);
+        }
     }
 }

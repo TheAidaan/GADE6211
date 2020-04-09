@@ -3,121 +3,96 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class PickUps : SharedBehaviour
+public abstract class PowerUps : Objects
 {
-    GameObject Player;
-    Vector3 _rotation;
+    public virtual void Effect() { Destroy(gameObject); }
+    public override void CollisionEffect()
+    {
+        switch (PlayerResistance())
+        {
+            case 1: //action done if player has simple resistance
+                Effect();
+                break;
 
-    public virtual void IdleEffect()
-    { 
-        transform.Rotate(_rotation); 
+            case 2: //action done if player has time-based resistance
+                Destroy(gameObject);
+                break;
+
+            default: //action done if player has no resistance
+                Effect();
+                break;
+        }
     }
-    private void OnTriggerEnter(Collider other)
+    public override void IdleEffect()
     {
-        Player = other.gameObject;
-        CollisionEffect(Player);
-    }
-    public virtual void CollisionEffect(GameObject player)
-    {
-        Destroy(gameObject);
+        transform.Rotate(Rotation);
     }
 
-    public void setRotation(Vector3 Rotation)
+}
+
+public abstract class Collectable : Objects
+{
+    public virtual void Effect() { Destroy(gameObject); }
+    public override void CollisionEffect()
     {
-        _rotation = Rotation;
+        Effect();
+    }
+    public override void IdleEffect()
+    {
+        transform.Rotate(Rotation);
     }
 }
-public abstract class Obstacle : SharedBehaviour
+public abstract class Obstacle : Objects
 {
-
-    GameObject Player;
-
-    private void OnTriggerEnter(Collider other)
+    public virtual void Effect(bool simpleResistance) { Player.GetComponent<CharacterReact>().Die(); ; }
+    public override void CollisionEffect()
     {
-        Player = other.gameObject;
-        CollisionEffect(Player);
-
-    }
-
-    public virtual void CollisionEffect(GameObject player)
-    {
-        bool isDead;
-        GameObject destroy;
-
-        if (CheckRangeResistant() == false)
+        switch (PlayerResistance())
         {
-            destroy = gameObject;
-            isDead = false;
+            case 1: //action done if player has simple resistance
+                Effect(true);
+                break;
 
-            
-        }
-        else
-        {
-            if (Resistant() == false)
-            {
-                destroy = gameObject;
-                isDead = false;
-                player.GetComponent<CharacterReact>().setResistance(0, 0);
+            case 2: //action done if player has time-based resistance
+                Destroy(gameObject);
+                break;
 
-            }
-            else
-            {
-                destroy = player;
-                isDead = true;
-
-            }
-            
-
-        }
-
-        GameManager.characterDeath = isDead;
-        Destroy(destroy);
-
-    }
-    bool CheckRangeResistant()
-    {
-        bool rangeResistant;
-
-        rangeResistant = Player.GetComponent<CharacterReact>().CheckResistance(true);
-
-        if (rangeResistant)
-        {
-            return false;
-        }
-        else 
-        { 
-            return true;
-        }
-    }
-    bool Resistant()
-    {
-        bool Resistant;
-
-        Resistant = Player.GetComponent<CharacterReact>().CheckResistance(false);
-
-        if (Resistant)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
+            default: //action done if player has no resistance
+                Effect(false);
+                break;
         }
     }
 
 }
-public abstract class SharedBehaviour : MonoBehaviour
+public abstract class Objects : MonoBehaviour
 {
     void Update()
     {
         if (GameManager.characterDeath == false)
         {
-            if (gameObject.transform.position.z < GameManager.Player.position.z - 2f)
+            if (gameObject.transform.position.z < GameManager.Player.position.z - 6f)
             {
                 Destroy(gameObject);
             }
         }
+
+        IdleEffect();
     }
+    public Vector3 Rotation;
+    public GameObject Player;
+    private void OnTriggerEnter(Collider other)
+    {
+        Player = other.gameObject;
+        CollisionEffect();
+    }
+    public int PlayerResistance()
+    {
+        return Player.GetComponent<CharacterReact>().PlayerResistance();
+    }
+    public virtual void CollisionEffect() { }
+
+    public virtual void IdleEffect() { }
+
 
 }
 

@@ -86,7 +86,7 @@ public class Spawner : MonoBehaviour
             randNumber = 4;
         }
 
-        Instantiate(World[1], new Vector3(-2f, .25f, zSpawnPoint), World[1].rotation);
+        Instantiate(World[1], new Vector3(-2f, .2f, zSpawnPoint), World[1].rotation);
         for (int i = -1; i < 2; i++)
         {
             
@@ -108,7 +108,7 @@ public class Spawner : MonoBehaviour
               Instantiate(World[0], new Vector3(i, 0f, zSpawnPoint), World[0].rotation);
             }
         }
-        Instantiate(World[1], new Vector3(2f, .25f, zSpawnPoint), World[1].rotation);
+        Instantiate(World[1], new Vector3(2f, .2f, zSpawnPoint), World[1].rotation);
         
 
 

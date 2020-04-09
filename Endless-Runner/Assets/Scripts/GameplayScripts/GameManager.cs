@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         characterDeath = false;
         maySpawnObstacles = true;
 
-        Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
+        //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
         spawn = FindObjectOfType<Spawner>();

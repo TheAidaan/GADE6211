@@ -2,4 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class World : SharedBehaviour { }
+public class Blocks : Objects { }

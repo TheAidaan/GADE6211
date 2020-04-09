@@ -7,7 +7,10 @@ using TMPro;
 
 public class GUI : MonoBehaviour
 {
-   [SerializeField] Text coinsTot,timetot;
+   [SerializeField] TextMeshProUGUI coinsTxt,distTxt;
+
+    public static int CoinsTot;
+    public static float DisTot;
 
     CharacterStats Stats;
 
@@ -15,17 +18,19 @@ public class GUI : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-
+    private void Awake()
+    {
+    }
     void Start()
     {
-        Stats = FindObjectOfType<CharacterStats>();
+        coinsTxt.text = "Coins: " + CoinsTot.ToString();
+        distTxt.text = "Distance: " + DisTot.ToString();
+    }
 
-        if ((coinsTot!=null)&&(timetot!=null))
-        {
-            coinsTot.text = "coinsTot:  " + Stats.Coins();
-            timetot.text = "coinsTot:  " + Stats.Coins();
-        }
-        
+    public void setStats(int coinsTot, float disTot)
+    {
+        CoinsTot = coinsTot;
+        DisTot = disTot;
     }
 
 

@@ -7,75 +7,38 @@ public class CharacterReact : MonoBehaviour
     Material[] materials = new Material[6];
     Renderer rend;
 
+    CharacterAnimations animator;
+
+    CharacterMovement EffectMovement;
+
    enum playerResistance { none, simple, timeBased}
-    playerResistance ResistanceLevel;
+    playerResistance CurrentResistanceLevel;
+    playerResistance PreviousResistanceLevel;
 
     // Start is called before the first frame update
     void Start()
     {
-        ResistanceLevel = playerResistance.none;
+        CurrentResistanceLevel = playerResistance.none;
         rend = GetComponent<Renderer>();
         rend.enabled = true;
 
         materials = Resources.LoadAll<Material>("Materials");
+        animator = GetComponent<CharacterAnimations>();
 
+        EffectMovement = GetComponentInParent<CharacterMovement>();
     }
 
-    void ChangeMaterial(int materialIndex)
+    void ChangeMaterial(int MaterialIndex)
     {
-        rend.sharedMaterial = materials[materialIndex];
+        rend.sharedMaterial = materials[MaterialIndex];
     }
 
-    #region Resistance Controllers
-    public void setResistance(int resistanceLevel, int materialIndex)
+    public int PlayerResistance()
     {
-        switch(resistanceLevel)
-        {
-            case 1:
-                ResistanceLevel = playerResistance.simple;
-                GameManager.maySpawnObstacles = true;
-                break;        
-            case 2: ResistanceLevel = playerResistance.timeBased;
-                GameManager.maySpawnObstacles = false;
-                break;
-            default: ResistanceLevel = playerResistance.none;
-                GameManager.maySpawnObstacles = true;
-                break;
-        }
+        return (int)CurrentResistanceLevel;
 
-        ChangeMaterial(materialIndex);
     }
 
-    public bool CheckResistance(bool checkRange)
-    {
-        if (checkRange)
-        {
-            if (((int)ResistanceLevel) > 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-        else
-        {
-            if (((int)ResistanceLevel) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        
-    }
-   
-
-    #endregion
 
     #region Fling Reaction
     public void Fling()
@@ -86,25 +49,24 @@ public class CharacterReact : MonoBehaviour
 
     IEnumerator FlingPlayer()
     {
+        //Work here
+        animator.Fling(true);
+        PreviousResistanceLevel = CurrentResistanceLevel;
+        CurrentResistanceLevel = playerResistance.timeBased;
+        ChangeMaterial(3);
+        EffectMovement.Fling(true);
 
-        setResistance(2, 3);
-
-        transform.position = Vector3.Lerp(transform.position, GoTo(transform.position.y + 6), 3f);
         yield return new WaitForSeconds(1f);
-        transform.position = Vector3.Lerp(transform.position, GoTo(0.9f), 3f);
 
-        setResistance(0, 0);
-
-
-    }
-    Vector3 GoTo(float height)
-    {
-       return new Vector3(transform.position.x, height, transform.position.z + 5);
+        EffectMovement.Fling(false);
+        animator.Fling(false);
+        CurrentResistanceLevel = PreviousResistanceLevel;
+        ChangeMaterial((int)CurrentResistanceLevel);
         
     }
     #endregion
 
-    #region SuperSize Reaction
+    #region SuperSize Reaction 
 
     public void SuperSize()
     {
@@ -112,16 +74,47 @@ public class CharacterReact : MonoBehaviour
     }
     IEnumerator resistantPeriod()
     {
-        transform.localScale = new Vector3(3f, 3f, 3f);
-        GetComponent<CharacterMovement>().superSized(true, 2);
+        PreviousResistanceLevel = CurrentResistanceLevel;
+        CurrentResistanceLevel = playerResistance.timeBased;
+        ChangeMaterial(2);
+
+        animator.SuperSize(true);
+        EffectMovement.superSized(true);
 
         yield return new WaitForSeconds(5f);
 
-        GetComponent<CharacterMovement>().superSized(false, .9f);
-        transform.localScale = new Vector3(.8f, .8f, .8f);
+        EffectMovement.superSized(false);
+        animator.SuperSize(false);
 
-        setResistance(0, 0);
+        CurrentResistanceLevel = PreviousResistanceLevel;
+        ChangeMaterial((int)CurrentResistanceLevel);
 
     }
-    #endregion
+    #endregion                          
+
+    public void Immunity()
+    {
+        CurrentResistanceLevel = playerResistance.simple;
+        ChangeMaterial(1);
+    }
+
+    public void Hit()
+    {
+        CurrentResistanceLevel = playerResistance.none;
+        ChangeMaterial(0);
+
+    }
+
+    public void Hole()
+    {
+        EffectMovement.Hole();
+    }
+
+    public void Die()
+    {
+        GameManager.characterDeath = true;
+        GetComponent<CharacterStats>().SendStats();
+        EffectMovement.StopForward();
+        Destroy(gameObject);
+    }
 }

@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fling_PowerUp : PickUps
+public class Fling_PowerUp : PowerUps
 {
-    bool PlayerResistant;
-    public override void CollisionEffect(GameObject player)
+    public override void Effect() 
     {
-        PlayerResistant = player.GetComponent<CharacterReact>().CheckResistance(true);
-        if (PlayerResistant == false)
-        {
-            player.GetComponent<CharacterReact>().Fling();
-        }
-        base.CollisionEffect(player);
+        Player.GetComponent<CharacterReact>().Fling();
+        base.Effect();
     }
 }

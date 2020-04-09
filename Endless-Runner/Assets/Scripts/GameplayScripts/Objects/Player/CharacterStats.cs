@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    int coinTotal;
+    int  coinTotal;
     float distTotal;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +27,10 @@ public class CharacterStats : MonoBehaviour
     public void IncreaseDistance(int increment)
     {
         distTotal += increment;
+    }
+    public void SendStats()
+    {
+        GUI.CoinsTot = coinTotal;
+        GUI.DisTot = distTotal;
     }
 }
