@@ -64,7 +64,8 @@ public abstract class Obstacle : Objects
     }
 
 }
-public abstract class Objects : MonoBehaviour
+
+public abstract class World : MonoBehaviour
 {
     void Update()
     {
@@ -75,6 +76,14 @@ public abstract class Objects : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+    }
+}
+
+public abstract class Objects : World
+{
+    void Update()
+    {
 
         IdleEffect();
     }

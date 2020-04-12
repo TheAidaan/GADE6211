@@ -114,7 +114,7 @@ public class CharacterReact : MonoBehaviour
     {
         GameManager.characterDeath = true;
         GetComponent<CharacterStats>().SendStats();
-        EffectMovement.StopForward();
+        EffectMovement.StopMovement();
         Destroy(gameObject);
     }
 }

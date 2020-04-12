@@ -5,16 +5,17 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameplayUI : MonoBehaviour
+public class CharacterUI : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI score;
+    [SerializeField] GameObject Character;
 
     CharacterStats Stats;
 
     void Awake()
-    {
-        Stats = FindObjectOfType<CharacterStats>();
+    { 
+        Stats = Character.GetComponent<CharacterStats>();
     }
 
     void Update()

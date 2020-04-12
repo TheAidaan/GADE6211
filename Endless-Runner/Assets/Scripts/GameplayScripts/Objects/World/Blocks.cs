@@ -2,4 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blocks : Objects { }
+public class Blocks : World { }
