@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour
     public Transform Character;
     public static Transform Player;
 
-    
+    enum Levels { one = 1, two, three }
+    [SerializeField] Levels currentLevel;
+
+
 
     int spawnPoint = 12;
 
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
         spawn = FindObjectOfType<Spawner>();
+        spawn.SetLevel((int)currentLevel);
         spawn.AssignObjects();
 
     }
@@ -37,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         for (int spawnPoint = 0; spawnPoint < 12; spawnPoint++)
         {
-            spawn.SpawnBuildingBlocks(spawnPoint,null);
+            spawn.SpawnBuildingBlocks(spawnPoint, null);
         }
     }
 
@@ -46,9 +50,9 @@ public class GameManager : MonoBehaviour
     {
         if (characterDeath == false)
         {
-            if (Player.position.z>(spawnPoint-15))
-             {
-                if(maySpawnObstacles == true)
+            if (Player.position.z > (spawnPoint - 15))
+            {
+                if (maySpawnObstacles == true)
                 {
                     spawn.SpawnBuildingBlocks(spawnPoint, spawn.spawnObject());
                 }
@@ -56,9 +60,9 @@ public class GameManager : MonoBehaviour
                 {
                     spawn.SpawnBuildingBlocks(spawnPoint, null);
                 }
-                
+
                 spawnPoint++;
-            }            
+            }
         }
 
 
@@ -72,6 +76,11 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameOverMenu");
         }
 
+    }
+
+    public int CurrentLevel()
+    {
+        return (int)currentLevel;
     }
 
 }//Gamemanager

@@ -7,37 +7,24 @@ public class Spawner : MonoBehaviour
     
     Transform[,] Objects = new Transform[3, 3];
     Transform[] World = new Transform[2];
+
+    [SerializeField] float worldHeight;
+
+    int currentLevel;
     public void AssignObjects()
     {
-
-        Transform[] enemyObjects = new Transform[3];
-        Transform[] collectorsObjects = new Transform[3];
-        Transform[] powerUpObjects = new Transform[3];
-
-        enemyObjects = Resources.LoadAll<Transform>("Level1/enemyObjects");
-        collectorsObjects = Resources.LoadAll<Transform>("Level1/collectorsObjects");
-        powerUpObjects = Resources.LoadAll<Transform>("Level1/powerUpObjects");
-
         World = Resources.LoadAll<Transform>("World");
 
-
-        for (int i = 0; i < enemyObjects.Length; i++)
+        switch(currentLevel)
         {
-            Objects[0, i] = enemyObjects[i];
-
+            case 2:Level2();
+                break;
+            case 3:
+                break;
+            default: Level1();
+                break;
         }
-
-        for (int i = 0; i < collectorsObjects.Length; i++)
-        {
-            Objects[1, i] = collectorsObjects[i];
-
-        }
-
-        for (int i = 0; i < powerUpObjects.Length; i++)
-        {
-            Objects[2, i] = powerUpObjects[i];
-
-        }
+        
     }
    public Transform spawnObject()
     {
@@ -81,12 +68,24 @@ public class Spawner : MonoBehaviour
         randNumber = Random.Range(-1, 3);
         maySpawnObject = true;
 
+
+
+        if (currentLevel > 1)
+        {
+            randNumber = Random.Range(0, 10);
+            if (randNumber > 9)
+            {
+                worldHeight++;
+            }
+
+        }
+
         if (Object == null)
         {
             randNumber = 4;
         }
 
-        Instantiate(World[1], new Vector3(-2f, .2f, zSpawnPoint), World[1].rotation);
+        Instantiate(World[1], new Vector3(-2f, worldHeight, zSpawnPoint), World[1].rotation);
         for (int i = -1; i < 2; i++)
         {
             
@@ -95,23 +94,60 @@ public class Spawner : MonoBehaviour
                 if (Object.gameObject.name == "2.Hole")
                 {
                     
-                    Instantiate(Object, new Vector3(i, 0f, zSpawnPoint), Object.rotation);
+                    Instantiate(Object, new Vector3(i, worldHeight, zSpawnPoint), Object.rotation);
                     maySpawnObject = false;
                 }else
                 {
-                    Instantiate(World[0], new Vector3(i, 0f, zSpawnPoint), World[0].rotation);
-                    Instantiate(Object, new Vector3(i, 1f, zSpawnPoint), Object.rotation);
+                    Instantiate(World[0], new Vector3(i, worldHeight, zSpawnPoint), World[0].rotation);
+                    Instantiate(Object, new Vector3(i, worldHeight+1, zSpawnPoint), Object.rotation);
                     maySpawnObject = false;
                 }               
             }else
             {
-              Instantiate(World[0], new Vector3(i, 0f, zSpawnPoint), World[0].rotation);
+              Instantiate(World[0], new Vector3(i, worldHeight, zSpawnPoint), World[0].rotation);
             }
         }
-        Instantiate(World[1], new Vector3(2f, .2f, zSpawnPoint), World[1].rotation);
-        
+        Instantiate(World[1], new Vector3(2f, worldHeight, zSpawnPoint), World[1].rotation);
+    }
+
+    public void SetLevel(int Level)
+    {
+        currentLevel = Level;
+    }
+    void Level1()
+    {
+        Transform[] enemyObjects = new Transform[3];
+        Transform[] collectorsObjects = new Transform[3];
+        Transform[] powerUpObjects = new Transform[3];
+
+        enemyObjects = Resources.LoadAll<Transform>("Level1/enemyObjects");
+        collectorsObjects = Resources.LoadAll<Transform>("Level1/collectorsObjects");
+        powerUpObjects = Resources.LoadAll<Transform>("Level1/powerUpObjects");
 
 
+        for (int i = 0; i < enemyObjects.Length; i++)
+        {
+            Objects[0, i] = enemyObjects[i];
+
+        }
+
+        for (int i = 0; i < collectorsObjects.Length; i++)
+        {
+            Objects[1, i] = collectorsObjects[i];
+
+        }
+
+        for (int i = 0; i < powerUpObjects.Length; i++)
+        {
+            Objects[2, i] = powerUpObjects[i];
+
+        }
+    }
+
+    void Level2()
+    {
+        Level1();
+        Objects[0, 0] = null;
     }
 
 }

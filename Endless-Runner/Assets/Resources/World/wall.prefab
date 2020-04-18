@@ -105,5 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14dc65f32df08e34db3554d14631b426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotation: {x: 0, y: 0, z: 0}
-  Player: {fileID: 0}
+  wall: 1
