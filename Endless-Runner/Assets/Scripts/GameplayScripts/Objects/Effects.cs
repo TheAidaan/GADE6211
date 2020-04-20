@@ -92,7 +92,10 @@ public abstract class Objects : World
     private void OnTriggerEnter(Collider other)
     {
         Player = other.gameObject;
+        
         CollisionEffect();
+        
+        
     }
     public int PlayerResistance()
     {

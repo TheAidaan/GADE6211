@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
         spawn = FindObjectOfType<Spawner>();
-        spawn.SetLevel((int)currentLevel);
+        SetLevel();
         spawn.AssignObjects();
 
     }
@@ -81,6 +81,12 @@ public class GameManager : MonoBehaviour
     public int CurrentLevel()
     {
         return (int)currentLevel;
+    }
+
+    void SetLevel()
+    {
+        spawn.SetLevel();
+        Player.GetComponent<CharacterPowers>().SetLevel();
     }
 
 }//Gamemanager

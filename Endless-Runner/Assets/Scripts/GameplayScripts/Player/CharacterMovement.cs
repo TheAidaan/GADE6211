@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
-    KeyCode moveR = KeyCode.D;
-    KeyCode moveL = KeyCode.A;
-    KeyCode jump = KeyCode.Space;
+    Vector3 movement;
+    bool MoveR, MoveL, Jump;
 
     enum Lanes { Left = 1, Center, Right };
     Lanes lane = Lanes.Center;
@@ -16,78 +15,95 @@ public class CharacterMovement : MonoBehaviour
     bool _controlLock = false;
     bool _stopForward = false;
 
-    bool _SuperSize;
+    bool _fling, _endFling;
 
-    bool Right, Left,Jump;
-
-    Rigidbody Self;
+    Rigidbody rb;
+    CharacterReact React;
 
     private void Start()
     {
-        Self = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        React = GetComponentInChildren<CharacterReact>();
     }
+
     void FixedUpdate()
     {
-        if (_stopForward == false)
-        {
-            Move();
-            Self.velocity = Vector3.forward * 4; //  tyr the translate 
-        }
-        else
-        {
-            Self.velocity = Vector3.forward * 0;
-        }
+        Move();
+        rb.velocity = new Vector3(0, movement.y, movement.z);
+        
     }
 
     void Update()
     {
-        //if (Self.velocity.y < 0)
-        //{
-        //    Self.velocity += Vector3.up * Physics.gravity.y * 1.5f;
-        //}
-
-        if ((Input.GetKey(moveL)) && ((int)lane > 1) && (_controlLock == false))
+        if ((Input.GetKey(KeyCode.A)) && ((int)lane > 1) && (_controlLock == false))
         {
-            Left = true;
+            MoveL = true;
             StartCoroutine(ControlLock());
         }
 
-        if ((Input.GetKey(moveR)) && ((int)lane < 3) && (_controlLock == false))
+        if ((Input.GetKey(KeyCode.D)) && ((int)lane < 3) && (_controlLock == false))
         {
-            Right = true;
+            MoveR = true;
             StartCoroutine(ControlLock());
         }
 
-        if ((Input.GetKey(jump)) && (_jumpLock == false))
+        if ((Input.GetKey(KeyCode.Space)) && (_jumpLock == false)&& (OnGround() == true))
         {
             Jump = true;
-            
+            StartCoroutine(JumpLock());
+
         }
 
+        if ((OnGround() == true) && (_endFling == true))
+        {
+            _jumpLock = false;
+            _endFling = false;
+            React.endFling();
+
+        }
     }
 
     void Move()
     {
-        if (Right)
+        movement = Vector3.zero;
+        if (_stopForward==false)
         {
-            Self.AddForce(Vector3.right * 25000);
-            Right = false;
-            lane += 1;
-        }
-        if (Left)
-        {
-            Self.AddForce(Vector3.left * 25000);
-            Left = false;
-            lane -= 1;
-        }
-        if (Jump)
-        {
-            //Self.velocity = new Vector3(0, 70, 4);
-            Self.AddForce(Vector3.up * 500,ForceMode.Impulse);
-            Jump = false;
-            StartCoroutine(JumpLock());
+            movement.z = 5;
         }
 
+        if (MoveR)
+        {
+            rb.AddForce(Vector3.right * 2500);
+            MoveR = false;
+            lane += 1;
+        }
+        if (MoveL)
+        {
+            rb.AddForce(Vector3.left * 2500);
+            MoveL = false;
+            lane -= 1;
+        }
+
+        if (Jump)
+        {
+            movement.y = 100f;
+            movement.z += 50f;
+            Jump = false;
+        }
+
+        if (OnGround() == false)
+        {
+            movement.y -= 6;
+        }
+
+        if (_fling)
+        {
+            movement.y = 500f;
+            movement.z += 500f;
+            _fling = false;
+            _endFling = true;
+
+        }
     }
 
     IEnumerator ControlLock()
@@ -100,45 +116,43 @@ public class CharacterMovement : MonoBehaviour
     {
         _jumpLock = true;
         yield return new WaitForSeconds(.4f);
-        Self.AddForce(Vector3.down * 500, ForceMode.Impulse);
         _jumpLock = false;
     }
 
     public void superSized(bool enable)
-    { 
+    {
         switch ((int)lane)
         {
-            case 1: Self.AddForce(Vector3.right * 25000);
+            case 1:
+                rb.AddForce(Vector3.right * 2500);
                 break;
             case 3:
-                Self.AddForce(Vector3.left * 25000);
+                rb.AddForce(Vector3.left * 2500);
                 break;
         }
+
         lane = Lanes.Center;
         _controlLock = enable;
         _jumpLock = enable;
-        _SuperSize = enable;
 
     }
 
     public void Hole()
     {
         StopMovement();
-        Self.velocity = Vector3.down * 75;
+        rb.AddForce(Vector3.down * 5000);
     }
 
-    public void Fling(bool enable)
+    public void Fling()
     {
-        _jumpLock = enable;
+        _jumpLock = true;
+       // rb.AddForce(Vector3.up * 20000);
+        _fling = true;
+    }
 
-        if (enable == true)
-        {
-            Self.AddForce(Vector3.up * 2500, ForceMode.Impulse);
-        }
-        else
-        {
-            Self.AddForce(Vector3.down * 2500, ForceMode.Impulse);
-        }
+   bool OnGround()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, .5f);
     }
 
     public void StopMovement()
@@ -147,13 +161,5 @@ public class CharacterMovement : MonoBehaviour
         _jumpLock = true;
         _controlLock = true;
     }
-    void Fall()
-    {
-        //if (Self.velocity.y < 0)
-        //{
-        //    Self.velocity += Vector3.up * Physics.gravity.y * 1.5f;
-        //}
-    }
-  
 
 }

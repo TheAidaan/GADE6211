@@ -9,20 +9,14 @@ public class CharacterReact : MonoBehaviour
 
     CharacterAnimations animator;
 
-    CharacterMovement EffectMovement;
+    CharacterMovement Movement;
 
-   enum playerResistance { none, simple, timeBased}
+
+    enum playerResistance { none, simple, timeBased }
 
     playerResistance CurrentResistanceLevel;
     playerResistance PreviousResistanceLevel;
 
-    //void Update()
-    //{
-    //    if ((Input.GetKey(KeyCode.Q)))
-    //    {
-    //        animator.Fall(true);
-    //    }
-    //}
     void Start()
     {
         CurrentResistanceLevel = playerResistance.none;
@@ -32,7 +26,7 @@ public class CharacterReact : MonoBehaviour
         materials = Resources.LoadAll<Material>("Materials");
         animator = GetComponent<CharacterAnimations>();
 
-        EffectMovement = GetComponentInParent<CharacterMovement>();
+        Movement = GetComponentInParent<CharacterMovement>();
     }
 
     void ChangeMaterial(int MaterialIndex)
@@ -50,27 +44,22 @@ public class CharacterReact : MonoBehaviour
     #region Fling Reaction
     public void Fling()
     {
-        
-        StartCoroutine(FlingPlayer());
-    }
-
-    IEnumerator FlingPlayer()
-    {
-        //Work here
         animator.Fling(true);
+
         PreviousResistanceLevel = CurrentResistanceLevel;
         CurrentResistanceLevel = playerResistance.timeBased;
         ChangeMaterial(3);
-        EffectMovement.Fling(true);
 
-        yield return new WaitForSeconds(1f);
-
-        EffectMovement.Fling(false);
+        Movement.Fling();
+    }
+    public void endFling()
+    {
         animator.Fling(false);
+
         CurrentResistanceLevel = PreviousResistanceLevel;
         ChangeMaterial((int)CurrentResistanceLevel);
-        
     }
+
     #endregion
 
     #region SuperSize Reaction 
@@ -86,11 +75,11 @@ public class CharacterReact : MonoBehaviour
         ChangeMaterial(2);
 
         animator.SuperSize(true);
-        EffectMovement.superSized(true);
+        Movement.superSized(true);
 
         yield return new WaitForSeconds(5f);
 
-        EffectMovement.superSized(false);
+        Movement.superSized(false);
         animator.SuperSize(false);
 
         CurrentResistanceLevel = PreviousResistanceLevel;
@@ -115,14 +104,15 @@ public class CharacterReact : MonoBehaviour
     public void Hole()
     {
         animator.Fall(true);
-        EffectMovement.Hole();
+        Movement.Hole();
     }
+
 
     public void Die()
     {
         GameManager.characterDeath = true;
         GetComponent<CharacterStats>().SendStats();
-        EffectMovement.StopMovement();
+        Movement.StopMovement();
         Destroy(gameObject);
     }
 }

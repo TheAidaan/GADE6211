@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7393610863184933223}
   m_Layer: 0
   m_Name: 1.MovingObject
-  m_TagString: Lethal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,3 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ad44bd2a14adc49bb2b977d81ee17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rotation: {x: 0, y: 0, z: 0}
+  Player: {fileID: 0}

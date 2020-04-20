@@ -35,7 +35,6 @@ public class Blocks : World {
     void getMaterial()
     {
         level = FindObjectOfType<GameManager>().CurrentLevel();
-        Debug.Log(level);
         switch (level)
         {
             case 2 : materialIndex = 7;
