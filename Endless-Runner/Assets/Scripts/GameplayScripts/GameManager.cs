@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Spawner
 {
     public static bool maySpawnObstacles;
-
     public static bool characterDeath;
+
+
     float waitToLoad = 0;
 
-    Spawner spawn;
     public Transform Character;
     public static Transform Player;
 
-    enum Levels { one = 1, two, three }
+    enum Levels { endless, one, two, three }
     [SerializeField] Levels currentLevel;
 
 
@@ -31,21 +31,20 @@ public class GameManager : MonoBehaviour
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        spawn = FindObjectOfType<Spawner>();
-        SetLevel();
-        spawn.AssignObjects();
+        
+        SetLevel(CurrentLevel());
+        AssignObjects();
 
     }
     void Start()
     {
 
-        for (int spawnPoint = 0; spawnPoint < 12; spawnPoint++)
+        for (int spawnPoint = -1; spawnPoint < 12; spawnPoint++)
         {
-            spawn.SpawnBuildingBlocks(spawnPoint, null);
+            SpawnBuildingBlocks(spawnPoint, null);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (characterDeath == false)
@@ -54,11 +53,11 @@ public class GameManager : MonoBehaviour
             {
                 if (maySpawnObstacles == true)
                 {
-                    spawn.SpawnBuildingBlocks(spawnPoint, spawn.spawnObject());
+                    SpawnBuildingBlocks(spawnPoint, PickObject());
                 }
                 else
                 {
-                    spawn.SpawnBuildingBlocks(spawnPoint, null);
+                    SpawnBuildingBlocks(spawnPoint, null);
                 }
 
                 spawnPoint++;
@@ -83,10 +82,11 @@ public class GameManager : MonoBehaviour
         return (int)currentLevel;
     }
 
-    void SetLevel()
+    public override void SetLevel(int Level)
     {
-        spawn.SetLevel();
-        Player.GetComponent<CharacterPowers>().SetLevel();
+        
+        Player.GetComponent<CharacterPowers>().SetLevel((CurrentLevel()));
+        base.SetLevel((CurrentLevel()));
     }
 
 }//Gamemanager

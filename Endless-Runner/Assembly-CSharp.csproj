@@ -74,9 +74,9 @@
     <Compile Include="Assets\Scripts\GameplayScripts\Objects\Power-Ups\SuperSize_PowerUp.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Objects\World\Blocks.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Objects\World\Raisers.cs" />
-    <Compile Include="Assets\Scripts\GameplayScripts\Player\CharactePowers.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Player\CharacterAnimations.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Player\CharacterMovement.cs" />
+    <Compile Include="Assets\Scripts\GameplayScripts\Player\CharacterPowers.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Player\CharacterReact.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Player\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\GameplayScripts\Player\CharacterUI.cs" />

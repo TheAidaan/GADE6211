@@ -10,7 +10,7 @@ public class Blocks : World {
 
     int materialIndex;
 
-    int level;
+    int currentLevel;
 
     Material[] materials = new Material[6];
     Renderer rend;
@@ -20,6 +20,9 @@ public class Blocks : World {
         rend = GetComponent<Renderer>();
         rend.enabled = true;
         materials = Resources.LoadAll<Material>("Materials");
+
+        SetLevel();
+
         if (Starter)
         {
             materialIndex = 4;
@@ -34,8 +37,7 @@ public class Blocks : World {
 
     void getMaterial()
     {
-        level = FindObjectOfType<GameManager>().CurrentLevel();
-        switch (level)
+        switch (currentLevel)
         {
             case 2 : materialIndex = 7;
                 if(wall)
@@ -50,4 +52,9 @@ public class Blocks : World {
         }
     }
 
+
+    public void SetLevel()
+    {
+        currentLevel = FindObjectOfType<GameManager>().CurrentLevel(); ;
+    }
 }//Blocks

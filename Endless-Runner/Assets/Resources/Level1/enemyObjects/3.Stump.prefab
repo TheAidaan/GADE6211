@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5137082493164257813}
   - component: {fileID: 1993216159523652247}
   - component: {fileID: 796146778691728772}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 3.Stump
   m_TagString: Untagged
   m_Icon: {fileID: 0}

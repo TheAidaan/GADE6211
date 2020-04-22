@@ -46,7 +46,10 @@ public abstract class Obstacle : Objects
 {
     public virtual void Effect(bool simpleResistance) { Player.GetComponent<CharacterReact>().Die(); ; }
     public override void CollisionEffect()
-    {
+    { if (Player.gameObject.layer == 8)
+        {
+            Destroy(gameObject);
+        }
         switch (PlayerResistance())
         {
             case 1: //action done if player has simple resistance

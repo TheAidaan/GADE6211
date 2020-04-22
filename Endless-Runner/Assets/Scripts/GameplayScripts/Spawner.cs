@@ -12,9 +12,20 @@ public class Spawner : MonoBehaviour
 
     int LastStumpPoint=0;
 
-    [SerializeField] float worldHeight;
+    int randNumber;
+
+    int spawnPoint;
+    Transform Object;
+
+    float worldHeight;
+
+
+    bool worldBroken = false;
+    int stopBreak;
 
     int currentLevel;
+
+    int singleLane;
     public void AssignObjects()
     {
         World = Resources.LoadAll<Transform>("World");
@@ -59,28 +70,27 @@ public class Spawner : MonoBehaviour
         }
         
     }
-   public Transform spawnObject()
+   public Transform PickObject()
     {
-        int randNumber;
         int randObject;
 
-        randNumber = Random.Range(0, 10);
+        randNumber = Random.Range(0, 100);
         randObject = Random.Range(0, 4);
 
-        if (randNumber < 4)
+        if (randNumber < 40)    //40% chance
         {
             return Objects[0, randObject]; //obstacles
             
         }
         else
         {
-            if ((3 < randNumber) && (randNumber < 6))
+            if ((39 < randNumber) && (randNumber < 60))//+20% chance
             {
                 return Objects[1, 0]; //collector objects
             }
             else
             {
-                if ((5 < randNumber) && (randNumber < 8))
+                if ((59 < randNumber) && (randNumber < 70))//+10% chance
                 {
                     if (randObject == 3)
                     {
@@ -88,8 +98,12 @@ public class Spawner : MonoBehaviour
                     }
                     return Objects[2, randObject];//Power-Ups
                 }
-                else
+                else//30% chance
                 {
+                    if ((currentLevel == 3) && (69 < randNumber) && (randNumber < 80) && (worldBroken == false)) //10% chance
+                    {
+                        BreakWorld();
+                    }
                     return null;
                 }
             }
@@ -97,97 +111,191 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void SpawnBuildingBlocks(int zSpawnPoint, Transform Object)
+    public void SpawnBuildingBlocks(int zSpawnPoint, Transform gObject)
     {
-        int randNumber;
-        bool maySpawnObject;
+        int randLane;
+        spawnPoint = zSpawnPoint;
+        Object = gObject;
 
-        randNumber = Random.Range(-1, 3);
-        maySpawnObject = true;
 
-        if ((currentLevel > 1) && (heightChangePoint<zSpawnPoint-8))
-        {
-            randNumber = Random.Range(0, 100);
+        randLane = Random.Range(-1, 2);
 
-            if (randNumber < 11)
-            {
-                heightChangePoint = zSpawnPoint;
-                worldHeight+= 4;
-                spawnRaiser(zSpawnPoint-1);
-                Object = null;
-            }
-        }
-        if (heightChangePoint>=zSpawnPoint-2)
-        {
-            Object = null;
-        }
+
+        RaisePlatform();
 
         if (Object == null)
         {
-            randNumber = 4;
-        }
-        else
+            randLane = 4;
+        }else
         {
             if (Object.gameObject.name == "3.Stump")
             {
-                if (LastStumpPoint < (zSpawnPoint - 3))
-                {
-                    randNumber = 0;
-                    LastStumpPoint = zSpawnPoint;
-                }else
-                {
-                    randNumber = 4;
-                }   
-            }         
+                randLane = StumpCheck();
+            }
+                     
         }
 
-        Instantiate(World[1], new Vector3(-2f, worldHeight, zSpawnPoint), World[1].rotation);
+        if(worldBroken)
+        {
+            if (singleLane == -1)
+            {
+                Instantiate(World[1], new Vector3(-2f, worldHeight, spawnPoint), World[1].rotation);            //world- left wall
+            }
+
+        }else
+        {
+            Instantiate(World[1], new Vector3(-2f, worldHeight, spawnPoint), World[1].rotation);            //world- left wall
+
+        }
+
         for (int i = -1; i < 2; i++)
         {
-            
-           if ((i == randNumber) && (maySpawnObject == true))
+            if (worldBroken)
             {
-                if (Object.gameObject.name == "2.Hole")
+                if (i == singleLane)
                 {
-                    
-                    Instantiate(Object, new Vector3(i, worldHeight, zSpawnPoint), Object.rotation);
-                    maySpawnObject = false;
-                }else
-                {
-                    Instantiate(World[0], new Vector3(i, worldHeight, zSpawnPoint), World[0].rotation);
-                    Instantiate(Object, new Vector3(i, worldHeight+1, zSpawnPoint), Object.rotation);
-                    maySpawnObject = false;
-                }               
+
+                    if (Object != null)
+                    {
+                        if (Object.gameObject.tag == "AK")             //change the tag name later
+                        {
+                            SpawnObject(i);
+                        }
+
+                    }
+                    else
+                    {
+                        Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world-blocks 
+
+                    }
+                }
             }else
             {
-              Instantiate(World[0], new Vector3(i, worldHeight, zSpawnPoint), World[0].rotation);
+                if ((i == randLane))
+
+                {
+                    SpawnObject(i);
+                    
+                }else
+                {
+                    Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);        //world-blocks
+                }
             }
+        }// end for-loop
+
+
+        if(worldBroken)
+        {
+            if (singleLane == 1)
+            {
+                Instantiate(World[1], new Vector3(2f, worldHeight, spawnPoint), World[1].rotation);  //world-right wall
+            }
+
+        }else
+        {
+            Instantiate(World[1], new Vector3(2f, worldHeight, spawnPoint), World[1].rotation);  //world-right wall
         }
-        Instantiate(World[1], new Vector3(2f, worldHeight, zSpawnPoint), World[1].rotation);
+        
+        if (stopBreak == spawnPoint)
+        {
+            worldBroken = false;
+        }
 
     }
 
-    public void SetLevel()
+    public virtual void SetLevel(int Level)
     {
-        currentLevel = GetComponent<GameManager>().CurrentLevel();
+        currentLevel = Level;
     }
     void Level1()
     {
         Objects[0, 3] = null;
     }
 
+    void SpawnObject(int CurrentLane)
+    {
+        if (Object.gameObject.name == "2.Hole")
+        {
+
+            Instantiate(Object, new Vector3(CurrentLane, worldHeight, spawnPoint), Object.rotation);
+
+        }
+        else
+        {
+            Instantiate(World[0], new Vector3(CurrentLane, worldHeight, spawnPoint), World[0].rotation);              //world - blocks
+            Instantiate(Object, new Vector3(CurrentLane, worldHeight + 1, spawnPoint), Object.rotation);
+        }
+    }
+
+    #region Level 2 attributes
     void Level2()
     {
         Objects[0, 0] = null;
     }
-
-    void spawnRaiser(int zSpawnPoint)
+    int StumpCheck()
     {
-        int i;
-        i = Random.Range(-1, 2);
-        Instantiate(Objects[2, 3], new Vector3(i, worldHeight-3, zSpawnPoint), Objects[2, 3].rotation);
+   
+            if (LastStumpPoint < (spawnPoint - 3))
+            {
+                
+                LastStumpPoint = spawnPoint;
+                return 0;
+            }
+            else
+            {
+                return 4;
+            }
+        
+    }
+
+    void RaisePlatform()
+    {
+        if ((currentLevel > 1) && (heightChangePoint < spawnPoint - 8))
+        {
+            randNumber = Random.Range(0, 100);
+
+            if (randNumber < 11)
+            {
+                heightChangePoint = spawnPoint;
+                worldHeight += 4;
+                Object = null;
+                spawnRaiser();
+            }
+        }
+
+        if (heightChangePoint >= spawnPoint - 2)
+        {
+            Object = null;
+        }
+    }
+    void spawnRaiser()
+    {
+        
+        int randLane = Random.Range(-1, 2);
+        if (worldBroken)
+        {
+            randLane = singleLane;
+        }
+        Instantiate(Objects[2, 3], new Vector3(randLane, worldHeight-3, spawnPoint-1), Objects[2, 3].rotation);
 
     }
+
+    #endregion
+
+    #region Level 3 attributes
+
+    void BreakWorld()
+    {
+        randNumber = Random.Range(-1, 2);
+
+        singleLane = randNumber;
+        stopBreak = spawnPoint+15;
+
+        worldBroken = true;
+    }
+
+    #endregion 
+
 
 }
 
