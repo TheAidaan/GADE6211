@@ -8,9 +8,7 @@ public class Spawner : MonoBehaviour
     Transform[,] Objects = new Transform[3, 10];
     Transform[] World = new Transform[2];
 
-    int heightChangePoint=0;
-
-    int LastStumpPoint=0;
+    public int currentLevel;
 
     int randNumber;
 
@@ -18,26 +16,27 @@ public class Spawner : MonoBehaviour
     Transform Object;
 
     float worldHeight;
+    int heightChangePoint = 0;
+    int LastStumpPoint = 0;
 
 
     bool worldBroken = false;
+    int singleLane;
     int stopBreak;
 
-    int currentLevel;
-
-    int singleLane;
+   
     public void AssignObjects()
     {
-        World = Resources.LoadAll<Transform>("World");
+        World = Resources.LoadAll<Transform>("Prefabs/World");
 
 
         Transform[] enemyObjects = new Transform[6];
         Transform[] collectorsObjects = new Transform[3];
         Transform[] powerUpObjects = new Transform[6];
 
-        enemyObjects = Resources.LoadAll<Transform>("Level1/enemyObjects");
-        collectorsObjects = Resources.LoadAll<Transform>("Level1/collectorsObjects");
-        powerUpObjects = Resources.LoadAll<Transform>("Level1/powerUpObjects");
+        enemyObjects = Resources.LoadAll<Transform>("Prefabs/enemyObjects");
+        collectorsObjects = Resources.LoadAll<Transform>("Prefabs/collectorsObjects");
+        powerUpObjects = Resources.LoadAll<Transform>("Prefabs/powerUpObjects");
 
 
         for (int i = 0; i < enemyObjects.Length; i++)
@@ -202,11 +201,6 @@ public class Spawner : MonoBehaviour
         }
 
     }
-
-    public virtual void SetLevel(int Level)
-    {
-        currentLevel = Level;
-    }
     void Level1()
     {
         Objects[0, 3] = null;
@@ -276,7 +270,7 @@ public class Spawner : MonoBehaviour
         {
             randLane = singleLane;
         }
-        Instantiate(Objects[2, 3], new Vector3(randLane, worldHeight-3, spawnPoint-1), Objects[2, 3].rotation);
+        Instantiate(World[2], new Vector3(randLane, worldHeight-3, spawnPoint-1), World[2].rotation);
 
     }
 

@@ -11,19 +11,33 @@ public class CharacterMovement : MonoBehaviour
     enum Lanes { Left = 1, Center, Right };
     Lanes lane = Lanes.Center;
 
-    bool _jumpLock = false;
     bool _controlLock = false;
+    bool _jumpLock =  false;
     bool _stopForward = false;
 
+
     bool _fling, _endFling;
+    bool _superSize;
+    
 
     Rigidbody rb;
     CharacterReact React;
+
+    int _jumpCount, _maxJump;
+    int currentLevel;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         React = GetComponentInChildren<CharacterReact>();
+
+        if (currentLevel == 3)
+        {
+            _maxJump = 2;
+        }else
+        {
+            _maxJump = 1;
+        }
     }
 
     void FixedUpdate()
@@ -35,31 +49,35 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKey(KeyCode.A)) && ((int)lane > 1) && (_controlLock == false))
+        if ((Input.GetKeyDown(KeyCode.A)) && ((int)lane > 1) && (_controlLock == false))
         {
             MoveL = true;
-            StartCoroutine(ControlLock());
         }
 
-        if ((Input.GetKey(KeyCode.D)) && ((int)lane < 3) && (_controlLock == false))
+        if ((Input.GetKeyDown(KeyCode.D)) && ((int)lane < 3) && (_controlLock == false))
         {
-            MoveR = true;
-            StartCoroutine(ControlLock());
-        }
+            MoveR = true;  
+        } 
 
-        if ((Input.GetKey(KeyCode.Space)) && (_jumpLock == false)&& (OnGround() == true))
+
+        if ((Input.GetKeyDown(KeyCode.Space)) && (_jumpLock == false) && ( (OnGround() == true) || (_jumpCount < _maxJump)))
         {
             Jump = true;
-            StartCoroutine(JumpLock());
+            _jumpCount++;
 
         }
 
-        if ((OnGround() == true) && (_endFling == true))
+        if (OnGround() == true) 
         {
-            _jumpLock = false;
-            _endFling = false;
-            React.endFling();
+            _jumpCount = 0;
+           
+            if(_endFling)
+            {
+                _endFling = false;
+                React.endFling();
 
+            }
+          
         }
     }
 
@@ -91,7 +109,7 @@ public class CharacterMovement : MonoBehaviour
             Jump = false;
         }
 
-        if (OnGround() == false)
+        if ((OnGround() == false) &&(_superSize==false))
         {
             movement.y -= 6;
         }
@@ -104,19 +122,6 @@ public class CharacterMovement : MonoBehaviour
             _endFling = true;
 
         }
-    }
-
-    IEnumerator ControlLock()
-    {
-        _controlLock = true;
-        yield return new WaitForSeconds(.3f);
-        _controlLock = false;
-    }
-    IEnumerator JumpLock()
-    {
-        _jumpLock = true;
-        yield return new WaitForSeconds(.4f);
-        _jumpLock = false;
     }
 
     public void superSized(bool enable)
@@ -134,6 +139,7 @@ public class CharacterMovement : MonoBehaviour
         lane = Lanes.Center;
         _controlLock = enable;
         _jumpLock = enable;
+        _superSize = enable;
 
     }
 
@@ -145,9 +151,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void Fling()
     {
-        _jumpLock = true;
-       // rb.AddForce(Vector3.up * 20000);
         _fling = true;
+        _jumpLock = true;
     }
 
    bool OnGround()
@@ -155,6 +160,10 @@ public class CharacterMovement : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, .5f);
     }
 
+    public void SetLevel(int Level)
+    {
+        currentLevel = Level;
+    }
     public void StopMovement()
     {
         _stopForward = true;

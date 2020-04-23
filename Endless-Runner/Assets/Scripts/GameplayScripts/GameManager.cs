@@ -15,7 +15,7 @@ public class GameManager : Spawner
     public static Transform Player;
 
     enum Levels { endless, one, two, three }
-    [SerializeField] Levels currentLevel;
+    [SerializeField] Levels Level;
 
 
 
@@ -32,7 +32,7 @@ public class GameManager : Spawner
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
         
-        SetLevel(CurrentLevel());
+        SetLevel();
         AssignObjects();
 
     }
@@ -79,14 +79,14 @@ public class GameManager : Spawner
 
     public int CurrentLevel()
     {
-        return (int)currentLevel;
+        return (int)Level;
     }
 
-    public override void SetLevel(int Level)
+    void SetLevel()
     {
-        
+        Player.GetComponent<CharacterMovement>().SetLevel((CurrentLevel()));
         Player.GetComponent<CharacterPowers>().SetLevel((CurrentLevel()));
-        base.SetLevel((CurrentLevel()));
+        currentLevel = CurrentLevel();
     }
 
 }//Gamemanager
