@@ -66,9 +66,9 @@ public class CharacterReact : MonoBehaviour
 
     public void SuperSize()
     {
-        StartCoroutine(resistantPeriod());
+        StartCoroutine(SuperSizeEffect());
     }
-    IEnumerator resistantPeriod()
+    IEnumerator SuperSizeEffect()
     {
         PreviousResistanceLevel = CurrentResistanceLevel;
         CurrentResistanceLevel = playerResistance.timeBased;
@@ -79,6 +79,11 @@ public class CharacterReact : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
+        EndSuperSize();
+    }
+
+    public void EndSuperSize()
+    {
         Movement.superSized(false);
         animator.SuperSize(false);
 

@@ -291,5 +291,10 @@ public class Spawner : MonoBehaviour
     #endregion 
 
 
+    public Transform GetSpecificObject(int Category,int Item)
+    {
+        return Objects[Category, Item];
+    }
+
 }
 

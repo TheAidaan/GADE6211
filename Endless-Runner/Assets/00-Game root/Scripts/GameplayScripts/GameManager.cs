@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Spawner
+public class GameManager : MonoBehaviour
 {
     public static bool maySpawnObstacles;
     public static bool characterDeath;
 
+    Spawner spawn;
+    BossManager BM;
 
     float waitToLoad = 0;
 
@@ -17,23 +19,26 @@ public class GameManager : Spawner
     enum Levels { endless, one, two, three }
     [SerializeField] Levels Level;
 
-
+    bool BossActive;
 
     int spawnPoint = 12;
 
     // Start is called before the first frame update
     void Awake()
     {
-    
+
         characterDeath = false;
         maySpawnObstacles = true;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
+        spawn = GetComponent<Spawner>();
+        BM = GetComponent<BossManager>();
 
-        
+        BossActive = false;
+
         SetLevel();
-        AssignObjects();
+        spawn.AssignObjects();
 
     }
     void Start()
@@ -41,31 +46,37 @@ public class GameManager : Spawner
 
         for (int spawnPoint = -1; spawnPoint < 12; spawnPoint++)
         {
-            SpawnBuildingBlocks(spawnPoint, null);
+            spawn.SpawnBuildingBlocks(spawnPoint, null);
         }
     }
 
     void Update()
     {
-        if (characterDeath == false)
+        if (!BossActive)
         {
-            if (Player.position.z > (spawnPoint - 15))
+            if (!characterDeath)
             {
-                if (maySpawnObstacles == true)
+                if (Player.position.z > (spawnPoint - 15))
                 {
-                    SpawnBuildingBlocks(spawnPoint, PickObject());
-                }
-                else
-                {
-                    SpawnBuildingBlocks(spawnPoint, null);
-                }
+                    if (maySpawnObstacles == true)
+                    {
+                        spawn.SpawnBuildingBlocks(spawnPoint, spawn.PickObject());
+                    }
+                    else
+                    {
+                        spawn.SpawnBuildingBlocks(spawnPoint, null);
+                    }
 
-                spawnPoint++;
+                    spawnPoint++;
+                }
             }
+        }else
+        {
+            BM.SpawnPlatform(spawnPoint, spawn.GetSpecificObject(2,2));
         }
 
 
-        if (characterDeath == true)
+        if (characterDeath)
         {
             waitToLoad += Time.deltaTime;
         }
@@ -86,7 +97,12 @@ public class GameManager : Spawner
     {
         Player.GetComponent<CharacterMovement>().SetLevel((CurrentLevel()));
         //Player.GetComponent<CharacterAbility>().SetLevel((CurrentLevel()));
-        currentLevel = CurrentLevel();
+        spawn.currentLevel = CurrentLevel();
+    }
+
+    public void ActivateBoss()
+    {
+        BossActive = true;
     }
 
 }//Gamemanager

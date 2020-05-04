@@ -129,17 +129,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void superSized(bool enable)
     {
-        switch ((int)lane)
-        {
-            case 1:
-                rb.AddForce(Vector3.right * 2500);
-                break;
-            case 3:
-                rb.AddForce(Vector3.left * 2500);
-                break;
-        }
-
-        lane = Lanes.Center;
+        CenterPlayer();
         _controlLock = enable;
         _jumpLock = enable;
         _superSize = enable;
@@ -174,4 +164,18 @@ public class CharacterMovement : MonoBehaviour
         _controlLock = true;
     }
 
+    public void CenterPlayer()
+    {
+        switch ((int)lane)
+        {
+            case 1:
+                rb.AddForce(Vector3.right * 2500);
+                break;
+            case 3:
+                rb.AddForce(Vector3.left * 2500);
+                break;
+        }
+
+        lane = Lanes.Center;
+    }
 }
