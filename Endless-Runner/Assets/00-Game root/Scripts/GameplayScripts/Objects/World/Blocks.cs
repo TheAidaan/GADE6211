@@ -17,7 +17,7 @@ public class Blocks : World {
     {
         rend = GetComponent<Renderer>();
         rend.enabled = true;
-        materials = Resources.LoadAll<Material>("Materials/World");
+        materials = Resources.LoadAll<Material>("Materials/Blocks");
 
         SetLevel();
 

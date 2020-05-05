@@ -23,7 +23,7 @@ public class CharacterReact : MonoBehaviour
         rend = GetComponent<Renderer>();
         rend.enabled = true;
 
-        materials = Resources.LoadAll<Material>("Materials");
+        materials = Resources.LoadAll<Material>("Materials/Player");
         animator = GetComponent<CharacterAnimations>();
 
         Movement = GetComponentInParent<CharacterMovement>();

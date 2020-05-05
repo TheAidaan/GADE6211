@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3F66C673-1664-6218-FBA4-600725B503E0}</ProjectGuid>
+    <ProjectGuid>{D0A416CE-6D74-343F-B7EE-28C1EA9AD608}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -86,6 +86,7 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Spawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\Tester\CharacterBossMovement.cs" />
+    <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
     <Compile Include="Assets\Tester\TestMovement.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
@@ -94,6 +95,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\8K Skybox Pack Free\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
@@ -106,28 +108,28 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Cinemachine">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -313,13 +315,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/Unity/Endless-Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
