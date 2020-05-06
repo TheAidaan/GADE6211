@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour
 {
     
     Transform[,] Objects = new Transform[3, 10];
-    Transform[] World = new Transform[2];
+    Transform[] World = new Transform[4];
+    Transform[] Triggers = new Transform[2];
 
     int randNumber;
 
@@ -26,6 +27,7 @@ public class Spawner : MonoBehaviour
     public void AssignObjects()
     {
         World = Resources.LoadAll<Transform>("Prefabs/World");
+        Triggers = Resources.LoadAll<Transform>("Prefabs/Triggers");
 
 
         Transform[] enemyObjects = new Transform[4];
@@ -299,6 +301,19 @@ public class Spawner : MonoBehaviour
     public Transform GetSpecificObject(int Category,int Item)
     {
         return Objects[Category, Item];
+    }
+
+    public void SpawnPlatform(int spawnPoint, Transform Fling, float Rotation)
+    {
+        Instantiate(World[3], new Vector3(0f, worldHeight, spawnPoint + 2), Quaternion.Euler(0,Rotation,0));
+
+        if (Fling != null)
+        {
+            Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1),Triggers[1].rotation);
+            Instantiate(Fling, new Vector3(0f, worldHeight + 1f, spawnPoint + 2), Fling.rotation);
+        }
+        
+
     }
 
 }

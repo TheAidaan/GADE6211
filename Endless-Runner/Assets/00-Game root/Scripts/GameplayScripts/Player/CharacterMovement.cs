@@ -16,7 +16,7 @@ public class CharacterMovement : MonoBehaviour
     bool _stopForward = false;
 
 
-    bool _fling, _endFling;
+    bool _fling, _endFling, _superFling;
     bool _superSize;
 
     Rigidbody rb;
@@ -68,12 +68,11 @@ public class CharacterMovement : MonoBehaviour
         {
             _jumpCount = 0;
            
-            if(_endFling)
+            if (_endFling)
             {
                 _endFling = false;
                 _jumpLock = false;
                 React.endFling();
-
             }
           
         }
@@ -131,7 +130,14 @@ public class CharacterMovement : MonoBehaviour
             movement.z += 500f;
             _fling = false;
             _endFling = true;
-            
+        } 
+        
+        if (_superFling)
+        {
+            movement.y = 1500f;
+            movement.z += 1500f;
+            _superFling = false;
+            _endFling = true;
 
         }
     }
@@ -151,9 +157,17 @@ public class CharacterMovement : MonoBehaviour
         rb.AddForce(Vector3.forward * 1200);
     }
 
-    public void Fling()
+    public void Fling(bool Super)
     {
-        _fling = true;
+        if (Super)
+        {
+            _superFling = true;
+        }
+        else
+        {
+            _fling = true;
+        }
+       
         _jumpLock = true;
     }
 

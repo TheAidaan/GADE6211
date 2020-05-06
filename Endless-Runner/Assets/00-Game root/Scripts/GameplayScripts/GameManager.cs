@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool maySpawnObstacles;
     public static bool characterDeath;
-    public static int CurrentLevel;
+
+    public static int CurrentLevel { get { return (int)_currentLevel; } }
 
     Spawner spawn;
     BossManager BM;
@@ -18,26 +18,25 @@ public class GameManager : MonoBehaviour
     public static Transform Player;
 
     enum Levels { endless, one, two, three }
-    [SerializeField] Levels Level;
+    [SerializeField] static Levels _currentLevel;
 
-    bool BossActive;
+    bool _spawnActive;
 
     int spawnPoint = 12;
+
+    bool _spawnPlatform;
 
     // Start is called before the first frame update
     void Awake()
     {
-        SetLevel();
-
         characterDeath = false;
-        maySpawnObstacles = true;
+        _spawnPlatform = true;
+        _spawnActive = true;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
         spawn = GetComponent<Spawner>();
         BM = GetComponent<BossManager>();
-
-        BossActive = false;
 
         spawn.AssignObjects();
 
@@ -53,29 +52,25 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!BossActive)
+        if (_spawnActive)
         {
             if (!characterDeath)
             {
                 if (Player.position.z > (spawnPoint - 15))
                 {
-                    if (maySpawnObstacles == true)
-                    {
-                        spawn.SpawnBuildingBlocks(spawnPoint, spawn.PickObject());
-                    }
-                    else
-                    {
-                        spawn.SpawnBuildingBlocks(spawnPoint, null);
-                    }
-
+                    spawn.SpawnBuildingBlocks(spawnPoint, spawn.PickObject());
                     spawnPoint++;
                 }
             }
         }else
         {
-            BM.SpawnPlatform(spawnPoint, spawn.GetSpecificObject(2,2));
+            if(_spawnPlatform)
+            {
+                spawn.SpawnPlatform(spawnPoint, spawn.GetSpecificObject(2, 3), 0f);
+                _spawnPlatform = false;
+            }
+            
         }
-
 
         if (characterDeath)
         {
@@ -87,16 +82,27 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameOverMenu");
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DisableSpawner();
+        }
     }
 
-    void SetLevel()
+    public void DisableSpawner()
     {
-        CurrentLevel = (int)Level;
+        _spawnActive = false;
+        _spawnPlatform = true;
     }
 
-    public void ActivateBoss()
+    public void ChangeLevel()
     {
-        BossActive = true;
+        spawnPoint += 56;
+        spawn.SpawnPlatform(spawnPoint, null,180f);
+        _spawnActive = true;
+        spawnPoint += 5;
+
+        _currentLevel++;
+ 
     }
 
 }//Gamemanager
