@@ -9,7 +9,7 @@ public class Cube_Obstacle : Obstacle
     {
         if (simpleResistance)
         {
-            Player.GetComponent<CharacterReact>().Hit();
+            Player.GetComponentInChildren<CharacterReact>().Hit();
             Destroy(gameObject);
         }
         else

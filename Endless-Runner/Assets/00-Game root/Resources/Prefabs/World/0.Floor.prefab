@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 681666743645424077}
   - component: {fileID: -876419559438759105}
   - component: {fileID: -17828993666246978}
-  m_Layer: 0
-  m_Name: block
+  m_Layer: 9
+  m_Name: 0.Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,4 +105,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: 0
-  Starter: 0

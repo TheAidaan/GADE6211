@@ -5,34 +5,30 @@ using UnityEngine;
 public class CharacterAbility : MonoBehaviour
 {
     CharacterStats stats;
-    int currentLevel;
+    CharacterReact React;
+    ParticleSystem em;
 
     bool _charged = false;
     void Start()
     {
         stats = GetComponentInChildren<CharacterStats>();
+        React = GetComponentInChildren<CharacterReact>();
+        em = GetComponent<ParticleSystem>();
     }
     void Update()
     {
-        if ((Input.GetKey(KeyCode.Q)) && (_charged) && ((currentLevel > 1) || (currentLevel == 0 )))
+        if ((Input.GetKey(KeyCode.Q)) && (_charged) && ((GameManager.CurrentLevel > 1) || (GameManager.CurrentLevel == 0 )))
         {
             Shoot();
+            stats.ChangePower(-100f);
             Charged(false);
         }
     }
 
-    public void SetLevel(int Level)
+    public void Shoot()
     {
-        currentLevel = Level;
-    }
-
-    void Shoot()
-    {
-        ParticleSystem em = GetComponentInParent<ParticleSystem>();
+        em.GetComponent<ParticleSystemRenderer>().material = React.CurrentMaterial();
         em.Play(true);
-
-        stats.ChangePower(-100f);
-
     }
 
     public void Charged(bool Charged)

@@ -19,8 +19,6 @@ public class Blocks : World {
         rend.enabled = true;
         materials = Resources.LoadAll<Material>("Materials/Blocks");
 
-        SetLevel();
-
         GetMaterial();
 
         rend.sharedMaterial = materials[materialIndex];
@@ -28,7 +26,7 @@ public class Blocks : World {
 
     void GetMaterial()
     {
-        switch (currentLevel)
+        switch (GameManager.CurrentLevel)
         {
             case 1:
                 materialIndex = 0;
@@ -42,16 +40,12 @@ public class Blocks : World {
             case 3: materialIndex = 3;
                 break;
             default:
-                materialIndex = 10;
+                materialIndex = 9;
                 break;
         }
     }
 
 
-    public void SetLevel()
-    {
-        currentLevel = FindObjectOfType<GameManager>().CurrentLevel(); ;
-    }
 
     //void ColourCycle()
     //{

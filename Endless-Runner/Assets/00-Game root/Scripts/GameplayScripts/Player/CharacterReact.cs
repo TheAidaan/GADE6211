@@ -8,8 +8,8 @@ public class CharacterReact : MonoBehaviour
     Renderer rend;
 
     CharacterAnimations animator;
-
     CharacterMovement Movement;
+    CharacterAbility ability;
 
 
     enum playerResistance { none, simple, timeBased }
@@ -19,14 +19,16 @@ public class CharacterReact : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<CharacterAnimations>();
+        ability = GetComponentInParent<CharacterAbility>();
+        Movement = GetComponentInParent<CharacterMovement>();
+
         CurrentResistanceLevel = playerResistance.none;
         rend = GetComponent<Renderer>();
         rend.enabled = true;
 
         materials = Resources.LoadAll<Material>("Materials/Player");
-        animator = GetComponent<CharacterAnimations>();
-
-        Movement = GetComponentInParent<CharacterMovement>();
+       
     }
 
     void ChangeMaterial(int MaterialIndex)
@@ -37,7 +39,6 @@ public class CharacterReact : MonoBehaviour
     public int PlayerResistance()
     {
         return (int)CurrentResistanceLevel;
-
     }
 
 
@@ -84,12 +85,13 @@ public class CharacterReact : MonoBehaviour
 
     public void EndSuperSize()
     {
+        ability.Shoot();
+
         Movement.superSized(false);
         animator.SuperSize(false);
 
         CurrentResistanceLevel = PreviousResistanceLevel;
         ChangeMaterial((int)CurrentResistanceLevel);
-
     }
     #endregion                          
 
@@ -110,14 +112,24 @@ public class CharacterReact : MonoBehaviour
     {
         animator.Fall(true);
         Movement.Hole();
+        Die(false);
     }
 
 
-    public void Die()
+    public void Die(bool killCharacter)
     {
         GameManager.characterDeath = true;
         GetComponent<CharacterStats>().SendStats();
         Movement.StopMovement();
-        Destroy(gameObject);
+        if (killCharacter)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        
+    }
+
+    public Material CurrentMaterial()
+    {
+        return rend.sharedMaterial;
     }
 }

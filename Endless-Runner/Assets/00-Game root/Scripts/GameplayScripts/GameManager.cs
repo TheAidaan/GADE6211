@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static bool maySpawnObstacles;
     public static bool characterDeath;
+    public static int CurrentLevel;
 
     Spawner spawn;
     BossManager BM;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        SetLevel();
 
         characterDeath = false;
         maySpawnObstacles = true;
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour
 
         BossActive = false;
 
-        SetLevel();
         spawn.AssignObjects();
 
     }
@@ -88,16 +89,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public int CurrentLevel()
-    {
-        return (int)Level;
-    }
-
     void SetLevel()
     {
-        Player.GetComponent<CharacterMovement>().SetLevel((CurrentLevel()));
-        //Player.GetComponent<CharacterAbility>().SetLevel((CurrentLevel()));
-        spawn.currentLevel = CurrentLevel();
+        CurrentLevel = (int)Level;
     }
 
     public void ActivateBoss()

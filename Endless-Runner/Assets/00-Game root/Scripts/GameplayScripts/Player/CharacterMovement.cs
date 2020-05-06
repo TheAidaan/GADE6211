@@ -18,13 +18,11 @@ public class CharacterMovement : MonoBehaviour
 
     bool _fling, _endFling;
     bool _superSize;
-    
 
     Rigidbody rb;
     CharacterReact React;
 
     int _jumpCount, _maxJump;
-    int currentLevel;
 
     private void Start()
     {
@@ -32,7 +30,7 @@ public class CharacterMovement : MonoBehaviour
         React = GetComponentInChildren<CharacterReact>();
 
         lane = Lanes.Center;
-        if (currentLevel == 3)
+        if (GameManager.CurrentLevel == 3)
         {
             _maxJump = 2;
         }else
@@ -48,25 +46,25 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.A)) && ((int)lane > 1) && (_controlLock == false))
+        if ((Input.GetKeyDown(KeyCode.A)) && ((int)lane > 1) && (!_controlLock))
         {
            MoveL = true;
         }
 
-        if ((Input.GetKeyDown(KeyCode.D)) && ((int)lane < 3) && (_controlLock == false))
+        if ((Input.GetKeyDown(KeyCode.D)) && ((int)lane < 3) && (!_controlLock))
         {
             MoveR = true;
         } 
 
 
-        if ((Input.GetKeyDown(KeyCode.Space)) && (_jumpLock == false) && ( (OnGround() == true) || (_jumpCount < _maxJump)))
+        if ((Input.GetKeyDown(KeyCode.Space)) && (!_jumpLock) && ( (OnGround()) || (_jumpCount < _maxJump)))
         {
             Jump = true;
             _jumpCount++;
 
         }
 
-        if (OnGround() == true) 
+        if (OnGround()) 
         {
             _jumpCount = 0;
            
@@ -86,6 +84,7 @@ public class CharacterMovement : MonoBehaviour
     void Move()
     {
         movement = Vector3.zero;
+
         if (_stopForward==false)
         {
             movement.z = 5;
@@ -111,9 +110,19 @@ public class CharacterMovement : MonoBehaviour
             Jump = false;
         }
 
-        if ((OnGround() == false) &&(_superSize==false))
+        if (!OnGround())
         {
-            movement.y -= 6;
+            if (_superSize)
+            {
+                if (!SuperSizeGroundCheck())
+                {
+                    movement.y -= 6;
+                }
+            }else
+            {
+                movement.y -= 6;
+            }
+            
         }
 
         if (_fling)
@@ -139,7 +148,7 @@ public class CharacterMovement : MonoBehaviour
     public void Hole()
     {
         StopMovement();
-        rb.AddForce(Vector3.down * 5000);
+        rb.AddForce(Vector3.forward * 1200);
     }
 
     public void Fling()
@@ -150,13 +159,38 @@ public class CharacterMovement : MonoBehaviour
 
    bool OnGround()
     {
-        return Physics.Raycast(transform.position, Vector3.down, .5f);
+        return Physics.Raycast(transform.position, Vector3.down, .5f,LayerMask.GetMask("Ground") );
     }
 
-    public void SetLevel(int Level)
+     bool SuperSizeGroundCheck()
     {
-        currentLevel = Level;
+        Vector3 rayLPos = new Vector3(transform.position.x - 1,transform.position.y,transform.position.z);
+        Vector3 rayRPos = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+
+        if (Physics.Raycast(transform.position, Vector3.down, .5f))
+        {
+            return true;
+        }else
+        {
+            if(Physics.Raycast(rayLPos, Vector3.down, .5f))
+            {
+                return true;
+            }
+            else
+            {
+                if (Physics.Raycast(rayRPos, Vector3.down, .5f))
+                {
+                    return true;
+                }
+                else 
+                {
+                    return false;
+                }
+            }
+        }  
+
     }
+
     public void StopMovement()
     {
         _stopForward = true;

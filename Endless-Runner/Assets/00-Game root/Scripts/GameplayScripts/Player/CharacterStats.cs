@@ -17,6 +17,7 @@ public class CharacterStats : MonoBehaviour
     void Start()
     {
         characterUI = GetComponentInChildren<CharacterUI>();
+        characterUI.SetGUI();
 
         characterAbility = GetComponentInParent<CharacterAbility>();
 
@@ -29,7 +30,7 @@ public class CharacterStats : MonoBehaviour
     public void IncreaseCoins(int increment)
     {
         coinTotal += increment;
-        characterUI.score.text = "Coins: " + coinTotal;
+        characterUI.SetTotCoins(coinTotal.ToString());
     }
 
     public void IncreaseDistance(int increment)
@@ -40,7 +41,7 @@ public class CharacterStats : MonoBehaviour
     public void ChangePower(float charge)
     {
         _power += charge;
-        characterUI.PowerIndicator.value = _power / 100;
+        characterUI.SetSlider(_power / 100);
 
         if (_power == 100)
         {

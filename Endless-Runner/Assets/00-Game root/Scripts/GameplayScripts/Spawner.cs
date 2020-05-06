@@ -8,8 +8,6 @@ public class Spawner : MonoBehaviour
     Transform[,] Objects = new Transform[3, 10];
     Transform[] World = new Transform[2];
 
-    public int currentLevel;
-
     int randNumber;
 
     int spawnPoint;
@@ -30,9 +28,9 @@ public class Spawner : MonoBehaviour
         World = Resources.LoadAll<Transform>("Prefabs/World");
 
 
-        Transform[] enemyObjects = new Transform[6];
-        Transform[] collectorsObjects = new Transform[3];
-        Transform[] powerUpObjects = new Transform[6];
+        Transform[] enemyObjects = new Transform[4];
+        Transform[] collectorsObjects = new Transform[2];
+        Transform[] powerUpObjects = new Transform[3];
 
         enemyObjects = Resources.LoadAll<Transform>("Prefabs/enemyObjects");
         collectorsObjects = Resources.LoadAll<Transform>("Prefabs/collectorsObjects");
@@ -56,28 +54,18 @@ public class Spawner : MonoBehaviour
             Objects[2, i] = powerUpObjects[i];
 
         }
-
-
-        switch (currentLevel)
-        {
-            case 2:Level2();
-                break;
-            case 3:
-                break;
-            default: Level1();
-                break;
-        }
-        
+        GetLevelAttributes();
     }
    public Transform PickObject()
     {
         int randObject;
 
         randNumber = Random.Range(0, 100);
-        randObject = Random.Range(0, 4);
+        
 
         if (randNumber < 40)    //40% chance
         {
+            randObject = Random.Range(0, 4);
             return Objects[0, randObject]; //obstacles
             
         }
@@ -85,21 +73,19 @@ public class Spawner : MonoBehaviour
         {
             if ((39 < randNumber) && (randNumber < 60))//+20% chance
             {
-                return Objects[1, 1]; //collector objects
+                randObject = Random.Range(0, 2);
+                return Objects[1, randObject]; //collector objects
             }
             else
             {
                 if ((59 < randNumber) && (randNumber < 70))//+10% chance
                 {
-                    if (randObject == 3)
-                    {
-                        randObject = 2;
-                    }
+                    randObject = Random.Range(0, 3);
                     return Objects[2, randObject];//Power-Ups
                 }
                 else//30% chance
                 {
-                    if ((currentLevel == 3) && (69 < randNumber) && (randNumber < 80) && (worldBroken == false)) //10% chance
+                    if ((GameManager.CurrentLevel == 3) && (69 < randNumber) && (randNumber < 80) && (worldBroken == false)) //10% chance
                     {
                         BreakWorld();
                     }
@@ -201,10 +187,7 @@ public class Spawner : MonoBehaviour
         }
 
     }
-    void Level1()
-    {
-        Objects[0, 3] = null;
-    }
+
 
     void SpawnObject(int CurrentLane)
     {
@@ -244,7 +227,7 @@ public class Spawner : MonoBehaviour
 
     void RaisePlatform()
     {
-        if ((currentLevel > 1) && (heightChangePoint < spawnPoint - 8))
+        if ((GameManager.CurrentLevel > 1) && (heightChangePoint < spawnPoint - 8))
         {
             randNumber = Random.Range(0, 100);
 
@@ -288,8 +271,30 @@ public class Spawner : MonoBehaviour
         worldBroken = true;
     }
 
-    #endregion 
+    #endregion
 
+    #region Level variations
+    void GetLevelAttributes()
+    {
+        switch (GameManager.CurrentLevel)
+        {
+            case 1:
+                Objects[0, 3] = null; //removes stump
+                Objects[1, 1] = null; //removes powercharge
+                break;
+            case 2:
+                Objects[2, 0] = null;//removes immunity powerUp
+                break;
+            case 3:
+                Objects[2, 1] = null;//removes superSize powerUp
+                break;
+            default:
+                break;
+
+        }
+
+    }
+    #endregion
 
     public Transform GetSpecificObject(int Category,int Item)
     {

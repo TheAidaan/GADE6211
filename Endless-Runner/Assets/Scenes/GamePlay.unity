@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: 0.15690637, g: 0.3750446, b: 0.8113208, a: 1}
+  m_AmbientEquatorColor: {r: 0.32507902, g: 0.31412423, b: 0.3679245, a: 1}
+  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 03389866351d19a47adc95c57d054097, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4bdfa984bf09e2d45b12793bd77b4239, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41518888, g: 0.20504811, b: 0.19856757, a: 1}
+  m_IndirectSpecularColor: {r: 0.72692513, g: 0.75347084, b: 0.7933654, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 1508230628}
-  m_Follow: {fileID: 1508230628}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1508230628}
   m_AnimatedTarget: {fileID: 1295825446}
   m_LayerIndex: 0
   m_ShowDebugText: 0
@@ -958,7 +958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2349f7d8c030d46bb4eb646bb37734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 0
 --- !u!4 &2045071424
 Transform:
   m_ObjectHideFlags: 0
@@ -999,7 +998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: {fileID: 8537971369501696882, guid: 7581c73860fab4549b0848d7c36c8fbb,
     type: 3}
-  Level: 0
+  Level: 1
 --- !u!1 &2105642539
 GameObject:
   m_ObjectHideFlags: 3
@@ -1293,6 +1292,11 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5318557175647877719, guid: a441e72ebd1b4c746b1a4b76e48d4d5f,
+        type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5318557175647877716, guid: a441e72ebd1b4c746b1a4b76e48d4d5f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1317,6 +1321,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FillAmount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277702788637974681, guid: a441e72ebd1b4c746b1a4b76e48d4d5f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318557175695439956, guid: a441e72ebd1b4c746b1a4b76e48d4d5f,
+        type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318557175695439956, guid: a441e72ebd1b4c746b1a4b76e48d4d5f,
+        type: 3}
+      propertyPath: PowerIndicator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698496869897834389, guid: a441e72ebd1b4c746b1a4b76e48d4d5f,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a441e72ebd1b4c746b1a4b76e48d4d5f, type: 3}
