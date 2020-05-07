@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     enum Levels { endless, one, two, three }
     [SerializeField] static Levels _currentLevel;
 
+    Material[] environmentMaterial = new Material[4];
+
     bool _spawnActive;
 
     int spawnPoint = 12;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _currentLevel = Levels.two;
         characterDeath = false;
         _spawnPlatform = true;
         _spawnActive = true;
@@ -39,6 +42,9 @@ public class GameManager : MonoBehaviour
         BM = GetComponent<BossManager>();
 
         spawn.AssignObjects();
+
+        environmentMaterial = Resources.LoadAll<Material>("Materials/World");
+        StartCoroutine(setEnvironment());
 
     }
     void Start()
@@ -102,7 +108,15 @@ public class GameManager : MonoBehaviour
         spawnPoint += 5;
 
         _currentLevel++;
+
+        StartCoroutine(setEnvironment());
  
+    }
+
+    IEnumerator setEnvironment()
+    {
+        yield return new WaitForSeconds(.5f);
+        RenderSettings.skybox = environmentMaterial[(int)CurrentLevel];
     }
 
 }//Gamemanager

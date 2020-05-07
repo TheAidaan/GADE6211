@@ -23,7 +23,11 @@ public class Spawner : MonoBehaviour
     int singleLane;
     int stopBreak;
 
-   
+    bool _raiseWorld;
+    int _raiseWorldPoint=0;
+
+    int ClearDistance;
+    bool _pathClear;
     public void AssignObjects()
     {
         World = Resources.LoadAll<Transform>("Prefabs/World");
@@ -56,6 +60,7 @@ public class Spawner : MonoBehaviour
             Objects[2, i] = powerUpObjects[i];
 
         }
+
         GetLevelAttributes();
     }
    public Transform PickObject()
@@ -65,7 +70,7 @@ public class Spawner : MonoBehaviour
         randNumber = Random.Range(0, 100);
         
 
-        if (randNumber < 40)    //40% chance
+        if (randNumber < 25)    //20% chance
         {
             randObject = Random.Range(0, 4);
             return Objects[0, randObject]; //obstacles
@@ -73,7 +78,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            if ((39 < randNumber) && (randNumber < 60))//+20% chance
+            if ((24 < randNumber) && (randNumber < 35))//+-10% chance
             {
                 randObject = Random.Range(0, 2);
                 return Objects[1, randObject]; //collector objects
@@ -87,9 +92,16 @@ public class Spawner : MonoBehaviour
                 }
                 else//30% chance
                 {
-                    if ((GameManager.CurrentLevel == 3) && (69 < randNumber) && (randNumber < 80) && (worldBroken == false)) //10% chance
+                    if ((GameManager.CurrentLevel == 3) && (95 < randNumber) && (randNumber < 101) && (worldBroken == false)) //5% chance
                     {
                         BreakWorld();
+                    }
+
+                    if ((GameManager.CurrentLevel > 1) && (90 < randNumber) && (randNumber < 96) && (_raiseWorld == false)) //5% chance
+                    {
+                        _raiseWorld = true;
+                        ClearPath(2);
+                        Debug.Log("gonna do it");
                     }
                     return null;
                 }
@@ -107,8 +119,21 @@ public class Spawner : MonoBehaviour
 
         randLane = Random.Range(-1, 2);
 
+        if (!_pathClear)
+        {
+            Object = null;
+            if (ClearDistance == spawnPoint)
+            {
+                _pathClear = true;
+            }
+        }
 
-        RaisePlatform();
+        if (_raiseWorld &&_pathClear)
+        {
+           RaisePlatform();
+           _raiseWorld = false;        
+        }
+       
 
         if (Object == null)
         {
@@ -229,18 +254,17 @@ public class Spawner : MonoBehaviour
 
     void RaisePlatform()
     {
-        if ((GameManager.CurrentLevel > 1) && (heightChangePoint < spawnPoint - 8))
-        {
+       
             randNumber = Random.Range(0, 100);
 
-            if (randNumber < 11)
-            {
-                heightChangePoint = spawnPoint;
+        if (randNumber < 11)
+        {
+            heightChangePoint = spawnPoint;
                 worldHeight += 4;
                 Object = null;
                 spawnRaiser();
-            }
         }
+
 
         if (heightChangePoint >= spawnPoint - 2)
         {
@@ -256,6 +280,8 @@ public class Spawner : MonoBehaviour
             randLane = singleLane;
         }
         Instantiate(World[2], new Vector3(randLane, worldHeight-3, spawnPoint-1), World[2].rotation);
+
+        ClearPath(3);
 
     }
 
@@ -297,6 +323,12 @@ public class Spawner : MonoBehaviour
 
     }
     #endregion
+
+    void ClearPath(int Length)
+    {
+        ClearDistance = spawnPoint + 2;
+        _pathClear = false;
+    }
 
     public Transform GetSpecificObject(int Category,int Item)
     {
