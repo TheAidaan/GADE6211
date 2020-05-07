@@ -8,12 +8,12 @@ using TMPro;
 public class CharacterUI : MonoBehaviour
 {
 
-     TextMeshProUGUI score;
+    TextMeshProUGUI[] DisplayText = new TextMeshProUGUI[2];
      Slider PowerIndicator;
     private void Awake()
     {
         PowerIndicator =  GetComponentInChildren<UnityEngine.UI.Slider>();
-        score = GetComponentInChildren<TextMeshProUGUI>();
+        DisplayText = GetComponentsInChildren<TextMeshProUGUI>();
     }
     public void SetGUI()
     {
@@ -35,10 +35,15 @@ public class CharacterUI : MonoBehaviour
 
     public void SetTotCoins(string coinTot)
     {
-        score.text = "Coins: " + coinTot;
+        DisplayText[0].text = "Coins: " + coinTot;
     }
-       
-    
+
+    public void SetTotDist(string disTot)
+    {
+        DisplayText[1].text = "Distance: " + disTot;
+    }
+
+
 
 
 

@@ -120,15 +120,23 @@ public class CharacterReact : MonoBehaviour
     {
         animator.Fall(true);
         Movement.Hole();
-        Die(false);
+        Die(false, true);
     }
 
 
-    public void Die(bool killCharacter)
+    public void Die(bool killCharacter, bool stopMovement)
     {
         GameManager.characterDeath = true;
         GetComponent<CharacterStats>().SendStats();
-        Movement.StopMovement();
+        
+        if (stopMovement)
+        {
+            Movement.StopMovement();
+        }else
+        {
+            Movement.LockControls(true);
+        }
+
         if (killCharacter)
         {
             Destroy(transform.parent.gameObject);
@@ -139,5 +147,10 @@ public class CharacterReact : MonoBehaviour
     public Material CurrentMaterial()
     {
         return rend.sharedMaterial;
+    }
+
+    public void Gone()
+    {
+        Die(false,false);
     }
 }

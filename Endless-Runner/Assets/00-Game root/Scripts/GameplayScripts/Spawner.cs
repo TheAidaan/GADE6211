@@ -101,7 +101,6 @@ public class Spawner : MonoBehaviour
                     {
                         _raiseWorld = true;
                         ClearPath(2);
-                        Debug.Log("gonna do it");
                     }
                     return null;
                 }
@@ -280,7 +279,8 @@ public class Spawner : MonoBehaviour
             randLane = singleLane;
         }
         Instantiate(World[2], new Vector3(randLane, worldHeight-3, spawnPoint-1), World[2].rotation);
-
+        Instantiate(Triggers[2], new Vector3(0, 1.5f, spawnPoint+1), Triggers[2].rotation);
+        
         ClearPath(3);
 
     }
@@ -311,6 +311,7 @@ public class Spawner : MonoBehaviour
                 Objects[1, 1] = null; //removes powercharge
                 break;
             case 2:
+                Objects[0, 0] = null;//removes cube obstacle
                 Objects[2, 0] = null;//removes immunity powerUp
                 break;
             case 3:
@@ -335,14 +336,14 @@ public class Spawner : MonoBehaviour
         return Objects[Category, Item];
     }
 
-    public void SpawnPlatform(int spawnPoint, Transform Fling, float Rotation)
+    public void SpawnPlatform(int spawnPoint, Transform superFling, float Rotation)
     {
         Instantiate(World[3], new Vector3(0f, worldHeight, spawnPoint + 2), Quaternion.Euler(0,Rotation,0));
 
-        if (Fling != null)
+        if (superFling != null)
         {
             Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1),Triggers[1].rotation);
-            Instantiate(Fling, new Vector3(0f, worldHeight + 1f, spawnPoint + 2), Fling.rotation);
+            Instantiate(superFling, new Vector3(0f, worldHeight + 1f, spawnPoint + 2), superFling.rotation);
         }
         
 

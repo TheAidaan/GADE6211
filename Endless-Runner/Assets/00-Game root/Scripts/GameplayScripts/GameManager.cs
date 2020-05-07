@@ -119,4 +119,7 @@ public class GameManager : MonoBehaviour
         RenderSettings.skybox = environmentMaterial[(int)CurrentLevel];
     }
 
+
+
+
 }//Gamemanager

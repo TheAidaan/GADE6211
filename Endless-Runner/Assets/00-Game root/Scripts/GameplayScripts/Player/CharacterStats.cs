@@ -8,34 +8,45 @@ public class CharacterStats : MonoBehaviour
     CharacterUI characterUI;
     CharacterAbility characterAbility;
 
-    int  coinTotal;
-    float distTotal;
+    int  _totalCoins;
+    float _totalDistannce;
+
+    Vector3 _startPosition;
 
     float _power;
 
     // Start is called before the first frame update
     void Start()
     {
+        characterAbility = GetComponentInParent<CharacterAbility>();
         characterUI = GetComponentInChildren<CharacterUI>();
         characterUI.SetGUI();
 
-        characterAbility = GetComponentInParent<CharacterAbility>();
-
-        coinTotal = 0;
-        distTotal = 0;
+        _startPosition = transform.position;
+        _totalCoins = 0;
+        _totalDistannce = 0;
 
         _power = 0;
     }
 
-    public void IncreaseCoins(int increment)
+    void Update()
     {
-        coinTotal += increment;
-        characterUI.SetTotCoins(coinTotal.ToString());
+        if (!GameManager.characterDeath)
+        {
+            _totalDistannce = (transform.position.z - _startPosition.z);
+            SendDistance((int)_totalDistannce);
+        }
     }
 
-    public void IncreaseDistance(int increment)
+    public void IncreaseCoins(int increment)
     {
-        distTotal += increment;
+        _totalCoins += increment;
+        characterUI.SetTotCoins(_totalCoins.ToString());
+    }
+
+    public void SendDistance(int disatnce)
+    {
+        characterUI.SetTotDist(disatnce.ToString());
     }
 
     public void ChangePower(float charge)
@@ -50,7 +61,7 @@ public class CharacterStats : MonoBehaviour
     }
     public void SendStats()
     {
-        GUI.CoinsTot = coinTotal;
-        GUI.DisTot = distTotal;
+        GUI.CoinsTot = _totalCoins;
+        GUI.DisTot = (int)_totalDistannce;
     }
 }

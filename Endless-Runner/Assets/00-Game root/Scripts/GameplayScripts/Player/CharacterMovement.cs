@@ -145,10 +145,7 @@ public class CharacterMovement : MonoBehaviour
     public void superSized(bool enable)
     {
         CenterPlayer();
-        _controlLock = enable;
-        _jumpLock = enable;
-        _superSize = enable;
-
+        LockControls(enable);
     }
 
     public void Hole()
@@ -210,6 +207,13 @@ public class CharacterMovement : MonoBehaviour
         _stopForward = true;
         _jumpLock = true;
         _controlLock = true;
+    }
+
+    public void LockControls(bool enable)
+    {
+        _controlLock = enable;
+        _jumpLock = enable;
+        _superSize = enable;
     }
 
     public void CenterPlayer()

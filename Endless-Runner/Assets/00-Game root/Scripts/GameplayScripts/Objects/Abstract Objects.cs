@@ -45,7 +45,7 @@ public abstract class Collectable : Objects
 
 public abstract class Obstacle : Objects
 {
-    public virtual void Effect(bool simpleResistance) { Player.GetComponentInChildren<CharacterReact>().Die(true);}
+    public virtual void Effect(bool simpleResistance) { Player.GetComponentInChildren<CharacterReact>().Die(true,true);}
     public override void CollisionEffect()
     { 
         
