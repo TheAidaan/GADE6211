@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
     bool worldBroken = false;
     int singleLane;
     int stopBreak;
+    int _singleObjectsSwpawned = 0;
 
     bool _raiseWorld;
     int _raiseWorldPoint=0;
@@ -168,9 +169,19 @@ public class Spawner : MonoBehaviour
 
                     if (Object != null)
                     {
-                        if (Object.gameObject.tag == "AK")             //change the tag name later
+                        if ((Object.gameObject.tag == "Single"))             //change the tag name later
                         {
                             SpawnObject(i);
+                            _singleObjectsSwpawned++;
+
+                            if(_singleObjectsSwpawned == 2)
+                            {
+                                ClearPath(2);
+                                _singleObjectsSwpawned = 0;
+                            }
+                        }else
+                        {
+                            Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world-blocks 
                         }
 
                     }
@@ -179,6 +190,9 @@ public class Spawner : MonoBehaviour
                         Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world-blocks 
 
                     }
+                }else
+                {
+                    Instantiate(Objects[0,2], new Vector3(i, worldHeight, spawnPoint), Objects[0, 2].rotation);
                 }
             }else
             {
@@ -210,6 +224,7 @@ public class Spawner : MonoBehaviour
         if (stopBreak == spawnPoint)
         {
             worldBroken = false;
+            ClearPath(3);
         }
 
     }
@@ -291,10 +306,11 @@ public class Spawner : MonoBehaviour
 
     void BreakWorld()
     {
+        int randNumberLength = Random.Range(15, 30);
         randNumber = Random.Range(-1, 2);
 
         singleLane = randNumber;
-        stopBreak = spawnPoint+15;
+        stopBreak = spawnPoint+ randNumberLength;
 
         worldBroken = true;
     }
@@ -345,8 +361,6 @@ public class Spawner : MonoBehaviour
             Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1),Triggers[1].rotation);
             Instantiate(superFling, new Vector3(0f, worldHeight + 1f, spawnPoint + 2), superFling.rotation);
         }
-        
-
     }
 
 }

@@ -63,6 +63,8 @@ public class CharacterReact : MonoBehaviour
     }
     public void endFling()
     {
+        ability.Shoot();
+
         animator.Fling(false);
 
         CurrentResistanceLevel = PreviousResistanceLevel;

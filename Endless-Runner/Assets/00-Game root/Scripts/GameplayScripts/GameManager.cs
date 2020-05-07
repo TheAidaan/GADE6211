@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _currentLevel = Levels.two;
+        _currentLevel = Levels.three;
         characterDeath = false;
         _spawnPlatform = true;
         _spawnActive = true;
@@ -114,9 +114,9 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator setEnvironment()
-    {
+    {   
         yield return new WaitForSeconds(.5f);
-        RenderSettings.skybox = environmentMaterial[(int)CurrentLevel];
+        RenderSettings.skybox = environmentMaterial[CurrentLevel];
     }
 
 

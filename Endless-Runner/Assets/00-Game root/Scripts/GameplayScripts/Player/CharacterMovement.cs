@@ -32,11 +32,12 @@ public class CharacterMovement : MonoBehaviour
         lane = Lanes.Center;
         if (GameManager.CurrentLevel == 3)
         {
-            _maxJump = 2;
+            _maxJump = 1;
         }else
         {
-            _maxJump = 1;
+            _maxJump = 0;
         }
+        _jumpCount = 0;
     }
     private void FixedUpdate()
     {
@@ -115,11 +116,13 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!SuperSizeGroundCheck())
                 {
-                    movement.y -= 6;
+                    movement.y -= 5;
                 }
+                
             }else
             {
-                movement.y -= 6;
+                movement.y -= 5;
+
             }
             
         }
