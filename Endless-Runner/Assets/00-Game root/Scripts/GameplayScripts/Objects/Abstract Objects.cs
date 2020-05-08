@@ -73,6 +73,35 @@ public abstract class Obstacle : Objects
     {
         Destroy(gameObject);
     }
+}
+
+public abstract class Trigger : Objects
+{
+    public virtual void Effect() { Player.GetComponentInChildren<CharacterReact>().Die(true, true); }
+    public virtual void BounceEffect() { }
+    public override void CollisionEffect()
+    {
+
+        switch (PlayerResistance())
+        {
+            case 1: //action done if player has simple resistance
+                Effect();
+                break;
+
+            case 2: //action done if player has time-based resistance
+                BounceEffect();
+                break;
+
+            default: //action done if player has no resistance
+                Effect();
+                break;
+        }
+    }
+
+    public override int PlayerResistance()
+    {
+        return Player.GetComponentInChildren<CharacterReact>().PlayerResistance();
+    }
 
 
 }
@@ -103,8 +132,10 @@ public abstract class Objects : World
     public GameObject Player;
 
     private void OnTriggerEnter(Collider collision) // All objects except obstacles,excluding hole
-    {
+    { 
+
         Player = collision.gameObject;
+
         CollisionEffect();
     }
 

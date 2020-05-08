@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _currentLevel = Levels.three;
+        _currentLevel = Levels.two;
         characterDeath = false;
         _spawnPlatform = true;
         _spawnActive = true;

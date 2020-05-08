@@ -11,6 +11,8 @@ public class CharacterReact : MonoBehaviour
     CharacterMovement Movement;
     CharacterAbility ability;
 
+    bool _flingActive;
+
 
     enum playerResistance { none, simple, timeBased }
 
@@ -46,6 +48,7 @@ public class CharacterReact : MonoBehaviour
     public void Fling(bool Super)
     {
         animator.Fling(true);
+        _flingActive = true;
 
         PreviousResistanceLevel = CurrentResistanceLevel;
         CurrentResistanceLevel = playerResistance.timeBased;
@@ -61,14 +64,23 @@ public class CharacterReact : MonoBehaviour
 
         Movement.Fling(Super);
     }
-    public void endFling()
+    public void EndFling()
     {
         ability.Shoot();
 
         animator.Fling(false);
+        _flingActive = false;
 
         CurrentResistanceLevel = PreviousResistanceLevel;
         ChangeMaterial((int)CurrentResistanceLevel);
+    }
+    public void Bounce(Vector3 force)
+    {
+        if (_flingActive)
+        {
+            EndFling();
+            Movement.Bounce(force);
+        }
     }
 
     #endregion

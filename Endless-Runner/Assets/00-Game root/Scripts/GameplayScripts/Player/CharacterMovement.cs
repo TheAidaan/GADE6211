@@ -73,7 +73,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 _endFling = false;
                 _jumpLock = false;
-                React.endFling();
+                React.EndFling();
             }
           
         }
@@ -116,12 +116,12 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!SuperSizeGroundCheck())
                 {
-                    movement.y -= 5;
+                    movement.y -= 6;
                 }
                 
             }else
             {
-                movement.y -= 5;
+                movement.y -= 6;
 
             }
             
@@ -171,12 +171,12 @@ public class CharacterMovement : MonoBehaviour
         _jumpLock = true;
     }
 
-   bool OnGround()
+    bool OnGround()
     {
         return Physics.Raycast(transform.position, Vector3.down, .5f,LayerMask.GetMask("Ground") );
     }
 
-     bool SuperSizeGroundCheck()
+    bool SuperSizeGroundCheck()
     {
         Vector3 rayLPos = new Vector3(transform.position.x - 1,transform.position.y,transform.position.z);
         Vector3 rayRPos = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
@@ -232,5 +232,15 @@ public class CharacterMovement : MonoBehaviour
         }
 
         lane = Lanes.Center;
+    }
+
+    public void Bounce(Vector3 force)
+    {
+        Debug.Log("Bouncijg");
+        rb.AddForce(force);
+
+        _endFling = false;
+        _jumpLock = false;
+        _jumpCount = 0;
     }
 }

@@ -70,11 +70,14 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Collectables\Power_PowerUps.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\Cube_Obstacle.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\CubeMoving_Obstacle.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\Hole_Obstacle.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\Fling_PowerUp.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\Immunity_PowerUp.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\SuperFling_PowerUp.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\SuperSize_PowerUp.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\CenterPlayer.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\ChangeLevel.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Gone.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Hole.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Blocks.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Platform.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Raisers.cs" />
@@ -85,9 +88,6 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterStats.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Spawner.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Triggers\CenterPlayer.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Triggers\ChangeLevel.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Triggers\Gone.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\Tester\CharacterBossMovement.cs" />
     <Compile Include="Assets\Tester\TestMovement.cs" />
