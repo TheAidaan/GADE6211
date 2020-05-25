@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3A410AAB-349A-4D19-1C17-96A0EBEC05A5}</ProjectGuid>
+    <ProjectGuid>{799F59B0-64BA-88C5-A9C7-37A45610057C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -65,28 +65,28 @@
   <ItemGroup>
     <Compile Include="Assets\PathCreator\Examples\Scripts\Editor\PathSceneToolEditor.cs" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Cinemachine">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -290,19 +290,19 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/tesWork/Tester/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -661,15 +661,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{4D8D6104-992A-5F36-C9EC-BA45C2673035}</Project>
+      <Project>{3F66C673-1664-6218-FBA4-600725B503E0}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
     <ProjectReference Include="PathCreator.csproj">
-      <Project>{CA3753D2-1520-22DC-C46A-05F72749BDD9}</Project>
+      <Project>{99FF8AD7-660F-28EA-0587-13160CB7C132}</Project>
       <Name>PathCreator</Name>
     </ProjectReference>
     <ProjectReference Include="PathCreatorEditor.csproj">
-      <Project>{D87F9773-D245-8AEB-0AC0-0BE7A5C6336C}</Project>
+      <Project>{59D84263-564C-8A05-46F9-4D3D96CD094D}</Project>
       <Name>PathCreatorEditor</Name>
     </ProjectReference>
   </ItemGroup>

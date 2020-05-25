@@ -7,6 +7,7 @@ public class CharacterStats : MonoBehaviour
 
     CharacterUI characterUI;
     CharacterAbility characterAbility;
+    PlayerStatsUI playerStatsUI;
 
     int  _totalCoins;
     float _totalDistannce;
@@ -20,6 +21,7 @@ public class CharacterStats : MonoBehaviour
     {
         characterAbility = GetComponentInParent<CharacterAbility>();
         characterUI = GetComponentInChildren<CharacterUI>();
+
         characterUI.SetGUI();
 
         _startPosition = transform.position;
@@ -61,7 +63,6 @@ public class CharacterStats : MonoBehaviour
     }
     public void SendStats()
     {
-        GUI.CoinsTot = _totalCoins;
-        GUI.DisTot = (int)_totalDistannce;
+        PlayerStatsUI.TotalDistance = (int)_totalDistannce;
     }
 }
