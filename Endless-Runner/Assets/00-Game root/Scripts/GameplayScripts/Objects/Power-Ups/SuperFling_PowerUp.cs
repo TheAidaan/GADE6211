@@ -8,7 +8,7 @@ public class SuperFling_PowerUp : PowerUps
     {
         Player.GetComponent<CharacterReact>().Fling(true);
 
-        FindObjectOfType<GameManager>().ChangeLevel();
+        FindObjectOfType<GameManager>().Transition();
 
         base.Effect();
     }

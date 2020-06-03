@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Data : MonoBehaviour
 {
@@ -25,38 +26,40 @@ public class Data : MonoBehaviour
 
 	IEnumerator UploadNewHighscore(string username, int score)
 	{
-		WWW www = new WWW(webURL + privateCode + "/add/" + WWW.EscapeURL(username) + "/" + score);
-		yield return www;
+		UnityWebRequest www = UnityWebRequest.Get(webURL + privateCode + "/add/"+ username + "/" + score);
+		yield return www.SendWebRequest(); 
 
-		if (string.IsNullOrEmpty(www.error))
+		if (www.isNetworkError || www.isHttpError)
 		{
-			DownloadHighscores();
+			print("Error Downloading: " + www.error);
+
 		}
 		else
 		{
-			print("Error uploading: " + www.error);
+			DownloadHighscores();
 		}
 	}
 
 	public void DownloadHighscores()
 	{
-		StartCoroutine("DownloadHighscoresFromDatabase");
+		StartCoroutine(DownloadHighscoresFromDatabase());
 	}
 
 	IEnumerator DownloadHighscoresFromDatabase()
 	{
-		WWW www = new WWW(webURL + publicCode + "/pipe/");
-		yield return www;
+		UnityWebRequest www = UnityWebRequest.Get(webURL + publicCode + "/pipe/");
+		yield return www.SendWebRequest();
 
-		if (string.IsNullOrEmpty(www.error))
-		{
-			FormatHighscores(www.text);
-			leaderboard.OnHighscoresDownloaded(highscoresList);
-		}
-		else
+		if (www.isNetworkError || www.isHttpError)
 		{
 			print("Error Downloading: " + www.error);
+
+		}else
+		{
+			FormatHighscores(www.downloadHandler.text);
+			leaderboard.OnHighscoresDownloaded(highscoresList);
 		}
+		
 	}
 
 	void FormatHighscores(string textStream)

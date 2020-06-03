@@ -24,6 +24,8 @@ public class TestCharacterMovement : MonoBehaviour
     }
     void Move()
     {
+        //transform.RotateAround(target.position, Vector3.up, 20 * Time.deltaTime);
+
         movement = Vector3.zero;
 
         if (MoveR)

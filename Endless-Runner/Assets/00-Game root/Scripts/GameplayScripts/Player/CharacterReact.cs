@@ -145,7 +145,7 @@ public class CharacterReact : MonoBehaviour
         
         if (stopMovement)
         {
-            Movement.StopMovement();
+            Movement.StopAllMovement();
         }else
         {
             Movement.LockControls(true);

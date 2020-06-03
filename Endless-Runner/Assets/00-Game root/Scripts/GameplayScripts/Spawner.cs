@@ -25,10 +25,10 @@ public class Spawner : MonoBehaviour
     int _singleObjectsSwpawned = 0;
 
     bool _raiseWorld;
-    int _raiseWorldPoint=0;
 
     int ClearDistance;
     bool _pathClear;
+
     public void AssignObjects()
     {
         World = Resources.LoadAll<Transform>("Prefabs/World");
@@ -156,7 +156,7 @@ public class Spawner : MonoBehaviour
 
         }else
         {
-            Instantiate(World[1], new Vector3(-2f, worldHeight, spawnPoint), World[1].rotation);            //world- left wall
+                Instantiate(World[1], new Vector3(-2f, worldHeight, spawnPoint), World[1].rotation);       //world- left wall
 
         }
 
@@ -181,13 +181,13 @@ public class Spawner : MonoBehaviour
                             }
                         }else
                         {
-                            Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world-blocks 
+                            Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world- ground blocks 
                         }
 
                     }
                     else
                     {
-                        Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world-blocks 
+                        Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);      //world- ground blocks 
 
                     }
                 }else
@@ -197,13 +197,12 @@ public class Spawner : MonoBehaviour
             }else
             {
                 if ((i == randLane))
-
                 {
                     SpawnObject(i);
                     
                 }else
                 {
-                    Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);        //world-blocks
+                    Instantiate(World[0], new Vector3(i, worldHeight, spawnPoint), World[0].rotation);        //world- ground blocks
                 }
             }
         }// end for-loop
@@ -240,7 +239,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            Instantiate(World[0], new Vector3(CurrentLane, worldHeight, spawnPoint), World[0].rotation);              //world - blocks
+            Instantiate(World[0], new Vector3(CurrentLane, worldHeight, spawnPoint), World[0].rotation);              //world - ground blocks
             Instantiate(Object, new Vector3(CurrentLane, worldHeight + 1, spawnPoint), Object.rotation);
         }
     }
@@ -352,16 +351,23 @@ public class Spawner : MonoBehaviour
         return Objects[Category, Item];
     }
 
+    public Transform GetWorldBlocks(int index)
+    {
+        return World[index];
+    }
+
     public void SpawnPlatform(int spawnPoint, Transform superFling, float Rotation)
     {
         Instantiate(World[3], new Vector3(0f, worldHeight, spawnPoint + 2), Quaternion.Euler(0,Rotation,0));
 
         if (superFling != null)
         {
-            Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1),Triggers[1].rotation);
+            //Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1),Triggers[1].rotation);
             Instantiate(superFling, new Vector3(0f, worldHeight + 1f, spawnPoint + 2), superFling.rotation);
         }
     }
+
+    
 
 }
 

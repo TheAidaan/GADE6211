@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public static int CurrentLevel { get { return (int)_currentLevel; } }
 
     Spawner spawn;
-    BossManager BM;
 
     float waitToLoad = 0;
 
@@ -28,10 +27,15 @@ public class GameManager : MonoBehaviour
 
     bool _spawnPlatform;
 
+    Transform[] Boss = new Transform[3];
+
+    bool _spawnBoss = false;
+    bool _changeLevel = false;
+
     // Start is called before the first frame update
     void Awake()
     {
-        _currentLevel = Levels.two;
+        _currentLevel = Levels.one;
         characterDeath = false;
         _spawnPlatform = true;
         _spawnActive = true;
@@ -39,7 +43,6 @@ public class GameManager : MonoBehaviour
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
         spawn = GetComponent<Spawner>();
-        BM = GetComponent<BossManager>();
 
         spawn.AssignObjects();
 
@@ -88,9 +91,10 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameOverMenu");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))                //THIS MUST BE IN FIXED UPDATE
         {
             DisableSpawner();
+            _spawnBoss = true;
         }
     }
 
@@ -102,11 +106,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLevel()
     {
-        spawnPoint += 56;
-        spawn.SpawnPlatform(spawnPoint, null,180f);
         _spawnActive = true;
-        spawnPoint += 5;
-
         _currentLevel++;
 
         StartCoroutine(setEnvironment());
@@ -117,6 +117,31 @@ public class GameManager : MonoBehaviour
     {   
         yield return new WaitForSeconds(.5f);
         RenderSettings.skybox = environmentMaterial[CurrentLevel];
+    }
+
+    public void Transition()
+    {
+        spawnPoint += 56;
+        spawn.SpawnPlatform(spawnPoint, null, 180f);
+        spawnPoint += 5;
+
+        if (_spawnBoss)
+        {
+            SpawnBoss();
+        }
+
+        if (_changeLevel)
+        {
+            ChangeLevel();
+        }
+
+    }
+
+    void SpawnBoss()
+    {
+        Boss =  Resources.LoadAll<Transform>("Prefabs/Boss");
+        Instantiate(Boss[0], new Vector3(0, -.7f, spawnPoint + 100), Boss[0].rotation);
+        FindObjectOfType<Boss_1_Manager>().GetSpawnPoint(spawnPoint);
     }
 
 

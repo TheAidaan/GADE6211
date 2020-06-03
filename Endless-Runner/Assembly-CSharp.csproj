@@ -64,6 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossManager.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossStartTrigger.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Cylinder.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Manager.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_ObjectDestoryer.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_spawner.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlatformMidPoint.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\GameManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Abstract Objects.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Collectables\Coin_Collectable.cs" />
@@ -78,6 +84,7 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\ChangeLevel.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Gone.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Hole.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\TurnTrigger.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Blocks.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Platform.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Raisers.cs" />
@@ -98,10 +105,8 @@
     <Compile Include="Assets\PathCreator\Examples\Scripts\PathSceneTool.cs" />
     <Compile Include="Assets\PathCreator\Examples\Scripts\PathSpawner.cs" />
     <Compile Include="Assets\PathCreator\Examples\Scripts\RoadMeshCreator.cs" />
-    <Compile Include="Assets\Tester\CharacterBossMovement.cs" />
-    <Compile Include="Assets\Tester\Helix.cs" />
-    <Compile Include="Assets\Tester\TestBossMovement.cs" />
     <Compile Include="Assets\Tester\TestCharacterMovement.cs" />
+    <Compile Include="Assets\Tester\TestSpawner.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

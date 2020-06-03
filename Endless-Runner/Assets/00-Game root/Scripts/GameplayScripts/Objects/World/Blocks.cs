@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Blocks : World {
 
-    [SerializeField] bool wall;
+    bool wall = false;
     static int materialIndex = 3;
 
     //static int counter=0;
-    int currentLevel;
 
     Material[] materials = new Material[12];
     Renderer rend;
 
     private void Start()
     {
+        if (gameObject.layer == 9)
+        {
+            wall = true;
+        }
         rend = GetComponent<Renderer>();
         rend.enabled = true;
         materials = Resources.LoadAll<Material>("Materials/Blocks");

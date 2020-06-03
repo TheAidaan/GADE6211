@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
+
     Vector3 movement;
     bool MoveR, MoveL, Jump;
 
@@ -42,7 +43,8 @@ public class CharacterMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        rb.velocity = new Vector3(0, movement.y, movement.z);
+        rb.velocity = gameObject.transform.TransformDirection(movement);
+        //rb.velocity = new Vector3(0, movement.y, movement.z);
     }
 
     void Update()
@@ -58,7 +60,7 @@ public class CharacterMovement : MonoBehaviour
         } 
 
 
-        if ((Input.GetKeyDown(KeyCode.Space)) && (!_jumpLock) && ( (OnGround()) || (_jumpCount < _maxJump)))
+        if ((Input.GetKeyDown(KeyCode.W)) && (!_jumpLock) && ( (OnGround()) || (_jumpCount < _maxJump)))
         {
             Jump = true;
             _jumpCount++;
@@ -75,14 +77,13 @@ public class CharacterMovement : MonoBehaviour
                 _jumpLock = false;
                 React.EndFling();
             }
-          
         }
-
        
     }
 
     void Move()
     {
+
         movement = Vector3.zero;
 
         if (_stopForward==false)
@@ -92,13 +93,13 @@ public class CharacterMovement : MonoBehaviour
 
         if (MoveR)
         {
-            rb.AddForce(Vector3.right * 2500);
+            rb.AddRelativeForce(Vector3.right * 2500);
             MoveR = false;
             lane += 1;
         }
         if (MoveL)
         {
-            rb.AddForce(Vector3.left * 2500);
+            rb.AddRelativeForce(Vector3.left * 2500);
             MoveL = false;
             lane -= 1;
         }
@@ -106,7 +107,12 @@ public class CharacterMovement : MonoBehaviour
         if (Jump)
         {
             movement.y = 100f;
-            movement.z += 50f;
+
+            if (_stopForward == false)
+            {
+                movement.z += 50f;
+            }
+            
             Jump = false;
         }
 
@@ -153,7 +159,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Hole()
     {
-        StopMovement();
+        StopAllMovement();
         rb.AddForce(Vector3.forward * 1200);
     }
 
@@ -205,11 +211,15 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
-    public void StopMovement()
+    public void StopAllMovement()
     {
         _stopForward = true;
         _jumpLock = true;
         _controlLock = true;
+    }
+    public void EffectForwardMovement(bool Active)
+    {
+        _stopForward = Active;
     }
 
     public void LockControls(bool enable)
@@ -224,10 +234,10 @@ public class CharacterMovement : MonoBehaviour
         switch ((int)lane)
         {
             case 1:
-                rb.AddForce(Vector3.right * 2500);
+                rb.AddRelativeForce(Vector3.right * 2500);
                 break;
             case 3:
-                rb.AddForce(Vector3.left * 2500);
+                rb.AddRelativeForce(Vector3.left * 2500);
                 break;
         }
 
@@ -237,7 +247,7 @@ public class CharacterMovement : MonoBehaviour
     public void Bounce(Vector3 force)
     {
         Debug.Log("Bouncijg");
-        rb.AddForce(force);
+        rb.AddRelativeForce(force);
 
         _endFling = false;
         _jumpLock = false;

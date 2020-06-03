@@ -77,7 +77,7 @@ public abstract class Obstacle : Objects
 
 public abstract class Trigger : Objects
 {
-    public virtual void Effect() { Player.GetComponentInChildren<CharacterReact>().Die(true, true); }
+    public virtual void Effect() { Destroy(gameObject); }
     public virtual void BounceEffect() { }
     public override void CollisionEffect()
     {
