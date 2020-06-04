@@ -8,7 +8,7 @@ public class Boss_1_Manager : BossManager
     BOSS_1_STAGES currrentStage;
     Boss_1_spawner spawn;
 
-    int _spawnPoint;
+    [SerializeField] int _spawnPoint; //MAKE PRIVATE WHEN DONE!
 
     bool gotPlayer = false;
 
@@ -23,21 +23,28 @@ public class Boss_1_Manager : BossManager
         base.Start();
 
         empty = new GameObject();
-        Boss_1_ObjectDestoryer Killer = empty.AddComponent<Boss_1_ObjectDestoryer>();
+        empty.transform.position = new Vector3(-53, 1, transform.position.z);
         empty.transform.SetParent(transform);
-        
+        empty.AddComponent<Boss_1_ObjectDestoryer>();
     }
     void FixedUpdate()
     {
         if (BossManager.bossActive)
         {
             transform.Rotate(0, -0.29f, 0);
-           
-        }else
+        }
+        else
         {
             FetchPlayer();
         }
+    }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            spawn.SpawnObject(FindObjectOfType<Spawner>().GetSpecificObject(0,0).gameObject);
+        }
     }
 
     public override void BossStart()

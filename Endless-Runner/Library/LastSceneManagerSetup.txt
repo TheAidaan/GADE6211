@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Tester/Test Movement.unity
+- path: Assets/Tester/Tester.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

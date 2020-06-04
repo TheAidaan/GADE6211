@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7264272447531118740}
   - component: {fileID: 3515851019077319333}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Boss_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd180f57e0fb0e4cae1115b1db0789f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  _spawnPoint: 0
 --- !u!114 &3515851019077319333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,4 +58,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a1959ca03cf8944b88c4a82c15a34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 0}

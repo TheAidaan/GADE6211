@@ -7,16 +7,13 @@ public class TestSpawner : MonoBehaviour
     Transform[] World = new Transform[4];
     public static Transform Player;
 
-    bool bossActive= false;
+    [SerializeField] GameObject cube;
 
-    int playerPoint = -127;
     // Start is called before the first frame update
     void Awake()
     {
         World = Resources.LoadAll<Transform>("Prefabs/Test");
-        
     }
-
 
     void SpawnBuildingBlocks(int spawnPoint)
     {
@@ -34,4 +31,5 @@ public class TestSpawner : MonoBehaviour
     {
         return World[index];
     }
+
 }

@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class Boss_1_ObjectDestoryer : MonoBehaviour
 {
-    void Update()
+    float initalAngle;
+    void Start()
     {
-        if (transform.parent.rotation.y < -0.5f)
+        initalAngle = transform.parent.eulerAngles.y;
+        if (initalAngle == 0)
         {
-            Destroy(gameObject);
+            initalAngle = 360;
+        }
+    }
+    void FixedUpdate()
+    {
+        if (BossManager.bossActive)
+        {
+            float currentAngle = transform.parent.eulerAngles.y;
+            float AngleMagnitude = Mathf.Abs(currentAngle - initalAngle);
+
+            if (AngleMagnitude > 180)
+            {
+                Destroy(gameObject);
+            }
+            Debug.Log(AngleMagnitude);
         }
     }
 }

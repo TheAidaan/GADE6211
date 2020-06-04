@@ -7,6 +7,8 @@ TagManager:
   - World
   - Lethal
   - Single
+  - BossObject
+  - BossItem
   layers:
   - Default
   - TransparentFX

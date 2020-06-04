@@ -9,12 +9,11 @@ public class Boss_1_spawner : MonoBehaviour
     Transform[] gameWorld = new Transform[2];
 
     Transform[] Trigers = new Transform[4];
-    [SerializeField] GameObject cube;
 
     bool _maySpawnPlatform = true;
 
     bool _endBoss = false;
-    
+    Transform randObj;
     void Start()
     {
 
@@ -35,17 +34,6 @@ public class Boss_1_spawner : MonoBehaviour
             z++;
         }
         
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-           Instantiate(cube, new Vector3(0, 2, 50.5f), cube.transform.rotation, transform); // spawn obstacle
-        }
 
     }
 
@@ -81,6 +69,14 @@ public class Boss_1_spawner : MonoBehaviour
 
             Instantiate(gameWorld[1], new Vector3(2, 0, y), gameWorld[1].rotation, parent);
         }
+
+    }
+    public void SpawnObject(GameObject cube)
+    {
+        int randLane = Random.Range(-53, -50);
+
+        GameObject obj = Instantiate(cube, new Vector3(randLane + 0.3f, 1, transform.position.z), cube.transform.rotation, transform);
+        obj.AddComponent<Boss_1_ObjectDestoryer>();
 
     }
 }

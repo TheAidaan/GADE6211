@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 2738585269605260873}
   m_Layer: 9
   m_Name: 0.Boss_1_Half_Circle
-  m_TagString: Untagged
+  m_TagString: BossItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
