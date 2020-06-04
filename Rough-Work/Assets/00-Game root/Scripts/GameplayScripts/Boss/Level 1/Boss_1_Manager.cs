@@ -6,6 +6,7 @@ public class Boss_1_Manager : BossManager
 {
     enum BOSS_1_STAGES { Start, One, Two, Three, End }
     BOSS_1_STAGES currrentStage;
+
     Boss_1_spawner spawn;
     Spawner spawner;
 
@@ -15,10 +16,13 @@ public class Boss_1_Manager : BossManager
 
     GameObject empty;
 
-    int _firstLane;
+    bool _spawnObject;
+    int _spaceBetweenObjects, _maxSpaceBetweenObjects ;
 
      void Awake()
     {
+        _maxSpaceBetweenObjects = 8;
+
         currrentStage = BOSS_1_STAGES.Start;
 
         spawner = FindObjectOfType<Spawner>();
@@ -33,12 +37,10 @@ public class Boss_1_Manager : BossManager
         empty.AddComponent<Boss_1_ObjectDestoryer>();
         spawner.SetParent(empty);
 
-       // _firstLane = (int)(transform.position.x - 53);
-
     }
     void FixedUpdate()
     {
-        if (BossManager.bossActive)
+        if (bossActive)
         {
             transform.Rotate(0, -0.29f, 0);
         }
@@ -50,15 +52,28 @@ public class Boss_1_Manager : BossManager
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (bossActive)
         {
-            int randNumber = Random.Range(-53, -50);
 
-            Transform obj = spawner.PickObject();
-            if(obj!=null)
+            if ((_spawnObject) && (_spaceBetweenObjects > _maxSpaceBetweenObjects))  // turn into time-Based
             {
-                obj.gameObject.AddComponent<Boss_1_ObjectDestoryer>();
-                spawner.SpawnObject(randNumber + 0.3f, obj, false);
+                int randNumber = Random.Range(-53, -50);
+
+                Transform obj = spawner.PickObject();
+                if (obj != null)
+                {
+                    obj.gameObject.AddComponent<Boss_1_ObjectDestoryer>();
+                    spawner.SpawnObject(randNumber + 0.3f, obj, false);
+                }
+
+                _spawnObject = false;
+                _spaceBetweenObjects = 0;
+
+            }
+            else
+            {
+                _spawnObject = true;
+                _spaceBetweenObjects++;
             }
         }
     }

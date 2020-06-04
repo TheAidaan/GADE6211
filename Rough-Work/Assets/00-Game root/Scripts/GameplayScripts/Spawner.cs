@@ -409,7 +409,7 @@ public class Spawner : MonoBehaviour
 
         if (superFling != null)
         {
-            //Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1),Triggers[1].rotation //the chaneg level trigger?
+            Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1), Triggers[1].rotation);// spawn the center player trigger
             Instantiate(superFling, new Vector3(_firstLane + 1, worldHeight + 1f, spawnPoint + 2), superFling.rotation, _parent.transform);
         }
     }
