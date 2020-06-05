@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameOverMenu");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))                //THIS MUST BE IN FIXED UPDATE
+        if (Input.GetKeyDown(KeyCode.LeftShift))                //THIS MUST BE IN FIXED UPDATE (Call boss class)
         {
             DisableSpawner();
             _spawnBoss = true;

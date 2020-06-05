@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class PlatformMidPoint : Trigger
 {
-    public override void Effect()
+
+    private void OnTriggerEnter(Collider other)
     {
         FindObjectOfType<Boss_1_spawner>().SpawnWalkway();
-        base.Effect();
+
+        if (Boss_1_Manager.currrentStage == 4)
+        {
+            GetComponentInParent<Boss_1_Manager>().ReleasePlayer();
+        }
+
+
     }
 }

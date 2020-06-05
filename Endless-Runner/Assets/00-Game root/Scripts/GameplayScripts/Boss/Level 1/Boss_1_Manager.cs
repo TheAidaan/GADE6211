@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Boss_1_Manager : BossManager
 {
-    enum BOSS_1_STAGES { Start, One, Two, Three, End }
-    BOSS_1_STAGES currrentStage;
+    enum BOSS_1_STAGES { Start = 0, One, Two, Three, End }
+    static BOSS_1_STAGES _currrentStage;
+
+    public static int currrentStage { get { return (int)_currrentStage; } }
 
     Boss_1_spawner spawn;
     Spawner spawner;
 
-    [SerializeField] int _spawnPoint; //MAKE PRIVATE WHEN DONE!
+    int _spawnPoint; 
 
     bool gotPlayer = false;
 
@@ -23,13 +25,12 @@ public class Boss_1_Manager : BossManager
     {
         _minSpaceBetweenObjects = 8;
 
-        currrentStage = BOSS_1_STAGES.Start;
+        _currrentStage = BOSS_1_STAGES.Start;
 
         spawner = FindObjectOfType<Spawner>();
         spawner.AssignObjects();
 
         spawn = GetComponent<Boss_1_spawner>();
-
 
         empty = new GameObject();
         empty.transform.position = new Vector3(-53, 1, transform.position.z);
@@ -59,12 +60,11 @@ public class Boss_1_Manager : BossManager
 
                     _spawnObject = false;
                     _spaceBetweenObjects = 0;
-
                 }
                 else
                 {
                     _spawnObject = true;
-                    _spaceBetweenObjects++;
+                    _spaceBetweenObjects+=1;
                 }
             }
             else
@@ -73,17 +73,8 @@ public class Boss_1_Manager : BossManager
                 {
                     FetchPlayer();
                 }
-
             }
-        }
-    }
-
-    void Update()
-    {
-        if (Player == null)
-        {
-            BossEnd();
-        }
+        }else { BossDeactivation(); }
     }
 
     public override void BossStart()
@@ -92,13 +83,13 @@ public class Boss_1_Manager : BossManager
         Player.transform.eulerAngles = new Vector3(0,-82,0);
 
         spawner.SetParent(gameObject);
-        spawner.SetSpawnPoint((int)transform.position.z);
+        GetSpawnPoint((int)transform.position.z);
+        spawner.SetSpawnPoint(_spawnPoint);
         spawner.SetLanes(-53);
     }
 
     void FetchPlayer()
     {
-        
         if ((Player.position.z > (_spawnPoint - 15)) && (!gotPlayer))
         {
             spawner.SpawnBuildingBlocks(_spawnPoint,null);
@@ -107,15 +98,10 @@ public class Boss_1_Manager : BossManager
 
             if (_spawnPoint == ((int)(transform.position.z - 52.98)))
             {
-                spawner.SpawnEscape(_spawnPoint, empty.transform);
+                spawner.SpawnEscape(_spawnPoint, empty.transform, true);
                 gotPlayer = true;
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        currrentStage++;
     }
 
     public void GetSpawnPoint(int spawnPoint)
@@ -123,4 +109,21 @@ public class Boss_1_Manager : BossManager
         _spawnPoint = spawnPoint;
     }
 
+
+    public override void BossEnd()
+    {
+        Player.transform.eulerAngles = new Vector3(0, 90, 0);
+        Player.GetComponent<CharacterMovement>().EffectForwardMovement(true);
+    }
+
+    public void IncreaseStage()
+    {
+        _currrentStage++;
+        Debug.Log(currrentStage);
+    }
+
+    public void ReleasePlayer()
+    {
+        spawner.SpawnEscape(_spawnPoint, transform, false);
+    }
 }

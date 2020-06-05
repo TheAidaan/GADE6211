@@ -23,7 +23,7 @@ public class Boss_1_spawner : MonoBehaviour
 
 
         Instantiate(bossWorld[0], transform.position, transform.rotation, transform); // spawn walkway
-        Instantiate(bossWorld[1], new Vector3(transform.position.x,transform.position.y-150,transform.position.z), bossWorld[1].transform.rotation, transform); //sapwn cylinder
+        Instantiate(bossWorld[1], new Vector3(transform.position.x,transform.position.y-150 ,transform.position.z), bossWorld[1].transform.rotation, transform); //sapwn cylinder
 
         float z = transform.position.z - 52;
         for (int x = -1; x < 2; x++) //spawn the boss starters in each lane

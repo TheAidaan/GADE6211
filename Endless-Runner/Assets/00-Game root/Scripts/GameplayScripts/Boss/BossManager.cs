@@ -41,6 +41,9 @@ public class BossManager : MonoBehaviour
     }
 
     public virtual void BossStart() {}
-    public virtual void BossEnd() { _bossActive = false; _endBoss = false; }
+
+    public void BossDeactivation(){ _bossActive = false; _endBoss = false; }
+
+    public virtual void BossEnd() { }
 
 }

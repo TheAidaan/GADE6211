@@ -30,7 +30,14 @@ public class CharacterReact : MonoBehaviour
         rend.enabled = true;
 
         materials = Resources.LoadAll<Material>("Materials/Player");
-       
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightAlt))
+        {
+            CurrentResistanceLevel = playerResistance.timeBased;
+        }
     }
 
     void ChangeMaterial(int MaterialIndex)

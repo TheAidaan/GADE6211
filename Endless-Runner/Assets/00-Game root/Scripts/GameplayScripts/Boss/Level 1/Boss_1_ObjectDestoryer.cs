@@ -24,9 +24,11 @@ public class Boss_1_ObjectDestoryer : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        }else
-        { 
-            Destroy(GetComponent<Boss_1_ObjectDestoryer>()); 
+        }
+
+        if (!GameManager.BossMode)
+        {
+            Destroy(GetComponent<Boss_1_ObjectDestoryer>());
         }
     }
 }
