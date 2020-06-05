@@ -64,12 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossManager.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossStartTrigger.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossSpawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Cylinder.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Manager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_ObjectDestoryer.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_spawner.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Spawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlatformMidPoint.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Triggers\BossActivationTrigger.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\GameManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Abstract Objects.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Collectables\Coin_Collectable.cs" />

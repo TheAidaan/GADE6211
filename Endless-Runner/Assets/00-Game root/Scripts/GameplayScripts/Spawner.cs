@@ -434,6 +434,15 @@ public class Spawner : MonoBehaviour
 
         int closedLane;
 
+        if (LeftExit)
+        {
+            closedLane = _firstLane + 3;
+        }
+        else
+        {
+            closedLane = _firstLane - 1;
+        }
+
         for (int z = spawnPoint; z < (spawnPoint + 3); z++)
         {
             for (int x = _firstLane; x < _firstLane+3; x++)
@@ -441,20 +450,12 @@ public class Spawner : MonoBehaviour
                 Instantiate(World[0], new Vector3(x, 0, z), World[0].rotation, parent); // spawns the Escape ground
             }
 
-            if (LeftExit)
-            {
-                closedLane = _firstLane + 3;
-            }else
-            {
-                closedLane = _firstLane -1;
-            }
             Instantiate(World[1], new Vector3(closedLane, 0, z), World[1].rotation, parent); //spawns the left/right wall
         }
 
-        for (int x = _firstLane; x < _firstLane; x++)
+        for (int x = _firstLane-1; x < (_firstLane + 4); x++)
         {
             Instantiate(World[1], new Vector3(x, 0, spawnPoint + 3), World[1].rotation, parent);// spawn front wall 
-            Debug.Log("wall");
         }
 
     }

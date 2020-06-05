@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossStartTrigger : MonoBehaviour
+public class BossActivationTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         FindObjectOfType<BossManager>().BossActivation();
-        Destroy(gameObject);
+       
     }
 }

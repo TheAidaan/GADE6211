@@ -7,7 +7,7 @@ public class PlatformMidPoint : Trigger
 
     private void OnTriggerEnter(Collider other)
     {
-        FindObjectOfType<Boss_1_spawner>().SpawnWalkway();
+        FindObjectOfType<Boss_1_Spawner>().SpawnWalkway();
 
         if (Boss_1_Manager.currrentStage == 4)
         {

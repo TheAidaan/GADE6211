@@ -9,6 +9,7 @@ TagManager:
   - Single
   - BossObject
   - BossItem
+  - Kill
   layers:
   - Default
   - TransparentFX

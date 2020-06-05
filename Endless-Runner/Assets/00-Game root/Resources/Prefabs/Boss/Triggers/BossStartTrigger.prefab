@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: BossStartTrigger
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf76891b8975a564389023fcfee21679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotation: {x: 0, y: 0, z: 0}
-  Player: {fileID: 0}
 --- !u!65 &1393830914317382457
 BoxCollider:
   m_ObjectHideFlags: 0
