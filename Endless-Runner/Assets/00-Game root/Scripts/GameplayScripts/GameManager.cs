@@ -22,16 +22,11 @@ public class GameManager : MonoBehaviour
 
     Material[] environmentMaterial = new Material[4];
 
-    bool _spawnActive;
-
     int spawnPoint = 12;
-
-    bool _spawnPlatform;
 
     Transform[] Boss = new Transform[3];
 
-    bool _spawnBoss = false;
-    bool _changeLevel = false;
+    bool _spawnBoss, _spawnPlatform, _spawnActive;
 
     GameObject World;
 
@@ -39,7 +34,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         _bossMode = false;
-
+        _spawnBoss = false;
         _currentLevel = Levels.one;
         characterDeath = false;
         _spawnPlatform = true;
@@ -51,7 +46,7 @@ public class GameManager : MonoBehaviour
         spawn = GetComponent<Spawner>();
         World = new GameObject();
         spawn.SetParent(World);
-        spawn.SetLanes(-1);
+        spawn.SetLanes(-1,0);
         spawn.AssignObjects();
 
         environmentMaterial = Resources.LoadAll<Material>("Materials/World");
@@ -65,6 +60,11 @@ public class GameManager : MonoBehaviour
         {
             spawn.SpawnBuildingBlocks(spawnPoint, null);
         }
+    }
+
+    private void FixedUpdate()// call the boss here!!!
+    {
+        
     }
 
     void Update()
@@ -114,12 +114,19 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLevel()
     {
-        spawn.AssignObjects();
 
-        _spawnActive = true;
-        _currentLevel++;
+        spawn.SetParent(World);
+        spawn.SetLanes(-1, 0);
+        spawn.SetSpawnPoint(spawnPoint);
+        spawn.AssignObjects();
+        SetStage();
+
+        
 
         StartCoroutine(setEnvironment());
+        
+        _spawnActive = true;
+        _currentLevel++;
  
     }
 
@@ -131,31 +138,39 @@ public class GameManager : MonoBehaviour
 
     public void Transition()
     {
-        spawnPoint += 56;
-        spawn.SpawnPlatform(spawnPoint, null, 180f);
-        spawnPoint += 5;
+        if (BossMode)
+        {
+            _spawnBoss = false;
+            ChangeLevel();
+        }
 
-        if (_spawnBoss)
+        if (_spawnBoss && !_bossMode)
         {
             SpawnBoss();
         }
 
-        if (_changeLevel)
-        {
-            ChangeLevel();
-        }
+    }
+
+    void SetStage()
+    {
+        spawnPoint += 56;
+        spawn.SpawnPlatform(spawnPoint, null, 180f);
+        spawnPoint += 5;
 
     }
 
     void SpawnBoss()
     {
+        SetStage();
+
         _bossMode = true;
         Boss =  Resources.LoadAll<Transform>("Prefabs/Boss");
-        Instantiate(Boss[0], new Vector3(0, -.7f, spawnPoint + 100f), Boss[0].rotation);
+        Instantiate(Boss[0], new Vector3(0, -.7f, spawnPoint + 100), Boss[0].rotation);
         FindObjectOfType<Boss_1_Manager>().GetSpawnPoint(spawnPoint);
+        spawnPoint+=97;    
     }
 
 
 
 
-}//Gamemanager
+    }//Gamemanager

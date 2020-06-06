@@ -19,7 +19,7 @@ public class Boss_1_Cylinder : MonoBehaviour
 
             if (_nextStageHeight == -750)
             {
-                _nextStageHeight = -720;
+                _nextStageHeight = -719;
             }
         }
     }

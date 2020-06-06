@@ -6,6 +6,7 @@ public class BossManager : MonoBehaviour
 {
     public Transform Player;
 
+    public int spawnPoint;
     static bool _bossActive = false;
     static bool _endBoss;
     public static bool bossActive { get { return _bossActive; } }
