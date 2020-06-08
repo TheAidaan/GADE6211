@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3838527569309466255}
   - component: {fileID: 3838527569309466248}
   - component: {fileID: 3487918652047215449}
+  - component: {fileID: 416307847878186717}
   m_Layer: 0
   m_Name: 1.Super-Size
   m_TagString: Untagged
@@ -107,3 +108,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rotation: {x: 0, y: 0, z: 0}
   Player: {fileID: 0}
+--- !u!114 &416307847878186717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838527569309466249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9693cab7fd00d544914c9625b015871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

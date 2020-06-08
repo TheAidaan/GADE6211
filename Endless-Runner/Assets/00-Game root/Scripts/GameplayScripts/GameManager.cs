@@ -142,9 +142,10 @@ public class GameManager : MonoBehaviour
         {
             _spawnBoss = false;
             ChangeLevel();
+            _bossMode = false;
         }
 
-        if (_spawnBoss && !_bossMode)
+        if (_spawnBoss && !BossMode)
         {
             SpawnBoss();
         }

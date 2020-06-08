@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
 
     int ClearDistance;
 
-    GameObject _parent;
+    Transform _parent;
     public void AssignObjects()
     {
         World = Resources.LoadAll<Transform>("Prefabs/World");
@@ -146,12 +146,12 @@ public class Spawner : MonoBehaviour
         {
             if (singleLane == _firstLane)
             {
-                Instantiate(World[1], new Vector3(_firstLane-1 + _offset, worldHeight, spawnPoint), World[1].rotation, _parent.transform);            //world- left wall
+                Instantiate(World[1], new Vector3(_firstLane-1 + _offset, worldHeight, spawnPoint), World[1].rotation, _parent);            //world- left wall
             }
 
         }else
         {
-                Instantiate(World[1], new Vector3(_firstLane-1 + _offset, worldHeight, spawnPoint), World[1].rotation,_parent.transform);       //world- left wall
+                Instantiate(World[1], new Vector3(_firstLane-1 + _offset, worldHeight, spawnPoint), World[1].rotation,_parent);       //world- left wall
 
         }
 
@@ -176,18 +176,18 @@ public class Spawner : MonoBehaviour
                             }
                         }else
                         {
-                            Instantiate(World[0], new Vector3(i + _offset, worldHeight, spawnPoint), World[0].rotation, _parent.transform);      //world- ground blocks 
+                            Instantiate(World[0], new Vector3(i + _offset, worldHeight, spawnPoint), World[0].rotation, _parent);      //world- ground blocks 
                         }
 
                     }
                     else
                     {
-                        Instantiate(World[0], new Vector3(i + _offset, worldHeight, spawnPoint), World[0].rotation, _parent.transform);      //world- ground blocks 
+                        Instantiate(World[0], new Vector3(i + _offset, worldHeight, spawnPoint), World[0].rotation, _parent);      //world- ground blocks 
 
                     }
                 }else
                 {
-                    Instantiate(Objects[0,2], new Vector3(i + _offset, worldHeight, spawnPoint), Objects[0, 2].rotation, _parent.transform);
+                    Instantiate(Objects[0,2], new Vector3(i + _offset, worldHeight, spawnPoint), Objects[0, 2].rotation, _parent);
                 }
             }else
             {
@@ -197,7 +197,7 @@ public class Spawner : MonoBehaviour
                     
                 }else
                 {
-                    Instantiate(World[0], new Vector3(i + _offset, worldHeight, spawnPoint), World[0].rotation, _parent.transform);        //world- ground blocks
+                    Instantiate(World[0], new Vector3(i + _offset, worldHeight, spawnPoint), World[0].rotation, _parent);        //world- ground blocks
                 }
             }
         }// end for-loop
@@ -207,12 +207,12 @@ public class Spawner : MonoBehaviour
         {
             if (singleLane == 1)
             {
-                Instantiate(World[1], new Vector3(_firstLane+3 + _offset, worldHeight, spawnPoint), World[1].rotation, _parent.transform);  //world-right wall
+                Instantiate(World[1], new Vector3(_firstLane+3 + _offset, worldHeight, spawnPoint), World[1].rotation, _parent);  //world-right wall
             }
 
         }else
         {
-            Instantiate(World[1], new Vector3(_firstLane+3 + _offset, worldHeight, spawnPoint), World[1].rotation, _parent.transform);  //world-right wall
+            Instantiate(World[1], new Vector3(_firstLane+3 + _offset, worldHeight, spawnPoint), World[1].rotation, _parent);  //world-right wall
         }
         
         if (stopBreak == spawnPoint)
@@ -232,7 +232,7 @@ public class Spawner : MonoBehaviour
         {
             if (gObject.gameObject.name == "2.Hole")
             {
-                Instantiate(gObject, new Vector3(currentLane + _offset, worldHeight, spawnPoint), gObject.rotation, _parent.transform);
+                Instantiate(gObject, new Vector3(currentLane + _offset, worldHeight, spawnPoint), gObject.rotation);
                 spawnground = false;
             }
             else
@@ -241,13 +241,13 @@ public class Spawner : MonoBehaviour
                 {
                     currentLane = (_firstLane + 1);
                 }                             
-                Instantiate(gObject, new Vector3(currentLane + _offset, worldHeight + 1, spawnPoint), gObject.rotation, _parent.transform);
+                Instantiate(gObject, new Vector3(currentLane + _offset, worldHeight + 1, spawnPoint), gObject.rotation);
             }
         }
 
         if (spawnground)
         {
-            Instantiate(World[0], new Vector3(currentLane + _offset, worldHeight, spawnPoint), World[0].rotation, _parent.transform); //world - ground blocks
+            Instantiate(World[0], new Vector3(currentLane + _offset, worldHeight, spawnPoint), World[0].rotation, _parent); //world - ground blocks
         }
 
 
@@ -302,8 +302,8 @@ public class Spawner : MonoBehaviour
         {
             randLane = singleLane;
         }
-        Instantiate(World[2], new Vector3(randLane + _offset, worldHeight-3, spawnPoint-1), World[2].rotation, _parent.transform);
-        Instantiate(Triggers[2], new Vector3(_firstLane+1 + _offset, 1.5f, spawnPoint+1), Triggers[2].rotation, _parent.transform); // the gone trigger
+        Instantiate(World[2], new Vector3(randLane + _offset, worldHeight-3, spawnPoint-1), World[2].rotation, _parent);
+        Instantiate(Triggers[2], new Vector3(_firstLane+1 + _offset, 1.5f, spawnPoint+1), Triggers[2].rotation, _parent); // the gone trigger
         
         ClearPath(3);
 
@@ -388,6 +388,7 @@ public class Spawner : MonoBehaviour
     {
         return Objects[Category, Item];
     }
+
     public Transform GetWorldBlocks(int index)
     {
         return World[index];
@@ -399,14 +400,13 @@ public class Spawner : MonoBehaviour
 
         if (superFling != null)
         {
-            Instantiate(Triggers[1], new Vector3(0f, worldHeight + 1f, spawnPoint + 1), Triggers[1].rotation);// spawn the center player trigger
-            Instantiate(superFling, new Vector3(_firstLane + 1, worldHeight + 1f, spawnPoint + 2), superFling.rotation, _parent.transform);
+            Instantiate(superFling, new Vector3(_firstLane + 1, worldHeight + 1f, spawnPoint + 2), superFling.rotation, _parent);
         }
     }
 
     public void SetParent(GameObject parent)
     {
-        _parent = parent;
+        _parent = parent.transform;
     }
 
     public void SetLanes(int firstLane, float offset)

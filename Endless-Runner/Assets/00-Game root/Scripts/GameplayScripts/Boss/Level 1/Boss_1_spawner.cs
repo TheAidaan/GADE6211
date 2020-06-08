@@ -6,29 +6,29 @@ public class Boss_1_Spawner : BossSpawner
 {
     Transform[] bossWorld = new Transform[4];
 
+    GameObject[] _children = new GameObject[3];
+
     GameObject[] bossObstacles = new GameObject[4];
 
-    bool _maySpawnWalkway = true;
+    bool _activateWalkway = true;
 
     void Start()
     {
         bossWorld = Resources.LoadAll<Transform>("Prefabs/Boss/Level 1/World");
 
+        for( int i = 0; i < 3; i++) 
+        {
+            _children[i] = transform.GetChild(i).gameObject;
+        }
 
-        Transform walkway  = Instantiate(bossWorld[0], transform.position, transform.rotation, transform); // spawn walkway
-        Transform cylinder = Instantiate(bossWorld[1], new Vector3(transform.position.x,transform.position.y-150 ,transform.position.z), bossWorld[1].transform.rotation, transform); //sapwn cylinder
-
-        GetComponent<Boss_1_Manager>().GetGameObjects(cylinder,walkway);
-
-
+        _children[2].SetActive(false);
     }
 
-    public void SpawnWalkway()
+    public void ActivateWalkway()
     {
-        if (_maySpawnWalkway)
+        if (_activateWalkway)
         {
-            Instantiate(bossWorld[0], transform.position, Quaternion.Euler(0, 90.97f, 0), transform);
-            _maySpawnWalkway = false;
+            _children[2].SetActive(true);
         }
     }
 
@@ -38,7 +38,13 @@ public class Boss_1_Spawner : BossSpawner
         if (obj != null)
         {
             obj = Instantiate(obj, new Vector3(randNumber + 0.3f, 1, transform.position.z), obj.transform.rotation, transform);
-            obj.AddComponent<Boss_1_ObjectDestoryer>();
+            obj.AddComponent<Boss_1_OjectController>();
         }
+    }
+
+    public void ReleasePlayer()
+    {
+        Destroy(_children[1]);
+        _children[0].gameObject.GetComponent<BoxCollider>().isTrigger = false;
     }
 }

@@ -7,12 +7,10 @@ public class Boss_1_Manager : BossManager
     enum BOSS_1_STAGES { Start = 0, One, Two, Three, End }
     static BOSS_1_STAGES _currrentStage;
 
-    public static int currrentStage { get { return (int)_currrentStage; } }
+    public static int CurrrentStage { get { return (int)_currrentStage; } }
 
     Boss_1_Spawner spawn;
     Spawner gameSpawner;
-
-    Transform _cylinder, _walkway;
 
     bool gotPlayer, _maySpawnObjects;
 
@@ -21,12 +19,10 @@ public class Boss_1_Manager : BossManager
     bool _spawnObject;
     int _spaceBetweenObjects, _minSpaceBetweenObjects ;
 
-    Transform[] bossWorldObjects =  new Transform[3];
-
      void Awake()
     {
         gotPlayer = false;
-        _maySpawnObjects = false;
+        _maySpawnObjects = true;
         _minSpaceBetweenObjects = 8;
 
         _currrentStage = BOSS_1_STAGES.Start;
@@ -35,13 +31,12 @@ public class Boss_1_Manager : BossManager
         gameSpawner.AssignObjects();
 
         spawn = GetComponent<Boss_1_Spawner>();
-        spawn.SetLanes(-1);
+        spawn.SetLanes(-1,0);
         gameSpawner.SetSpawnPoint(spawnPoint);
 
         empty = new GameObject();
         empty.transform.position = new Vector3(-53, 1, transform.position.z);
-        empty.transform.SetParent(transform);
-        empty.AddComponent<Boss_1_ObjectDestoryer>();
+        empty.AddComponent<Boss_1_OjectController>();
         gameSpawner.SetParent(empty);
 
     }
@@ -62,7 +57,11 @@ public class Boss_1_Manager : BossManager
                         Transform obj = gameSpawner.PickObject();
                         if (obj != null)
                         {
-                            obj.gameObject.AddComponent<Boss_1_ObjectDestoryer>();
+                            if (obj.gameObject.GetComponent<Boss_1_OjectController>() == null)
+                            {
+                                obj.gameObject.AddComponent<Boss_1_OjectController>();
+                            }
+                           
                             gameSpawner.SpawnObject(randNumber, obj, false);
                         }
 
@@ -87,6 +86,15 @@ public class Boss_1_Manager : BossManager
         {
             base.DeactivateBoss();
         }
+
+        if (!GameManager.BossMode)
+        {
+            transform.Translate(Vector3.down * 1f);
+            if (transform.position.y<-50)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public override void BossStart()
@@ -94,14 +102,12 @@ public class Boss_1_Manager : BossManager
         Player.GetComponent<CharacterMovement>().EffectForwardMovement(true);
         Player.transform.eulerAngles = new Vector3(0,-82,0);
 
-        gameSpawner.SetParent(gameObject);
-
         GetSpawnPoint((int)transform.position.z);
 
         gameSpawner.SetSpawnPoint(spawnPoint);
         gameSpawner.SetLanes(-53, 0.33f);
 
-        spawn.SetLanes(-53);
+        spawn.SetLanes(-53,0.33f);
         spawn.SetSpawnPoint(spawnPoint);
     }
 
@@ -116,7 +122,7 @@ public class Boss_1_Manager : BossManager
             if (spawnPoint == ((int)(transform.position.z - 52.98)))
             {
                 spawn.SetSpawnPoint(spawnPoint+1);
-                spawn.SpawnActivationTriggers(empty.transform);
+                spawn.SpawnActivationTriggers(empty.transform,true);
                 gameSpawner.SpawnEscape(spawnPoint, empty.transform, true);
                 gotPlayer = true;
             }
@@ -131,8 +137,6 @@ public class Boss_1_Manager : BossManager
 
     public override void DeactivateBoss()
     {
-        _cylinder.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-
         Player.transform.eulerAngles = new Vector3(0, 0, 0);
         Player.GetComponent<CharacterMovement>().EffectForwardMovement(false);
 
@@ -142,7 +146,7 @@ public class Boss_1_Manager : BossManager
     public void IncreaseStage()
     {
         _currrentStage++;
-        Debug.Log(currrentStage);
+        Debug.Log(CurrrentStage);
 
         if (_currrentStage == BOSS_1_STAGES.End)
         {
@@ -152,17 +156,9 @@ public class Boss_1_Manager : BossManager
 
     public void ReleasePlayer()
     {
-        Destroy(_walkway.gameObject);
-        spawn.SpawnActivationTriggers(transform);
+        spawn.ReleasePlayer();
+        spawn.SpawnActivationTriggers(transform, false);
         gameSpawner.SpawnEscape(spawnPoint, transform, false);
         _maySpawnObjects = false;
     }
-
-    public void GetGameObjects(Transform cylinder, Transform walkway)
-    {
-        _cylinder = cylinder;
-        _walkway = walkway;
-    }
-
-
 }

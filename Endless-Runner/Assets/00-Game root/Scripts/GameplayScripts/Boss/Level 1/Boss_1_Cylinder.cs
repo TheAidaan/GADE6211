@@ -26,7 +26,7 @@ public class Boss_1_Cylinder : MonoBehaviour
 
     public float DescendSpeed()
     {
-        switch(Boss_1_Manager.currrentStage)
+        switch(Boss_1_Manager.CurrrentStage)
         {
             case 0: 
                 return 0.5f;
