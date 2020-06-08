@@ -5,23 +5,42 @@ using UnityEngine;
 public class Boss_1_Cylinder : MonoBehaviour
 {
     int _nextStageHeight = -300;
+    bool _fall = true;
+    bool _inPosition = false;
     void Update()
     {
         if (BossManager.bossActive)
         {
-            transform.Translate(Vector3.down * DescendSpeed());
-        }
-
-        if (transform.position.y < _nextStageHeight)
-        {
-            GetComponentInParent<Boss_1_Manager>().IncreaseStage();
-            _nextStageHeight -= 150;
-
-            if (_nextStageHeight == -750)
+            if (_fall)
             {
-                _nextStageHeight = -719;
+                transform.Translate(Vector3.down * DescendSpeed());
+                if (transform.position.y < _nextStageHeight)
+                {
+                    GetComponentInParent<Boss_1_Manager>().IncreaseStage();
+                    _nextStageHeight -= 150;
+
+                    if (_nextStageHeight == -720)
+                    {
+                        _fall = false;
+                    }
+
+                    if (_nextStageHeight == -750)
+                    {
+                        _nextStageHeight = -720;
+                    }
+                }
+
+            }else
+            {
+                if (!_inPosition)
+                {
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -718.8f, transform.position.z), 0.02f);
+                    _inPosition = true;
+                }
             }
         }
+
+
     }
 
     public float DescendSpeed()
