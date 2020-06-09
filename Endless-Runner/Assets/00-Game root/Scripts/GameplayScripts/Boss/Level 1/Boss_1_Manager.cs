@@ -119,11 +119,10 @@ public class Boss_1_Manager : BossManager
 
             spawnPoint++;
 
-            if (spawnPoint == ((int)(transform.position.z - 52.98)))
+            if (spawnPoint == ((int)(transform.position.z - 51.98)))
             {
                 spawn.SetSpawnPoint(spawnPoint+1);
-                spawn.SpawnActivationTriggers(empty.transform,true);
-                gameSpawner.SpawnEscape(spawnPoint, empty.transform, true);
+                //spawn.SpawnActivationTriggers(empty.transform,true);
                 gotPlayer = true;
             }
         }
@@ -157,8 +156,7 @@ public class Boss_1_Manager : BossManager
     public void ReleasePlayer()
     {
         spawn.ReleasePlayer();
-        spawn.SpawnActivationTriggers(transform, false);
-        gameSpawner.SpawnEscape(spawnPoint, transform, false);
+        //spawn.SpawnActivationTriggers(transform, false);
         _maySpawnObjects = false;
     }
 }

@@ -6,7 +6,7 @@ public class Boss_1_Spawner : BossSpawner
 {
     Transform[] bossWorld = new Transform[4];
 
-    GameObject[] _children = new GameObject[3];
+    GameObject[] _children = new GameObject[6];
 
     GameObject[] bossObstacles = new GameObject[4];
 
@@ -16,18 +16,20 @@ public class Boss_1_Spawner : BossSpawner
     {
         bossWorld = Resources.LoadAll<Transform>("Prefabs/Boss/Level 1/World");
 
-        for( int i = 0; i < 3; i++) 
+        for( int i = 0; i < 5; i++) 
         {
             _children[i] = transform.GetChild(i).gameObject;
         }
 
         _children[2].SetActive(false);
+        _children[4].SetActive(false);
     }
 
     public void ActivateWalkway()
     {
         if (_activateWalkway)
         {
+            _children[3].SetActive(false);
             _children[2].SetActive(true);
         }
     }
@@ -44,7 +46,7 @@ public class Boss_1_Spawner : BossSpawner
 
     public void ReleasePlayer()
     {
+        _children[4].SetActive(true);
         Destroy(_children[1]);
-        _children[0].gameObject.GetComponent<BoxCollider>().isTrigger = false;
     }
 }

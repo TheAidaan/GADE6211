@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
 
         _bossMode = true;
         Boss =  Resources.LoadAll<Transform>("Prefabs/Boss");
-        Instantiate(Boss[0], new Vector3(0, -.7f, spawnPoint + 100), Boss[0].rotation);
+        Instantiate(Boss[0], new Vector3(0, -.7f, spawnPoint + 100.7f), Boss[0].rotation);
         FindObjectOfType<Boss_1_Manager>().GetSpawnPoint(spawnPoint);
         spawnPoint+=97;    
     }
