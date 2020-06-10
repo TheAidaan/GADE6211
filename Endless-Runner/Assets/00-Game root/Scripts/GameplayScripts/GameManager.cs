@@ -117,10 +117,8 @@ public class GameManager : MonoBehaviour
     public void ChangeLevel()
     {
         _changedlevel = true;
-        RenderSettings.skybox = environmentMaterial[CurrentLevel];
-
         _currentLevel++;
-
+        RenderSettings.skybox = environmentMaterial[CurrentLevel];
         _activateLevel = true;
 
 
@@ -137,6 +135,7 @@ public class GameManager : MonoBehaviour
 
     public void Transition()
     {
+        spawnPoint = (int)Player.transform.position.z;
         spawn.SetWorldHeight((int)Player.transform.position.y);
 
         if (BossMode)
@@ -166,7 +165,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnStartPlatform()
     {
-        spawnPoint += 56;
+        spawnPoint += 55;
         spawn.SpawnPlatform(spawnPoint, null, 180f);
         spawnPoint += 5;
 
