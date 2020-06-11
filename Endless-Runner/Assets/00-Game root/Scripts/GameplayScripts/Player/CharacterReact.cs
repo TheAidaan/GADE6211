@@ -148,7 +148,6 @@ public class CharacterReact : MonoBehaviour
     public void Die(bool killCharacter, bool stopMovement)
     {
         GameManager.characterDeath = true;
-        GetComponent<CharacterStats>().SendStats();
         
         if (stopMovement)
         {

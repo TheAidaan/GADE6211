@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class GameManager : MonoBehaviour
     static  bool _bossMode;
     public static bool BossMode { get { return _bossMode; } }
     Spawner spawn;
+    UIManager UI;
 
     float waitToLoad = 0;
 
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     Transform[] Boss = new Transform[3];
 
-    bool _spawnBoss, _spawnPlatform, _spawnActive, _changedlevel, _activateLevel;
+    bool _spawnBoss, _spawnPlatform, _spawnActive, _changedlevel, _activateLevel, _displayingUI;
 
     GameObject World;
 
@@ -41,11 +41,15 @@ public class GameManager : MonoBehaviour
         characterDeath = false;
         _spawnPlatform = true;
         _spawnActive = true;
+        _displayingUI = false;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
        
         spawn = GetComponent<Spawner>();
+        UI = GetComponentInChildren<UIManager>();
+        UI.Begin();
+
         World = new GameObject();
         spawn.SetParent(World);
         spawn.SetLanes(-1,0);
@@ -98,7 +102,12 @@ public class GameManager : MonoBehaviour
 
         if (waitToLoad > 2)
         {
-            SceneManager.LoadScene("GameOverMenu");
+            if (!_displayingUI)
+            {
+                UI.PlayerDeath();
+                _displayingUI = true;
+            }
+           
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))                //THIS MUST BE IN FIXED UPDATE (Call boss class)
@@ -116,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLevel()
     {
+        UI.ShowPowerIndicator(true);
         _changedlevel = true;
         _currentLevel++;
         RenderSettings.skybox = environmentMaterial[CurrentLevel];

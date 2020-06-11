@@ -5,15 +5,20 @@ using TMPro;
 
 public class Leaderboard : MonoBehaviour
 {
-	public TextMeshProUGUI[] leaderBoardTexts;
+	TextMeshProUGUI[] leaderBoardTexts = new TextMeshProUGUI[10];
 	Data data;
 
 	void Start()
 	{
-		leaderBoardTexts = GetComponentsInChildren<TextMeshProUGUI>();
-		data = GetComponent<Data>();
+		data = GetComponentInParent<Data>();
+		int x = 0;
+		for (int i = 0; i < 10; i++)
+		{
+			leaderBoardTexts[x] = transform.GetChild(i).gameObject.GetComponent< TextMeshProUGUI >();
+			x++;
+		}
 
-		for (int i = 1; i < leaderBoardTexts.Length; i++)
+		for (int i = 0; i < leaderBoardTexts.Length; i++)
 		{
 			leaderBoardTexts[i].text = i + 1 + ". Fetching...";
 		}

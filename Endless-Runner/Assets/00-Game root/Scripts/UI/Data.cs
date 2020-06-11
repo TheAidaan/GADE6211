@@ -15,7 +15,7 @@ public class Data : MonoBehaviour
 
 	void Awake()
 	{
-		leaderboard = GetComponent<Leaderboard>();
+		leaderboard = GetComponentInChildren<Leaderboard>();
 		instance = this;
 	}
 
@@ -32,11 +32,6 @@ public class Data : MonoBehaviour
 		if (www.isNetworkError || www.isHttpError)
 		{
 			print("Error Downloading: " + www.error);
-
-		}
-		else
-		{
-			DownloadHighscores();
 		}
 	}
 

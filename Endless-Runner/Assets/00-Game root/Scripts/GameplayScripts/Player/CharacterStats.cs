@@ -5,9 +5,8 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
 
-    CharacterUI characterUI;
+    UIManager UI;
     CharacterAbility characterAbility;
-    PlayerStatsUI playerStatsUI;
 
     int  _totalCoins;
     float _totalDistannce;
@@ -20,9 +19,7 @@ public class CharacterStats : MonoBehaviour
     void Start()
     {
         characterAbility = GetComponentInParent<CharacterAbility>();
-        characterUI = GetComponentInChildren<CharacterUI>();
-
-        characterUI.SetGUI();
+        UI = FindObjectOfType<UIManager>();
 
         _startPosition = transform.position;
         _totalCoins = 0;
@@ -36,33 +33,24 @@ public class CharacterStats : MonoBehaviour
         if (!GameManager.characterDeath)
         {
             _totalDistannce = (transform.position.z - _startPosition.z);
-            SendDistance((int)_totalDistannce);
+            UI.SetTotDist((int)_totalDistannce);
         }
     }
 
     public void IncreaseCoins(int increment)
     {
         _totalCoins += increment;
-        characterUI.SetTotCoins(_totalCoins.ToString());
-    }
-
-    public void SendDistance(int disatnce)
-    {
-        characterUI.SetTotDist(disatnce.ToString());
+        UI.SetTotCoins(_totalCoins.ToString());
     }
 
     public void ChangePower(float charge)
     {
         _power += charge;
-        characterUI.SetSlider(_power / 100);
+        UI.SetSlider(_power / 100);
 
         if (_power == 100)
         {
             characterAbility.Charged(true);
         }
-    }
-    public void SendStats()
-    {
-        PlayerStatsUI.TotalDistance = (int)_totalDistannce;
     }
 }
