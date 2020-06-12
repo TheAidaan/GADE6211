@@ -117,4 +117,10 @@ public class UIManager : MonoBehaviour
     {
         Data.AddNewHighscore(name.text, _score);
     }
+
+    public void ChangeColour(Material playerMaterial)
+    {
+        DisplayText[1].color = playerMaterial.color;
+
+    }
 }

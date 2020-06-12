@@ -10,6 +10,7 @@ public class CharacterReact : MonoBehaviour
     CharacterAnimations animator;
     CharacterMovement Movement;
     CharacterAbility ability;
+    UIManager UI;
 
     bool _flingActive;
 
@@ -24,12 +25,14 @@ public class CharacterReact : MonoBehaviour
         animator = GetComponent<CharacterAnimations>();
         ability = GetComponentInParent<CharacterAbility>();
         Movement = GetComponentInParent<CharacterMovement>();
+        UI = FindObjectOfType<UIManager>();
 
         CurrentResistanceLevel = playerResistance.none;
         rend = GetComponent<Renderer>();
         rend.enabled = true;
 
         materials = Resources.LoadAll<Material>("Materials/Player");
+        UI.ChangeColour(materials[0]);
     }
 
     void Update()
@@ -43,6 +46,7 @@ public class CharacterReact : MonoBehaviour
     void ChangeMaterial(int MaterialIndex)
     {
         rend.sharedMaterial = materials[MaterialIndex];
+        UI.ChangeColour(materials[MaterialIndex]);
     }
 
     public int PlayerResistance()
