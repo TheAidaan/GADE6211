@@ -11,8 +11,8 @@ public class UIManager : MonoBehaviour
     Slider characterPowerIndicator;
     GameObject[] GameParts = new GameObject[3];
 
-    bool _showPowerIndicator, _showDistanceText, _showCoinsText = true;
-    bool _showLeaderBoard, _showGameOver, _showSaveScore = false;
+    bool _showPowerIndicator, _showDistanceText, _showCoinsText;
+    bool _showLeaderBoard, _showGameOver, _showSaveScore;
 
     int _score;
     public void Begin()
@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
         DisplayText[0].gameObject.SetActive(_showCoinsText);
         DisplayText[1].gameObject.SetActive(_showDistanceText);
 
-        GameParts[0].gameObject.SetActive(_showLeaderBoard);
+        GameParts[0].gameObject.SetActive(_showLeaderBoard); ; 
         GameParts[1].gameObject.SetActive(_showGameOver);
         GameParts[2].gameObject.SetActive(_showSaveScore);
     }
@@ -113,8 +113,8 @@ public class UIManager : MonoBehaviour
         SetGUI();
     }
 
-    public void SaveScore(TextMeshProUGUI name)
+    public void SaveScore(TMP_InputField name)
     {
-        Data.AddNewHighscore(name.ToString(), _score);
+        Data.AddNewHighscore(name.text, _score);
     }
 }

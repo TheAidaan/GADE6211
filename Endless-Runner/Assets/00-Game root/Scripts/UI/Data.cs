@@ -5,17 +5,15 @@ using UnityEngine.Networking;
 
 public class Data : MonoBehaviour
 {
-	const string privateCode = "_LRi904IQkmAeuiQBjDjOw-JMkbRRkSUy8uKxsXA92yA";
-	const string publicCode = "5ecb7651377dce0a143510fe";
+	const string privateCode = "SmO9YxIkLEWUgjkXFv5KqABrWksJlPHEmstjvNl4Xoxw";
+	const string publicCode = "5ee36217377e860b6c46a40a";
 	const string webURL = "http://dreamlo.com/lb/";
 
-	Leaderboard leaderboard;
 	public Highscore[] highscoresList;
 	static Data instance;
 
 	void Awake()
 	{
-		leaderboard = GetComponentInChildren<Leaderboard>();
 		instance = this;
 	}
 
@@ -52,7 +50,7 @@ public class Data : MonoBehaviour
 		}else
 		{
 			FormatHighscores(www.downloadHandler.text);
-			leaderboard.OnHighscoresDownloaded(highscoresList);
+			FindObjectOfType<Leaderboard>().OnHighscoresDownloaded(highscoresList);
 		}
 		
 	}
@@ -67,7 +65,6 @@ public class Data : MonoBehaviour
 			string[] entryInfo = entries[i].Split(new char[] { '|' });
 			string username = entryInfo[0];
 			int score = int.Parse(entryInfo[1]);
-			string colour = entryInfo[2];
 			highscoresList[i] = new Highscore(username, score);
 		}
 	}
