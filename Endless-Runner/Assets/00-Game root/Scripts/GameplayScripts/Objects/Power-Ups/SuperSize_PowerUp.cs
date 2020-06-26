@@ -11,7 +11,10 @@ public class SuperSize_PowerUp : PowerUps
    
     public override void Effect()
     {
-        Player.GetComponent<CharacterReact>().SuperSize();
+        if (Player.GetComponent<CharacterReact>() != null)
+        {
+            Player.GetComponent<CharacterReact>().SuperSize();
+        }
        
         base.Effect();
     }

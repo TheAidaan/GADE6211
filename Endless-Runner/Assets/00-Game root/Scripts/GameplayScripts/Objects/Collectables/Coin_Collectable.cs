@@ -18,7 +18,10 @@ public class Coin_Collectable : Collectable
 
     public override void Effect()
     {
-        Player.GetComponent<CharacterStats>().IncreaseCoins(1);
+        if (Player.GetComponent<CharacterStats>() != null)
+        {
+            Player.GetComponent<CharacterStats>().IncreaseCoins(1);
+        }
         base.Effect();
     }
 }

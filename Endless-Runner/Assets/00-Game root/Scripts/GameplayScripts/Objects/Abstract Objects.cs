@@ -45,7 +45,7 @@ public abstract class Collectable : Objects
 
 public abstract class Obstacle : Objects
 {
-    public virtual void Effect(bool simpleResistance) 
+    public virtual void Effect() 
     { if (Player.GetComponent<CharacterReact>()!= null) 
         { 
             Player.GetComponent<CharacterReact>().Die(true, true);
@@ -53,11 +53,10 @@ public abstract class Obstacle : Objects
     }
     public override void CollisionEffect()
     { 
-        
         switch (PlayerResistance())
         {
-            case 1: //action done if player has simple resistance
-                Effect(true);
+            case 1: Player.GetComponentInChildren<CharacterReact>().Hit();
+                Destroy(gameObject);
                 break;
 
             case 2: //action done if player has time-based resistance
@@ -65,7 +64,7 @@ public abstract class Obstacle : Objects
                 break;
 
             default: //action done if player has no resistance
-                Effect(false);
+                Effect();
                 break;
         }
     }
@@ -99,7 +98,7 @@ public abstract class World : MonoBehaviour
 {
     void Update()
     {
-        if (GameManager.characterDeath == false)
+        if (!GameManager.characterDeath)
         {
             if (gameObject.transform.position.z < GameManager.Player.position.z - 6f)
             {

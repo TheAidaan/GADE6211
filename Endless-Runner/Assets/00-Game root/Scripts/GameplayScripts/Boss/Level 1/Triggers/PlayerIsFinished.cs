@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIsFinished : Trigger
+public class PlayerIsFinished : MonoBehaviour
 {
-    public override void Effect()
+    private void OnTriggerEnter(Collider other)
     {
-        Player.GetComponentInParent<CharacterMovement>().StopForwardMovement(true);
-        Player.GetComponentInParent<CharacterMovement>().LockControls(true);
+        other.transform.parent.eulerAngles = new Vector3(0, 0, 0);
+        other.GetComponentInParent<CharacterMovement>().StopForwardMovement(true, false);
+        other.GetComponentInParent<CharacterMovement>().LockControls(true);
         GetComponentInParent<Boss_1_InsideTower>().PlayerIsInPlace(true);
 
-        base.Effect();
+        Destroy(gameObject);
     }
 }

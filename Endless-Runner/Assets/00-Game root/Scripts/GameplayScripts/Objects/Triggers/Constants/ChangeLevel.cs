@@ -7,6 +7,5 @@ public class ChangeLevel : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         FindObjectOfType<GameManager>().ChangeLevel();
-        Debug.Log("changed the level");
     }
 }

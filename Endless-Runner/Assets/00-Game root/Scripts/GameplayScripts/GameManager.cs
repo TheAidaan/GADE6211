@@ -73,10 +73,10 @@ public class GameManager : MonoBehaviour
         _spawnActive = true;
     }
 
-    private void FixedUpdate()// call the boss here!!!
+    private void FixedUpdate()
     {
-        if (CharacterStats.distance > 200)
-        { 
+        if (CharacterStats.Distance > 1000)
+        {
             if (!_disablingSpawner)
             {
                 DisableSpawner();
@@ -85,44 +85,46 @@ public class GameManager : MonoBehaviour
             }
 
         }
-       
+
     }
 
     void Update()
     {
-        if (_spawnActive)
+        if (!characterDeath)
         {
-            if (!characterDeath)
+            if (_spawnActive)
             {
-                if (Player.position.z > (spawnPoint - 15))
-                {
-                    spawn.SpawnBuildingBlocks(spawnPoint, spawn.PickObject());
-                    spawnPoint++;
-                }
-            }
-        }else
-        {
-            if (_clearPath)
-            {
-                if (Player.position.z > (spawnPoint - 15))
-                {
-                    spawn.SpawnBuildingBlocks(spawnPoint, null);
-                    spawnPoint++;
-                    Debug.Log("spawnPoint: " + spawnPoint + "Clear dist: " + _clearDist);
-                    if (spawnPoint == _clearDist)
+               
+                    if (Player.position.z > (spawnPoint - 15))
                     {
-                        _clearPath = false;
-                        _spawnPlatform = true;
+                        spawn.SpawnBuildingBlocks(spawnPoint, spawn.PickObject());
+                        spawnPoint++;
+                    }
+         
+            }
+            else
+            {
+                if (_clearPath)
+                {
+                    if (Player.position.z > (spawnPoint - 15))
+                    {
+                        spawn.SpawnBuildingBlocks(spawnPoint, null);
+                        spawnPoint++;
+                        if (spawnPoint == _clearDist)
+                        {
+                            _clearPath = false;
+                            _spawnPlatform = true;
+                        }
                     }
                 }
+
+                if (_spawnPlatform)
+                {
+                    spawn.SpawnPlatform(spawnPoint, spawn.GetSpecificObject(2, 3), 0f);
+                    _spawnPlatform = false;
+                }
+
             }
-           
-            if (_spawnPlatform)
-            {
-                spawn.SpawnPlatform(spawnPoint, spawn.GetSpecificObject(2, 3), 0f);
-                _spawnPlatform = false;
-            }
-            
         }
 
         if (characterDeath)
@@ -139,6 +141,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
+        
     }
 
     public void DisableSpawner()
@@ -204,7 +207,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnStartPlatform()
     {
-        spawnPoint += 55;
+        spawnPoint += 54;
         spawn.SpawnPlatform(spawnPoint, null, 180f);
         spawnPoint += 5;
 

@@ -6,7 +6,10 @@ public class Fling_PowerUp : PowerUps
 {
     public override void Effect() 
     {
-        Player.GetComponent<CharacterReact>().Fling(false);
+        if (Player.GetComponent<CharacterReact>() != null)
+        {
+            Player.GetComponent<CharacterReact>().Fling(false);
+        }
         base.Effect();
     }
 }

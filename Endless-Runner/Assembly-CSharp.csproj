@@ -103,6 +103,8 @@
     <Compile Include="Assets\00-Game root\Scripts\UI\Leaderboard.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\StartMenuUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\UIManager.cs" />
+    <Compile Include="Assets\Tester\DisplayObject.cs" />
+    <Compile Include="Assets\Tester\iCanRotate.cs" />
     <Compile Include="Assets\Tester\TestCharacterMovement.cs" />
     <Compile Include="Assets\Tester\TestSpawner.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -124,6 +126,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LICENSE.txt" />
+    <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Lessons/Rough-Work/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

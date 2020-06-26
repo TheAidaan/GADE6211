@@ -46,17 +46,4 @@ public class CubeMoving_Obstacle : Obstacle
            GoTo = new Vector3(-2f, transform.position.y, transform.position.z);
         }
     }
-
-    public override void Effect(bool simpleResistance)
-    {
-        if (simpleResistance)
-        {
-            Player.GetComponentInChildren<CharacterReact>().Hit();
-            Destroy(gameObject);
-        }
-        else
-        {
-            base.Effect(simpleResistance);
-        }
-    }
 }

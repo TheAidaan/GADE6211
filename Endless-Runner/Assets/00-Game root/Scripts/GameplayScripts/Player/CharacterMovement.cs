@@ -10,13 +10,13 @@ public class CharacterMovement : MonoBehaviour
     bool MoveR, MoveL, Jump;
 
     enum Lanes { Left = 1, Center, Right };
-    static Lanes  lane;
-    public static int currentLane { get { return (int)lane; } }
+    Lanes  lane;
 
     bool _controlLock = false;
     bool _jumpLock =  false;
     bool _stopForward = false;
 
+    float _forwardIncrease;
 
     bool _fling, _endFling, _superFling;
     bool _superSize;
@@ -24,10 +24,12 @@ public class CharacterMovement : MonoBehaviour
     Rigidbody rb;
     CharacterReact React;
 
-    int _jumpCount, _maxJump;
+    int _jumpCount, _maxJump, _increaseSpeedPoint;
 
     private void Start()
     {
+        _forwardIncrease = 1;
+        _increaseSpeedPoint = 200;
         rb = GetComponent<Rigidbody>();
         React = GetComponentInChildren<CharacterReact>();
 
@@ -40,12 +42,13 @@ public class CharacterMovement : MonoBehaviour
             _maxJump = 0;
         }
         _jumpCount = 0;
+
+        GetComponentInChildren<CharacterAnimations>().Move(true);
     }
     private void FixedUpdate()
     {
         Move();
         rb.velocity = gameObject.transform.TransformDirection(movement);
-        //rb.velocity = new Vector3(0, movement.y, movement.z);
     }
 
     void Update()
@@ -89,7 +92,14 @@ public class CharacterMovement : MonoBehaviour
 
         if (_stopForward==false)
         {
-            movement.z = 5;
+            
+            if (CharacterStats.Distance > _increaseSpeedPoint)
+            {
+                _forwardIncrease += .3f;
+                _increaseSpeedPoint += 200;
+            }
+            movement.z = 5 * _forwardIncrease;
+
         }
 
         if (MoveR)
@@ -218,8 +228,9 @@ public class CharacterMovement : MonoBehaviour
         _jumpLock = true;
         _controlLock = true;
     }
-    public void StopForwardMovement(bool Active)
+    public void StopForwardMovement(bool Active, bool Animate)
     {
+        GetComponentInChildren<CharacterAnimations>().Move(Animate) ;
         _stopForward = Active;
     }
 
@@ -228,6 +239,11 @@ public class CharacterMovement : MonoBehaviour
         _controlLock = enable;
         _jumpLock = enable;
         _superSize = enable;
+    }
+
+    public void FakeCenter()
+    {
+        lane = Lanes.Center;
     }
 
     public void CenterPlayer()

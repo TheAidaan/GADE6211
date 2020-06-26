@@ -18,7 +18,11 @@ public class Immunity_PowerUp : PowerUps
 
     public override void Effect()
     {
-        Player.GetComponent<CharacterReact>().Immunity();
+        if (Player.GetComponent<CharacterReact>() != null)
+        {
+            Player.GetComponent<CharacterReact>().Immunity();
+        }
+       
         base.Effect();
 
     }

@@ -6,9 +6,12 @@ public class SuperFling_PowerUp : PowerUps
 {
     public override void Effect() 
     {
-        Player.GetComponent<CharacterReact>().Fling(true);
+        if (Player.GetComponent<CharacterReact>() != null)
+        {
+            Player.GetComponent<CharacterReact>().Fling(true);
 
-        FindObjectOfType<GameManager>().Transition();
+            FindObjectOfType<GameManager>().Transition();
+        }
 
         base.Effect();
     }

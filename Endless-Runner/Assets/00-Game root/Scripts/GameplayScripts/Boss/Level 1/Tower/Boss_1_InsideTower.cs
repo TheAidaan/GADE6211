@@ -28,14 +28,15 @@ public class Boss_1_InsideTower : MonoBehaviour
             {
                 FindObjectOfType<CharacterReact>().Fling(true);
                 FindObjectOfType<GameManager>().Transition();
-                FindObjectOfType<CharacterMovement>().StopForwardMovement(false);
+                FindObjectOfType<CharacterMovement>().StopForwardMovement(false, true);
+                FindObjectOfType<CharacterMovement>().FakeCenter();
                 FindObjectOfType<CharacterMovement>().LockControls(false);
             }
         }
 
         if (_flash)
         {
-            CG.alpha = CG.alpha - Time.deltaTime;
+            CG.alpha -= Time.deltaTime;
             if (CG.alpha <= 0)
             {
                 CG.alpha = 0;

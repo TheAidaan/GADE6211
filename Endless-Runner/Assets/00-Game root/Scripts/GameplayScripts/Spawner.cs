@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    Transform[,] Objects = new Transform[3, 10];
+    readonly Transform[,] Objects = new Transform[3, 10];
     Transform[] World = new Transform[4];
     Transform[] Triggers = new Transform[2];
-    Transform[,] BossObjects = new Transform[3, 10];
 
     int randNumber, _firstLane, spawnPoint, _worldHeight;
     Transform Object;
@@ -33,14 +32,9 @@ public class Spawner : MonoBehaviour
         World = Resources.LoadAll<Transform>("Prefabs/World");
         Triggers = Resources.LoadAll<Transform>("Prefabs/Triggers");
 
-
-        Transform[] enemyObjects = new Transform[4];
-        Transform[] collectorsObjects = new Transform[2];
-        Transform[] powerUpObjects = new Transform[3];
-
-        enemyObjects = Resources.LoadAll<Transform>("Prefabs/enemyObjects");
-        collectorsObjects = Resources.LoadAll<Transform>("Prefabs/collectorsObjects");
-        powerUpObjects = Resources.LoadAll<Transform>("Prefabs/powerUpObjects");
+        Transform[] enemyObjects = Resources.LoadAll<Transform>("Prefabs/enemyObjects");
+        Transform[] collectorsObjects = Resources.LoadAll<Transform>("Prefabs/collectorsObjects");
+        Transform[] powerUpObjects = Resources.LoadAll<Transform>("Prefabs/powerUpObjects");
 
         for (int i = 0; i < enemyObjects.Length; i++)
         {
@@ -168,7 +162,7 @@ public class Spawner : MonoBehaviour
 
                     if (Object != null)
                     {
-                        if ((Object.gameObject.tag == "Single"))             //change the tag name later
+                        if (Object.CompareTag("Single"))             //change the tag name later
                         {
                             SpawnObject(i, gObject, true);
                             _singleObjectsSwpawned++;
@@ -263,10 +257,7 @@ public class Spawner : MonoBehaviour
     }
 
     #region Level 2 attributes
-    void Level2()
-    {
-        Objects[0, 0] = null;
-    }
+  
     int StumpCheck()
     {
 
@@ -294,7 +285,7 @@ public class Spawner : MonoBehaviour
             heightChangePoint = spawnPoint;
             _worldHeight += 4;
             Object = null;
-            spawnRaiser();
+            SpawnRaiser();
         }
 
 
@@ -303,7 +294,7 @@ public class Spawner : MonoBehaviour
             Object = null;
         }
     }
-    void spawnRaiser()
+    void SpawnRaiser()
     {
 
         int randLane = Random.Range(_firstLane, _firstLane + 3);

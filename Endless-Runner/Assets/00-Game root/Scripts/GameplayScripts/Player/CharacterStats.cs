@@ -10,7 +10,7 @@ public class CharacterStats : MonoBehaviour
 
     int  _totalCoins;
     static float _totalDistance;
-    public static int distance { get { return (int)_totalDistance; } }
+    public static int Distance { get { return (int)_totalDistance; } }
 
     Vector3 _startPosition;
 

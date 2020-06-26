@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BossSpawner : MonoBehaviour
 {
-    public int firstLane, spawnPoint;
-    public float offset;
+    public int firstLane;
+    public float spawnPoint,offset;
     public int randLane;
 
-    public void SetSpawnPoint(int SpawnPoint)
+    public void SetSpawnPoint(float SpawnPoint)
     {
         spawnPoint = SpawnPoint;
     }

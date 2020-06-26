@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Boss_1_Spawner : BossSpawner
 {
-    Transform[] bossWorld = new Transform[4];
     Transform[] bossObstacles = new Transform[4];
 
-    GameObject[] _children = new GameObject[6];
+    readonly GameObject[] _children = new GameObject[6];
 
-    bool _activateWalkway = true;
+   readonly bool _activateWalkway = true;
 
     void Start()
     {
-        bossWorld = Resources.LoadAll<Transform>("Prefabs/Boss/Level 1/World");
         bossObstacles = Resources.LoadAll<Transform>("Prefabs/Boss/Level 1/Obstacles");
 
         for ( int i = 0; i < 5; i++) 
@@ -34,13 +32,17 @@ public class Boss_1_Spawner : BossSpawner
         }
     }
 
-    void Update()
+   public  void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        int randNum = Random.Range(10* Boss_1_Manager.CurrrentStage, 100);
+
+        if (randNum>60)
         {
-            int randNumber = Random.Range(firstLane, firstLane+3); // pick random lane
-            Instantiate(bossObstacles[0], new Vector3(spawnPoint, 10, randNumber), bossObstacles[0].transform.rotation);
+            randLane = Random.Range(firstLane, firstLane + 3); // pick random lane
+            Instantiate(bossObstacles[0], new Vector3(spawnPoint, 10, randLane), bossObstacles[0].transform.rotation);
         }
+        
+ 
     }
 
     public void SpawnObject(GameObject obj)

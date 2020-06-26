@@ -7,6 +7,6 @@ public class TakeAwayPowers: MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        other.gameObject.GetComponent<CharacterReact>().EndSuperSize();
+        other.gameObject.GetComponent<CharacterReact>().EndFling();
     }
 }

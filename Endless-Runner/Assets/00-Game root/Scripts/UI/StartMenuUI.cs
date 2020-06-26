@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartMenuUI : MonoBehaviour
 {
-    GameObject[] MenuParts = new GameObject[3];
+    readonly GameObject[] MenuParts = new GameObject[3];
     bool _showLeaderBoard, _showMainScreen;
     // Start is called before the first frame update
     void Start()
@@ -12,7 +12,7 @@ public class StartMenuUI : MonoBehaviour
         _showLeaderBoard = false;
         _showMainScreen = true;
         int x = 0;
-        for (int i = 0; i < 2; i++)
+        for (int i = 1; i < 3; i++)
         {
             MenuParts[x] = transform.GetChild(i).gameObject;
             x++;
@@ -33,5 +33,16 @@ public class StartMenuUI : MonoBehaviour
         _showLeaderBoard = true;
         _showMainScreen = false;
         SetGUI();
+    } 
+
+    public void Leave()
+    {
+        _showLeaderBoard = false;
+        _showMainScreen = true;
+        SetGUI();
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

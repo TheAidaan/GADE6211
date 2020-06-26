@@ -6,6 +6,7 @@ public class BossActivationTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        other.transform.parent.position = transform.position;
         FindObjectOfType<BossManager>().BossActivation();
        
     }
