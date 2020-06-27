@@ -164,6 +164,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10682}
     - Class: 114
+      Script: {instanceID: 10792}
+    - Class: 114
       Script: {instanceID: 10824}
     - Class: 114
       Script: {instanceID: 10864}
@@ -184,6 +186,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 225
       Script: {instanceID: 0}
     - Class: 258
       Script: {instanceID: 0}
@@ -232,8 +236,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 9346}
-    - Class: 114
-      Script: {instanceID: 9352}
     - Class: 114
       Script: {instanceID: 9354}
     - Class: 114
@@ -1501,5 +1503,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/StartMenu.unity
   - Assets/Scenes/GamePlay.unity
-  playerPath: D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/New
-    folder/Endless-Runner.exe
+  playerPath: D:/Aidan/Documents/Vega/2020/Semester 1/Game Development/Game-Dev-2A-POE/EXE/Endless-Runner.exe

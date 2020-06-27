@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartMenuUI : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class StartMenuUI : MonoBehaviour
         _showMainScreen = true;
         SetGUI();
     }
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

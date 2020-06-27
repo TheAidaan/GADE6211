@@ -76,10 +76,13 @@ public class UIManager : MonoBehaviour
         SetGUI();
     }
 
-    public void ShowGameOver()
+    public void Leave()
     {
         _showSaveScore = false;
         _showDistanceText = false;
+       
+        _showLeaderBoard = false;
+
         _showGameOver = true;
 
         SetGUI();
@@ -99,7 +102,7 @@ public class UIManager : MonoBehaviour
         SetGUI();
     }
 
-    public void PlayGame()
+    public void Restart()
     {
         SceneManager.LoadScene(1);
     }

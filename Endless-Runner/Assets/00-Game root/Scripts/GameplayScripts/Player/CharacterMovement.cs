@@ -96,7 +96,7 @@ public class CharacterMovement : MonoBehaviour
             if (CharacterStats.Distance > _increaseSpeedPoint)
             {
                 _forwardIncrease += .3f;
-                _increaseSpeedPoint += 200;
+                _increaseSpeedPoint += 100;
             }
             movement.z = 5 * _forwardIncrease;
 
