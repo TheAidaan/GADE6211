@@ -188,7 +188,7 @@ public class CharacterMovement : MonoBehaviour
         _jumpLock = true;
     }
 
-    bool OnGround()
+    public bool OnGround()
     {
         return Physics.Raycast(transform.position, Vector3.down, .5f,LayerMask.GetMask("Ground") );
     }
@@ -241,9 +241,9 @@ public class CharacterMovement : MonoBehaviour
         _superSize = enable;
     }
 
-    public void FakeCenter()
+    public void SetLane(int Lane)
     {
-        lane = Lanes.Center;
+        lane = (Lanes)Lane;
     }
 
     public void CenterPlayer()

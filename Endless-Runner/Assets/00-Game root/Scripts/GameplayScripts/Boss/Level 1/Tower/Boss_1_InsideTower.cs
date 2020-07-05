@@ -29,7 +29,7 @@ public class Boss_1_InsideTower : MonoBehaviour
                 FindObjectOfType<CharacterReact>().Fling(true);
                 FindObjectOfType<GameManager>().Transition();
                 FindObjectOfType<CharacterMovement>().StopForwardMovement(false, true);
-                FindObjectOfType<CharacterMovement>().FakeCenter();
+                FindObjectOfType<CharacterMovement>().SetLane(2);
                 FindObjectOfType<CharacterMovement>().LockControls(false);
             }
         }

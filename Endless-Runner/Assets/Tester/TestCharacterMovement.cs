@@ -22,18 +22,17 @@ public class TestCharacterMovement : MonoBehaviour
     }
     void Move()
     {
-        //transform.RotateAround(target.position, Vector3.up, 20 * Time.deltaTime);
-
         movement = Vector3.zero;
+        //movement.z = 5;
 
         if (MoveR)
         {
-            rb.AddForce(Vector3.right * 2500);
+            rb.AddRelativeForce(Vector3.right * 2500);
             MoveR = false;
         }
         if (MoveL)
         {
-            rb.AddForce(Vector3.left * 2500);
+            rb.AddRelativeForce(Vector3.left * 2500);
             MoveL = false;
         }
     }

@@ -7,9 +7,9 @@ public class Boss_1_Obsatcle_1 : Obstacle
     readonly GameObject[] Parts = new GameObject[2];
     void Start()
     {
-        if (gameObject.GetComponent<Boss_1_OjectController>())
+        if (gameObject.GetComponent<Boss_1_ObjectController>())
         {
-            Destroy(gameObject.AddComponent<Boss_1_OjectController>());
+            Destroy(gameObject.AddComponent<Boss_1_ObjectController>());
         }
 
         Parts[0] = transform.GetChild(0).gameObject;
@@ -42,7 +42,7 @@ public class Boss_1_Obsatcle_1 : Obstacle
     {
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(true);
-        gameObject.AddComponent<Boss_1_OjectController>();
+        gameObject.AddComponent<Boss_1_ObjectController>();
 
     }
 }

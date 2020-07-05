@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Transform Character;
     public static Transform Player;
 
-    enum Levels { endless, one, two, three }
+    enum Levels { one=1, two, three }
     [SerializeField] static Levels _currentLevel;
 
     Material[] environmentMaterial = new Material[4];
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         _changedlevel = false;
         _bossMode = false;
         _spawnBoss = false;
-        _currentLevel = Levels.one;
+        _currentLevel = Levels.three;
         characterDeath = false;
         _spawnPlatform = false;
         _spawnActive = false;
@@ -75,8 +75,8 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CharacterStats.Distance > 1000)
-        {
+        //if (CharacterStats.Distance > 1000)
+        //{
             if (!_disablingSpawner)
             {
                 DisableSpawner();
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
             }
 
-        }
+        //}
 
     }
 
@@ -219,8 +219,23 @@ public class GameManager : MonoBehaviour
         _changedlevel = false;
         _bossMode = true;
         Boss =  Resources.LoadAll<Transform>("Prefabs/Boss");
-        Instantiate(Boss[0], new Vector3(0, -.7f, spawnPoint + 100.7f), Boss[0].rotation);
-        FindObjectOfType<Boss_1_Manager>().GetSpawnPoint(spawnPoint);
+
+        Vector3 bossPos = Vector3.zero;
+
+        switch (CurrentLevel)
+        {
+            case 1:
+                bossPos = new Vector3(0, -.7f, spawnPoint + 100.7f);
+                break;
+            case 2:
+                break;
+            default:
+                bossPos = new Vector3(0, -15, spawnPoint + 100.7f);
+                break;
+        }
+
+        Instantiate(Boss[CurrentLevel-1], bossPos, Boss[CurrentLevel-1].rotation);
+        FindObjectOfType<BossManager>().GetSpawnPoint(spawnPoint);
         spawnPoint+=97;
         UI.ShowDistance(false);
     }

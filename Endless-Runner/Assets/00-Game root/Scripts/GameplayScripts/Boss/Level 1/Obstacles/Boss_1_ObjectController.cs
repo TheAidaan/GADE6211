@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_1_OjectController : MonoBehaviour
+public class Boss_1_ObjectController : MonoBehaviour
 {
     Transform _boss;
     // Start is called before the first frame update
@@ -10,7 +10,7 @@ public class Boss_1_OjectController : MonoBehaviour
     {
         if (!GameManager.BossMode)
         {
-            Destroy(gameObject.GetComponent<Boss_1_OjectController>());
+            Destroy(gameObject.GetComponent<Boss_1_ObjectController>());
         }else
         {
             _boss = GameObject.FindObjectOfType<Boss_1_Manager>().transform;

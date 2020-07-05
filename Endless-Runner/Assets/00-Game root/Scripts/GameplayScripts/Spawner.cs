@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
     int LastStumpPoint = 0;
 
 
-    bool worldBroken = false;
+    bool _worldBroken = false;
     int singleLane, stopBreak;
     int _singleObjectsSwpawned = 0;
 
@@ -85,7 +85,7 @@ public class Spawner : MonoBehaviour
                 }
                 else//30% chance
                 {
-                    if ((GameManager.CurrentLevel == 3) && (95 < randNumber) && (randNumber < 101) && (worldBroken == false)) //5% chance
+                    if ((GameManager.CurrentLevel == 3) && (95 < randNumber) && (randNumber < 101) && (_worldBroken == false)) //5% chance
                     {
                         BreakWorld();
                     }
@@ -139,7 +139,7 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        if (worldBroken)
+        if (_worldBroken)
         {
             if (singleLane == _firstLane)
             {
@@ -155,7 +155,7 @@ public class Spawner : MonoBehaviour
 
         for (int i = _firstLane; i < _firstLane + 3; i++)
         {
-            if (worldBroken)
+            if (_worldBroken)
             {
                 if (i == singleLane)
                 {
@@ -205,7 +205,7 @@ public class Spawner : MonoBehaviour
         }// end for-loop
 
 
-        if (worldBroken)
+        if (_worldBroken)
         {
             if (singleLane == 1)
             {
@@ -220,7 +220,7 @@ public class Spawner : MonoBehaviour
 
         if (stopBreak == spawnPoint)
         {
-            worldBroken = false;
+            _worldBroken = false;
             ClearPath(3);
         }
 
@@ -298,7 +298,7 @@ public class Spawner : MonoBehaviour
     {
 
         int randLane = Random.Range(_firstLane, _firstLane + 3);
-        if (worldBroken)
+        if (_worldBroken)
         {
             randLane = singleLane;
         }
@@ -315,13 +315,20 @@ public class Spawner : MonoBehaviour
 
     void BreakWorld()
     {
-        int randNumberLength = Random.Range(15, 30);
+        int breakLength = Random.Range(15, 30);
         randNumber = Random.Range(_firstLane, _firstLane + 3);
 
         singleLane = randNumber;
-        stopBreak = spawnPoint + randNumberLength;
+        stopBreak = spawnPoint + breakLength;
 
-        worldBroken = true;
+        _worldBroken = true;
+    }
+
+    public void ForceBreak(int lane, int breakLength)
+    {
+        singleLane = _firstLane + (lane-1);
+        stopBreak = spawnPoint + breakLength;
+        _worldBroken = true;
     }
 
     #endregion

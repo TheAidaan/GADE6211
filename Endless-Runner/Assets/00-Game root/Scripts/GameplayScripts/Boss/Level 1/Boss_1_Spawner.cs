@@ -51,7 +51,7 @@ public class Boss_1_Spawner : BossSpawner
         if (obj != null)
         {
             obj = Instantiate(obj, new Vector3(randNumber + 0.3f, 1, transform.position.z), obj.transform.rotation, transform);
-            obj.AddComponent<Boss_1_OjectController>();
+            obj.AddComponent<Boss_1_ObjectController>();
         }
     }
 

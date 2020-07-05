@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class Boss_1_Manager : BossManager
 {
-    enum BOSS_1_STAGES { Start = 0, One, Two, Three, End }
-    static BOSS_1_STAGES _currrentStage;
-
-    public static int CurrrentStage { get { return (int)_currrentStage; } }
-
+    
     Boss_1_Spawner spawn;
-    Spawner gameSpawner;
 
-    bool gotPlayer, _maySpawnObjects,_spawnObject;
+
+    bool _maySpawnObjects,_spawnObject;
 
     GameObject empty;
 
     float _coolOffTime;
 
-     void Awake()
+    public override void Start()
     {
+        base.Start();
         _spawnObject = true;
-         gotPlayer = false;
         _maySpawnObjects = true;
         _coolOffTime = 1f;
 
-        _currrentStage = BOSS_1_STAGES.Start;
 
-        gameSpawner = FindObjectOfType<Spawner>();
-        gameSpawner.AssignObjects();
 
         spawn = GetComponent<Boss_1_Spawner>();
         spawn.SetLanes(-1,0);
@@ -36,7 +29,7 @@ public class Boss_1_Manager : BossManager
 
         empty = new GameObject();
         empty.transform.position = new Vector3(-53, 1, transform.position.z);
-        empty.AddComponent<Boss_1_OjectController>();
+        empty.AddComponent<Boss_1_ObjectController>();
         gameSpawner.SetParent(empty);
 
     }
@@ -57,10 +50,10 @@ public class Boss_1_Manager : BossManager
                         Transform obj = gameSpawner.PickObject();
                         if (obj != null)
                         {
-                            if (obj.gameObject.GetComponent<Boss_1_OjectController>() == null)
+                            if (obj.gameObject.GetComponent<Boss_1_ObjectController>() == null)
                             {
                                 
-                                obj.gameObject.AddComponent<Boss_1_OjectController>();
+                                obj.gameObject.AddComponent<Boss_1_ObjectController>();
                             }
                             spawn.Attack();
                             gameSpawner.SpawnObject(randNumber, obj, false);
@@ -72,7 +65,7 @@ public class Boss_1_Manager : BossManager
             }
             else
             {
-                if (_currrentStage == BOSS_1_STAGES.Start)
+                if (CurrrentStage == 0)
                 {
                     FetchPlayer();
                 }
@@ -93,7 +86,7 @@ public class Boss_1_Manager : BossManager
         }
     }
 
-    public override void BossStart()
+    public override void ActivateBoss()
     {
         Player.GetComponent<CharacterMovement>().StopForwardMovement(true, true);
         Player.transform.eulerAngles = new Vector3(0,-90,0); 
@@ -107,27 +100,6 @@ public class Boss_1_Manager : BossManager
         spawn.SetSpawnPoint(Player.transform.position.x);
     }
 
-    void FetchPlayer()
-    { 
-        if ((Player.position.z > (spawnPoint - 15)) && (!gotPlayer))
-        {
-            gameSpawner.SpawnBuildingBlocks(spawnPoint,null);
-
-            spawnPoint++;
-
-            if (spawnPoint == ((int)(transform.position.z - 51.98)))
-            {
-                //spawn.SetSpawnPoint(spawnPoint+1);
-                gotPlayer = true;
-            }
-        }
-    }
-
-    public void GetSpawnPoint(int SpawnPoint)
-    {
-        spawnPoint = SpawnPoint;
-    }
-
 
     public override void DeactivateBoss()
     {
@@ -137,21 +109,15 @@ public class Boss_1_Manager : BossManager
         base.DeactivateBoss();
     }
 
-    public void IncreaseStage()
-    {
-        _currrentStage++;
-        _coolOffTime /= 2;
-
-        if (_currrentStage == BOSS_1_STAGES.End)
-        {
-            EndBoss();
-        }
-    }
-
     public void ReleasePlayer()
     {
         spawn.ReleasePlayer();
         _maySpawnObjects = false;
+    }
+    public override void IncreaseStage()
+    { 
+        _coolOffTime /= 2;
+        base.IncreaseStage();
     }
 
     IEnumerator CoolOff()
