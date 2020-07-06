@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Lethal
   - Single
+  - Boss
   layers:
   - Default
   - TransparentFX

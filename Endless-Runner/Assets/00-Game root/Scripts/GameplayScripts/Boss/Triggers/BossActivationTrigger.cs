@@ -8,6 +8,8 @@ public class BossActivationTrigger : MonoBehaviour
     {
         other.transform.parent.position = transform.position;
         FindObjectOfType<BossManager>().BossActivation();
+
+        Destroy(gameObject);
        
     }
 }

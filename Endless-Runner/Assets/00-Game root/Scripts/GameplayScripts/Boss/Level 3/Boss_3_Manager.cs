@@ -7,10 +7,15 @@ public class Boss_3_Manager : BossManager
     bool  _maySpawnObjects,_spawnObject;
 
     GameObject empty;
+    Boss_3_Animations animator;
+
+    bool _safeToRaisePlatform;
 
     public override void Start()
     {
         base.Start();
+        animator = GetComponentInChildren<Boss_3_Animations>();
+
         _spawnObject = true;
         _maySpawnObjects = true;
 
@@ -26,11 +31,15 @@ public class Boss_3_Manager : BossManager
     }
     void Update()
     {
+        if (_safeToRaisePlatform)
+        {
+            animator.NormRaiseQ(1);
+        }
         if (!GameManager.characterDeath)
         {
             if (bossActive)
             {
-                //transform.Rotate(0, -0.29f, 0);
+                transform.Rotate(Vector3.up, 1);
 
                 if (_maySpawnObjects)
                 {
@@ -50,6 +59,8 @@ public class Boss_3_Manager : BossManager
         }else
         {
             base.DeactivateBoss();
+            Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
+            Destroy(Player.GetComponent<Boss_3_CharacterMovement>());
         }
 
        
@@ -67,10 +78,9 @@ public class Boss_3_Manager : BossManager
     {
         Player.GetComponent<CharacterMovement>().StopForwardMovement(true, true); 
         Player.GetComponent<CharacterMovement>().SetLane(3);
-        Player.transform.eulerAngles = new Vector3(0,90,0); 
+        Player.transform.eulerAngles = new Vector3(0,90,0);
 
-        gameSpawner.SetSpawnPoint(spawnPoint);
-        gameSpawner.SetLanes(-53, 0.33f);
+        Player.gameObject.AddComponent<Boss_3_CharacterMovement>();
     }
 
 
@@ -80,6 +90,11 @@ public class Boss_3_Manager : BossManager
         Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
 
         base.DeactivateBoss();
+    }
+
+    public void SafeToRaisePlatform()
+    {
+        _safeToRaisePlatform = !_safeToRaisePlatform;
     }
 
     //public void ReleasePlayer()
