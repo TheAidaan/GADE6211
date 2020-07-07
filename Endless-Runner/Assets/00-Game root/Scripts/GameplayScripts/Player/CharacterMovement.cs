@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
 
     float _forwardIncrease;
 
-    bool _fling, _endFling, _superFling;
+    bool _fling, _endFling, _transition;
     bool _superSize;
 
     Rigidbody rb;
@@ -152,11 +152,11 @@ public class CharacterMovement : MonoBehaviour
             _endFling = true;
         } 
         
-        if (_superFling)
+        if (_transition)
         {
             movement.y = 1500f;
             movement.z += 1500f;
-            _superFling = false;
+            _transition = false;
             _endFling = true;
 
         }
@@ -174,21 +174,21 @@ public class CharacterMovement : MonoBehaviour
         rb.AddForce(Vector3.forward * 1200);
     }
 
-    public void Fling(bool Super)
+    public void Fling()
     {
-        if (Super)
-        {
-            _superFling = true;
-        }
-        else
-        {
-            _fling = true;
-        }
        
+        _fling = true;
         _jumpLock = true;
     }
 
-    public bool OnGround()
+    public void Transition()
+    {
+        _transition = true;
+        _jumpLock = true;
+    }
+
+
+        public bool OnGround()
     {
         return Physics.Raycast(transform.position, Vector3.down, .5f,LayerMask.GetMask("Ground") );
     }

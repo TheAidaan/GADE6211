@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Raisers : Collectable
+public class Raisers : World
 {
     Rigidbody playerRb;
 
-    public override void Effect()
+    private void OnTriggerEnter(Collider other)
     {
-        playerRb = Player.GetComponentInParent<Rigidbody>();
+        playerRb = other.GetComponentInParent<Rigidbody>();
         playerRb.AddForce(Vector3.up * 350,ForceMode.Impulse);
-
-        base.Effect();
     }
 }

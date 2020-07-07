@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4495451832117745941}
   - component: {fileID: 7881164060095030764}
   - component: {fileID: -187982460161493407}
-  - component: {fileID: 8646238641606631540}
+  - component: {fileID: -1845188693413456008}
   m_Layer: 0
-  m_Name: wall
+  m_Name: 1.Wall
   m_TagString: World
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -93,7 +93,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: -6281424698479989189, guid: 4ef9952d6d4ec6e4a8fac6923d6fbe7f, type: 3}
---- !u!114 &8646238641606631540
+--- !u!114 &-1845188693413456008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,8 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8458695752101138736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14dc65f32df08e34db3554d14631b426, type: 3}
+  m_Script: {fileID: 11500000, guid: 924d8ad5f6cee7a43aec42b603f3f983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: 1
-  Starter: 0
+  wall: 0

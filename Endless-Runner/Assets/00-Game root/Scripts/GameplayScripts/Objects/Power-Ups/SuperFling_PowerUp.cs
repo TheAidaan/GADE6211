@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperFling_PowerUp : PowerUps
+public class Transitioner : World
 {
-    public override void Effect() 
+    private void OnTriggerEnter(Collider other)
     {
-        if (Player.GetComponent<CharacterReact>() != null)
+        if (other.GetComponent<CharacterReact>() != null)
         {
-            Player.GetComponent<CharacterReact>().Fling(true);
+            other.GetComponent<CharacterReact>().Transition();
 
             FindObjectOfType<GameManager>().Transition();
         }
 
-        base.Effect();
     }
 }

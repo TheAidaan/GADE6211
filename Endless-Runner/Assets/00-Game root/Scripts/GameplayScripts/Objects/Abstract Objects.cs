@@ -109,6 +109,49 @@ public abstract class World : MonoBehaviour
     }
 }
 
+public abstract class Blocks : World
+{
+    public bool wall;
+    int materialIndex;
+
+    Material[] materials = new Material[12];
+    Renderer rend;
+    void Start()
+    {
+        rend = GetComponent<Renderer>();
+        rend.enabled = true;
+        materials = Resources.LoadAll<Material>("Materials/Blocks");
+
+        GetMaterial();
+
+        rend.sharedMaterial = materials[materialIndex];
+    }
+
+    public virtual void GetMaterial()
+    {
+        switch (GameManager.CurrentLevel)
+        {
+            case 1:
+                materialIndex = 0;
+                break;
+            case 2:
+                materialIndex = 2;
+                if (wall)
+                {
+                    materialIndex--;
+                }
+                break;
+            case 3:
+                materialIndex = 3;
+                break;
+            default:
+                materialIndex = 9;
+                break;
+        }
+    }
+
+}
+
 public abstract class Objects : World
 {
     void Update()
@@ -119,7 +162,7 @@ public abstract class Objects : World
     public Vector3 Rotation;
     public GameObject Player;
 
-    private void OnTriggerEnter(Collider collision) // All objects except obstacles,excluding hole
+    void OnTriggerEnter(Collider collision) // All objects except obstacles,excluding hole
     { 
 
         Player = collision.gameObject;

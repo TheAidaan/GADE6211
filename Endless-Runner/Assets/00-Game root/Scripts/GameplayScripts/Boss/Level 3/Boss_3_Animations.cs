@@ -4,31 +4,39 @@ using UnityEngine;
 
 public class Boss_3_Animations : MonoBehaviour
 {
-    bool[] _norm = new bool[4];
     Animator anim;
+
+    string boolName;
+    bool _activeState;
+    int _presetIndex;
     // Start is called before the first frame update
     void Start()
     {
+        _presetIndex = 1;
         anim = GetComponent<Animator>();
     }
 
-   void SetState()
+   public void SetAnimationState()
+   {
+        if (_activeState)   //if model is animated 
+        {
+            _activeState = false; // then turn off the animation
+        }
+        else
+        {
+           _presetIndex = Random.Range(1, 3); // otherwise pick a random state
+           _activeState = true;
+        }
+            
+        boolName = "Preset_" + _presetIndex; 
+        anim.SetBool(boolName, _activeState);  
+   }
+    public void ReleasePlayer()
     {
-        string boolName;
-        //for (int i=1 ; i<5 ; i++)
-        //{
-        int i = 1;
-            boolName = "Norm_Raise_Q" + i;
-            anim.SetBool(boolName, _norm[i - 1]);
-        //}
-        
-    }
-    public void NormRaiseQ(int Index)
-    {
-        _norm[Index - 1] = !_norm[Index - 1];
-        SetState();
+        boolName = "Preset_" + _presetIndex;
+        anim.SetBool(boolName, false);
+        anim.SetBool("End_Boss_3", true);
 
     }
-
 
 }

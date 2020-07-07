@@ -56,24 +56,17 @@ public class CharacterReact : MonoBehaviour
 
 
     #region Fling Reaction
-    public void Fling(bool Super)
+    public void Fling()
     {
         animator.Fling(true);
         _flingActive = true;
 
         PreviousResistanceLevel = CurrentResistanceLevel;
         CurrentResistanceLevel = playerResistance.timeBased;
-        
-        if (Super)
-        {
-            ChangeMaterial(4);
-        }
-        else
-        {
-            ChangeMaterial(3);
-        }
 
-        Movement.Fling(Super);
+        ChangeMaterial(3);
+
+        Movement.Fling();
     }
     public void EndFling()
     {
@@ -126,7 +119,14 @@ public class CharacterReact : MonoBehaviour
         CurrentResistanceLevel = PreviousResistanceLevel;
         ChangeMaterial((int)CurrentResistanceLevel);
     }
-    #endregion                          
+    #endregion
+
+    public void Transition()
+    {
+        animator.Fling(true);
+        Movement.Transition();
+
+    }
 
     public void Immunity()
     {

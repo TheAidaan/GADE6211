@@ -8,7 +8,7 @@ public class Fling_PowerUp : PowerUps
     {
         if (Player.GetComponent<CharacterReact>() != null)
         {
-            Player.GetComponent<CharacterReact>().Fling(false);
+            Player.GetComponent<CharacterReact>().Fling();
         }
         base.Effect();
     }

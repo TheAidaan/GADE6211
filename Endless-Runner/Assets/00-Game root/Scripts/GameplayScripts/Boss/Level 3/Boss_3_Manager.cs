@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class Boss_3_Manager : BossManager
 {
-    bool  _maySpawnObjects,_spawnObject;
+    bool  _mayAnimate;
 
     GameObject empty;
     Boss_3_Animations animator;
 
-    bool _safeToRaisePlatform;
 
     public override void Start()
     {
         base.Start();
         animator = GetComponentInChildren<Boss_3_Animations>();
 
-        _spawnObject = true;
-        _maySpawnObjects = true;
-
+        _mayAnimate = false;
         gameSpawner.SetSpawnPoint(spawnPoint);
 
         empty = new GameObject();
@@ -31,22 +28,16 @@ public class Boss_3_Manager : BossManager
     }
     void Update()
     {
-        if (_safeToRaisePlatform)
-        {
-            animator.NormRaiseQ(1);
-        }
         if (!GameManager.characterDeath)
         {
             if (bossActive)
             {
-                transform.Rotate(Vector3.up, 1);
+                transform.Rotate(Vector3.up, 1f * Time.deltaTime);
 
-                if (_maySpawnObjects)
+                if (_mayAnimate) //can the animator be called?
                 {
-                    if (_spawnObject)  
-                    {
-                
-                    }
+                   animator.SetAnimationState(); // the animator is called
+                   _mayAnimate = false; // the animator looses permission to be called
                 }
             }
             else
@@ -92,9 +83,9 @@ public class Boss_3_Manager : BossManager
         base.DeactivateBoss();
     }
 
-    public void SafeToRaisePlatform()
+    public void SafeToRaisePlatform()// the player triggers this class
     {
-        _safeToRaisePlatform = !_safeToRaisePlatform;
+        _mayAnimate = true; //the animator gets permission to be called
     }
 
     //public void ReleasePlayer()

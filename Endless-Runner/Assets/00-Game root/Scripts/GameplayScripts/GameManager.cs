@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     Transform[] Boss = new Transform[3];
 
-    bool _spawnBoss, _spawnPlatform, _spawnActive, _changedlevel, _activateLevel, _displayingUI, _clearPath, _disablingSpawner;
+    bool _spawnBoss, _transitionToBoss, _spawnActive, _changedlevel, _activateLevel, _displayingUI, _clearPath, _disablingSpawner;
 
     int _clearDist;
 
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         _spawnBoss = false;
         _currentLevel = Levels.three;
         characterDeath = false;
-        _spawnPlatform = false;
+        _transitionToBoss = false;
         _spawnActive = false;
         _displayingUI = false;
         _clearPath = false;
@@ -113,15 +113,15 @@ public class GameManager : MonoBehaviour
                         if (spawnPoint == _clearDist)
                         {
                             _clearPath = false;
-                            _spawnPlatform = true;
+                            _transitionToBoss = true;
                         }
                     }
                 }
 
-                if (_spawnPlatform)
+                if (_transitionToBoss)
                 {
-                    spawn.SpawnPlatform(spawnPoint, spawn.GetSpecificObject(2, 3), 0f);
-                    _spawnPlatform = false;
+                    spawn.SpawnPlatform(spawnPoint, true);
+                    _transitionToBoss = false;
                 }
 
             }
@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviour
     void SpawnStartPlatform()
     {
         spawnPoint += 54;
-        spawn.SpawnPlatform(spawnPoint, null, 180f);
+        spawn.SpawnPlatform(spawnPoint, false);
         spawnPoint += 5;
 
     }

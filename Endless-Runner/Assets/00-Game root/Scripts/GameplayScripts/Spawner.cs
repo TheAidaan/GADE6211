@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     readonly Transform[,] Objects = new Transform[3, 10];
-    Transform[] World = new Transform[4];
+    Transform[] World = new Transform[5];
     Transform[] Triggers = new Transform[2];
 
     int randNumber, _firstLane, spawnPoint, _worldHeight;
@@ -403,13 +403,15 @@ public class Spawner : MonoBehaviour
         return World[index];
     }
 
-    public void SpawnPlatform(int spawnPoint, Transform superFling, float Rotation)
+    public void SpawnPlatform(int spawnPoint, bool TransitioningToBoss)
     {
-        Instantiate(World[3], new Vector3(0f, _worldHeight, spawnPoint + 2), Quaternion.Euler(0, Rotation, 0));
-
-        if (superFling != null)
+        if (TransitioningToBoss)
         {
-            Instantiate(superFling, new Vector3(_firstLane + 1, _worldHeight + 1f, spawnPoint + 2), superFling.rotation, _parent);
+            Instantiate(World[3], new Vector3(0f, _worldHeight, spawnPoint + 2), World[3].rotation);
+            Instantiate(World[4], new Vector3(_firstLane + 1, _worldHeight+ 0.5001f, spawnPoint + 2), World[4].rotation);
+        }else
+        {
+            Instantiate(World[3], new Vector3(0f, _worldHeight, spawnPoint + 2), Quaternion.Euler(0, 180, 0));
         }
     }
 

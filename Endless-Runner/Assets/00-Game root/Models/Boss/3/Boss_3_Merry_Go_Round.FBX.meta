@@ -12,6 +12,18 @@ ModelImporter:
   - first:
       74: 6572693273845163661
     second: Norm_Rise_Q1
+  - first:
+      74: -998496362607748373
+    second: Preset_2
+  - first:
+      74: -2033102401934230314
+    second: Preset_1
+  - first:
+      74: -8328509844424422204
+    second: Preset_3
+  - first:
+      74: -2064008889070469203
+    second: End_Boss_3
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -70,11 +82,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Norm_Fall_Q1
+      name: Preset_1
       takeName: Take 001
-      internalID: 2864157047781228424
-      firstFrame: 25
-      lastFrame: 30
+      internalID: -2033102401934230314
+      firstFrame: 20
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -99,11 +111,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Norm_Rise_Q1
+      name: Preset_2
       takeName: Take 001
-      internalID: 6572693273845163661
-      firstFrame: 20
-      lastFrame: 25
+      internalID: -998496362607748373
+      firstFrame: 40
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Preset_3
+      takeName: Take 001
+      internalID: -8328509844424422204
+      firstFrame: 60
+      lastFrame: 65
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: End_Boss_3
+      takeName: Take 001
+      internalID: -2064008889070469203
+      firstFrame: 0
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

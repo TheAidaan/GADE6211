@@ -26,7 +26,7 @@ public class Boss_1_InsideTower : MonoBehaviour
 
             if (_pressesRecieved == _pressesNeeded)
             {
-                FindObjectOfType<CharacterReact>().Fling(true);
+                FindObjectOfType<CharacterReact>().Transition();
                 FindObjectOfType<GameManager>().Transition();
                 FindObjectOfType<CharacterMovement>().StopForwardMovement(false, true);
                 FindObjectOfType<CharacterMovement>().SetLane(2);
