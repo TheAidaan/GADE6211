@@ -10,7 +10,8 @@ public class CharacterMovement : MonoBehaviour
     bool MoveR, MoveL, Jump;
 
     enum Lanes { Left = 1, Center, Right };
-    Lanes  lane;
+    static Lanes  _currentlane;
+    public static int CurrentLane{ get { return (int)_currentlane; } }
 
     bool _controlLock = false;
     bool _jumpLock =  false;
@@ -33,7 +34,7 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         React = GetComponentInChildren<CharacterReact>();
 
-        lane = Lanes.Center;
+        _currentlane = Lanes.Center;
         if (GameManager.CurrentLevel == 3)
         {
             _maxJump = 1;
@@ -53,12 +54,12 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.A)) && ((int)lane > 1) && (!_controlLock))
+        if ((Input.GetKeyDown(KeyCode.A)) && ((int)_currentlane > 1) && (!_controlLock))
         {
            MoveL = true;
         }
 
-        if ((Input.GetKeyDown(KeyCode.D)) && ((int)lane < 3) && (!_controlLock))
+        if ((Input.GetKeyDown(KeyCode.D)) && ((int)_currentlane < 3) && (!_controlLock))
         {
             MoveR = true;
         } 
@@ -106,13 +107,13 @@ public class CharacterMovement : MonoBehaviour
         {
             rb.AddRelativeForce(Vector3.right * 2500);
             MoveR = false;
-            lane += 1;
+            _currentlane += 1;
         }
         if (MoveL)
         {
             rb.AddRelativeForce(Vector3.left * 2500);
             MoveL = false;
-            lane -= 1;
+            _currentlane -= 1;
         }
 
         if (Jump)
@@ -241,14 +242,14 @@ public class CharacterMovement : MonoBehaviour
         _superSize = enable;
     }
 
-    public void SetLane(int Lane)
+    public void SetLane(int lane)
     {
-        lane = (Lanes)Lane;
+        _currentlane = (Lanes)lane;
     }
 
     public void CenterPlayer()
     {
-        switch ((int)lane)
+        switch ((int)_currentlane)
         {
             case 1:
                 rb.AddRelativeForce(Vector3.right * 2500);
@@ -258,7 +259,7 @@ public class CharacterMovement : MonoBehaviour
                 break;
         }
 
-        lane = Lanes.Center;
+        _currentlane = Lanes.Center;
     }
 
     public void Bounce(Vector3 force)

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3840156091977217308}
   - component: {fileID: 7383212840658749925}
   - component: {fileID: 9101462227110494308}
-  - component: {fileID: 2404519868881557180}
+  - component: {fileID: 1464297086108418793}
+  - component: {fileID: 445557035943253331}
   m_Layer: 0
   m_Name: 2.Raiser
   m_TagString: Untagged
@@ -92,7 +93,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.0001347065, y: 0.40268004, z: -0.00000029802322}
---- !u!114 &2404519868881557180
+--- !u!114 &1464297086108418793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,6 +102,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 9100269586925976889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9210aa3637acb5458fecdd0237d7583, type: 3}
+  m_Script: {fileID: 11500000, guid: a4dceaad6d3e1894baffdf25d3e443ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &445557035943253331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100269586925976889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6439209a6fbf95342b7c527629706691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

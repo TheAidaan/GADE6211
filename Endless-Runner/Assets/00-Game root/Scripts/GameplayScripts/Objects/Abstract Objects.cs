@@ -156,7 +156,6 @@ public abstract class Objects : World
 {
     void Update()
     {
-
         IdleEffect();
     }
     public Vector3 Rotation;

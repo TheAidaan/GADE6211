@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Boss_3_Manager : BossManager
 {
-    bool  _mayAnimate;
+    bool  _mayAnimate, _switchRotation;
 
     GameObject empty;
     Boss_3_Animations animator;
+
+    Boss_3_CharacterMovement playerMovement;
+
+    static bool _clockwiseRotation;
+    float _rotationSpeed;
+    public static bool ClockwiseRotation { get { return _clockwiseRotation; } }
 
 
     public override void Start()
@@ -15,7 +21,6 @@ public class Boss_3_Manager : BossManager
         base.Start();
         animator = GetComponentInChildren<Boss_3_Animations>();
 
-        _mayAnimate = false;
         gameSpawner.SetSpawnPoint(spawnPoint);
 
         empty = new GameObject();
@@ -23,6 +28,9 @@ public class Boss_3_Manager : BossManager
         gameSpawner.SetParent(empty);
 
         gameSpawner.ForceBreak(2, 47);
+
+        _rotationSpeed = 1;
+
 
 
     }
@@ -32,7 +40,14 @@ public class Boss_3_Manager : BossManager
         {
             if (bossActive)
             {
-                transform.Rotate(Vector3.up, 1f * Time.deltaTime);
+                if (_clockwiseRotation)
+                {
+                    transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
+                }else
+                {
+                    transform.Rotate(Vector3.down, _rotationSpeed * Time.deltaTime);
+                }
+                
 
                 if (_mayAnimate) //can the animator be called?
                 {
@@ -51,7 +66,27 @@ public class Boss_3_Manager : BossManager
         {
             base.DeactivateBoss();
             Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
-            Destroy(Player.GetComponent<Boss_3_CharacterMovement>());
+            Destroy(playerMovement);
+        }
+
+        if (_switchRotation)
+        {
+            _rotationSpeed -= Time.deltaTime;
+            if (_rotationSpeed < 0)
+            {
+                _switchRotation = false;
+                _clockwiseRotation = !_clockwiseRotation;
+                _rotationSpeed = 1;
+
+                playerMovement.TurnAround();
+
+
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _switchRotation = true;
         }
 
        
@@ -72,6 +107,8 @@ public class Boss_3_Manager : BossManager
         Player.transform.eulerAngles = new Vector3(0,90,0);
 
         Player.gameObject.AddComponent<Boss_3_CharacterMovement>();
+
+        playerMovement = Player.GetComponent<Boss_3_CharacterMovement>();
     }
 
 
