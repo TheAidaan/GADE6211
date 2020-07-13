@@ -49,7 +49,17 @@ public class CharacterMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        rb.velocity = gameObject.transform.TransformDirection(movement);
+        if (_transition)
+        {
+            rb.velocity = movement;
+            _transition = false;
+        }
+        else
+        {
+            rb.velocity = gameObject.transform.TransformDirection(movement);
+
+        }
+        
     }
 
     void Update()
@@ -157,7 +167,7 @@ public class CharacterMovement : MonoBehaviour
         {
             movement.y = 1500f;
             movement.z += 1500f;
-            _transition = false;
+      
             _endFling = true;
 
         }
@@ -189,7 +199,7 @@ public class CharacterMovement : MonoBehaviour
     }
 
 
-        public bool OnGround()
+    public bool OnGround()
     {
         return Physics.Raycast(transform.position, Vector3.down, .5f,LayerMask.GetMask("Ground") );
     }

@@ -172,8 +172,8 @@ ModelImporter:
       name: End_Boss_3
       takeName: Take 001
       internalID: -2064008889070469203
-      firstFrame: 0
-      lastFrame: 100
+      firstFrame: 80
+      lastFrame: 85
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

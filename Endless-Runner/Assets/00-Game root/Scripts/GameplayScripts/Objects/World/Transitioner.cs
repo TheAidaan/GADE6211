@@ -2,21 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperSize_PowerUp : PowerUps
+public class Transitioner : MonoBehaviour
 {
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        Rotation = new Vector3(0f, 0f, 3f);
-    }
-   
-    public override void Effect()
-    {
-        if (Player.GetComponent<CharacterReact>() != null)
+        if (other.GetComponent<CharacterReact>() != null)
         {
-            Player.GetComponent<CharacterReact>().SuperSize();
-        }
-       
-        base.Effect();
-    }
+            other.GetComponent<CharacterReact>().Transition();
 
+            FindObjectOfType<GameManager>().Transition();
+        }
+
+    }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7814107812803949381}
   - component: {fileID: 4561513983995236284}
   - component: {fileID: 2890204617945281014}
-  - component: {fileID: 3227713616503059242}
+  - component: {fileID: 2686897082986295080}
   m_Layer: 0
   m_Name: 4.Transitioner
   m_TagString: Untagged
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 1.8767164, z: 0.8}
   m_Center: {x: 0.00000035762787, y: 0.7546004, z: -0.0000002682209}
---- !u!114 &3227713616503059242
+--- !u!114 &2686897082986295080
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,6 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2842077855273286496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a061af7704b2ed44a36212050805008, type: 3}
+  m_Script: {fileID: 11500000, guid: d260d60e8c720db4995ef1be19eb69ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

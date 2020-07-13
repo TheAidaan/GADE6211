@@ -83,7 +83,7 @@ public abstract class BossManager : MonoBehaviour
 
     public virtual void ActivateBoss() {}
 
-    public void EndBoss(){ _endBoss = true; }
+    public virtual void EndBoss(){ _endBoss = true; }
 
     public virtual void DeactivateBoss() { _bossActive = false; }
 

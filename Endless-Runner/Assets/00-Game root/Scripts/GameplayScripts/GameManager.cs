@@ -166,9 +166,14 @@ public class GameManager : MonoBehaviour
 
     void ActivateLevel()
     {
+        int firstLane = (int)Player.transform.position.x - 1;
+        float offset = ((int)Player.transform.position.x - 1) - firstLane;
+        
+        spawn.SetLanes(firstLane, offset);
+        SpawnStartPlatform();
+
         _spawnActive = true;
         spawn.SetParent(World);
-        spawn.SetLanes(-1, 0);
         spawn.SetSpawnPoint(spawnPoint);
         spawn.AssignObjects();
         UI.ShowDistance(true);
@@ -199,7 +204,6 @@ public class GameManager : MonoBehaviour
 
         if (_activateLevel)
         {
-            SpawnStartPlatform();
             ActivateLevel();
         }
 

@@ -407,11 +407,11 @@ public class Spawner : MonoBehaviour
     {
         if (TransitioningToBoss)
         {
-            Instantiate(World[3], new Vector3(0f, _worldHeight, spawnPoint + 2), World[3].rotation);
-            Instantiate(World[4], new Vector3(_firstLane + 1, _worldHeight+ 0.5001f, spawnPoint + 2), World[4].rotation);
+            Transform platform = Instantiate(World[3], new Vector3(0f, _worldHeight, spawnPoint + 2), World[3].rotation);
+            Instantiate(World[4], new Vector3(_firstLane + 1, _worldHeight+ 0.5001f, spawnPoint + 2), World[4].rotation, platform);
         }else
         {
-            Instantiate(World[3], new Vector3(0f, _worldHeight, spawnPoint + 2), Quaternion.Euler(0, 180, 0));
+            Instantiate(World[3], new Vector3(_firstLane + 1, _worldHeight, spawnPoint + 2), Quaternion.Euler(0, 180, 0));
         }
     }
 

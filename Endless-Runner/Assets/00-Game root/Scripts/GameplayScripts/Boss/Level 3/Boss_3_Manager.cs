@@ -7,19 +7,24 @@ public class Boss_3_Manager : BossManager
     bool  _mayAnimate, _switchRotation;
 
     GameObject empty;
-    Boss_3_Animations animator;
+    Boss_3_Animator animator;
 
     Boss_3_CharacterMovement playerMovement;
 
-    static bool _clockwiseRotation;
+    
     float _rotationSpeed;
+
+    int _playerRotations, _rotationsNeededForNextStage;
+
+    static bool _clockwiseRotation;
     public static bool ClockwiseRotation { get { return _clockwiseRotation; } }
 
 
     public override void Start()
     {
+        
         base.Start();
-        animator = GetComponentInChildren<Boss_3_Animations>();
+        animator = GetComponentInChildren<Boss_3_Animator>();
 
         gameSpawner.SetSpawnPoint(spawnPoint);
 
@@ -30,10 +35,11 @@ public class Boss_3_Manager : BossManager
         gameSpawner.ForceBreak(2, 47);
 
         _rotationSpeed = 1;
-
-
+        _playerRotations = 0;
+        _rotationsNeededForNextStage = 3;
 
     }
+
     void Update()
     {
         if (!GameManager.characterDeath)
@@ -48,7 +54,6 @@ public class Boss_3_Manager : BossManager
                     transform.Rotate(Vector3.down, _rotationSpeed * Time.deltaTime);
                 }
                 
-
                 if (_mayAnimate) //can the animator be called?
                 {
                    animator.SetAnimationState(); // the animator is called
@@ -78,15 +83,10 @@ public class Boss_3_Manager : BossManager
                 _clockwiseRotation = !_clockwiseRotation;
                 _rotationSpeed = 1;
 
+                animator.SetTriggers();
+
                 playerMovement.TurnAround();
-
-
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _switchRotation = true;
         }
 
        
@@ -114,27 +114,67 @@ public class Boss_3_Manager : BossManager
 
     public override void DeactivateBoss()
     {
+        Destroy(playerMovement);
         Player.transform.eulerAngles = new Vector3(0, 0, 0);
+        
         Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
-
+        
         base.DeactivateBoss();
     }
 
-    public void SafeToRaisePlatform()// the player triggers this class
+    public void MayAnimate()// the player triggers this class
     {
-        _mayAnimate = true; //the animator gets permission to be called
+       
+        if (CurrrentStage == 2)
+        {
+            animator.ActivatePlatform();
+        }else
+        {
+            _mayAnimate = true; //the animator gets permission to be called
+            _playerRotations++;
+        }
     }
 
-    //public void ReleasePlayer()
-    //{
-    //    spawn.ReleasePlayer();
-    //    _maySpawnObjects = false;
-    //}
-    //public override void IncreaseStage()
-    //{ 
-    //    _coolOffTime /= 2;
-    //    base.IncreaseStage();
-    //}
+    public override void IncreaseStage()
+    { 
+        if ((_playerRotations >= _rotationsNeededForNextStage) && !Boss_3_Animator.Animated)
+        { 
+            base.IncreaseStage();
+
+            if (CurrrentStage == 2)
+            {
+                EndBoss();
+
+                if (_clockwiseRotation)
+                {
+                    animator.FinalAnimation();
+                }else
+                {
+                    _switchRotation = true;
+                }
+                
+            }
+            else
+            {
+                _rotationsNeededForNextStage += 3;
+                _switchRotation = true;
+            }    
+        }
+    }
+
+    public override void EndBoss()
+    {
+        if (_clockwiseRotation)
+        {
+            animator.FinalAnimation();
+        }
+        else
+        {
+            _switchRotation = true;
+        }
+
+        base.EndBoss(); 
+    }
 
     //IEnumerator CoolOff()
     //{

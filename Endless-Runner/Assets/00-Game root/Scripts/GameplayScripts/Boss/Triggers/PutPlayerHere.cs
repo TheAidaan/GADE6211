@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SafeZone : MonoBehaviour
+public class PutPlayerHere : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GetComponentInParent<Boss_3_Manager>().SafeToRaisePlatform();
+        other.transform.parent.position = transform.position;
+        Destroy(gameObject);
     }
 }

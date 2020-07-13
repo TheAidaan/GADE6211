@@ -12,7 +12,8 @@ public class Boss_3_CharacterMovement : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
         target = GameObject.FindGameObjectWithTag("Boss");
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         Move();
     }
@@ -27,11 +28,6 @@ public class Boss_3_CharacterMovement : MonoBehaviour
         {
             transform.RotateAround(target.transform.position, Vector3.down, .2f);
         }  
-    }
-
-    public bool InSafeZone()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, 5f, LayerMask.GetMask("Ground"));
     }
 
     public void TurnAround()

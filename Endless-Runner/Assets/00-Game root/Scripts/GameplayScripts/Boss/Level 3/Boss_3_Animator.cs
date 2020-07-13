@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_3_Animations : MonoBehaviour
+public class Boss_3_Animator : MonoBehaviour
 {
     Animator anim;
     Boss_3_Manager manager;
@@ -11,14 +11,21 @@ public class Boss_3_Animations : MonoBehaviour
     bool _activeState;
     int _presetIndex;
 
-    [SerializeField] GameObject[] Raisers = new GameObject[9];
+    static bool _animated;
+    public static bool Animated { get { return _animated; } }
+
+    [SerializeField] GameObject[] Raisers = new GameObject[10];
+    [SerializeField] GameObject Platform;
+    [SerializeField] GameObject[] AnmationTriggers = new GameObject[2];
 
     void Start()
     {
+        Platform.SetActive(false);
         _presetIndex = 1;
         anim = GetComponent<Animator>();
-        DeactivateAllRaisers();
         manager = GetComponentInParent<Boss_3_Manager>();
+        DeactivateAllRaisers();
+        SetTriggers();
     }
 
    public void SetAnimationState()
@@ -36,13 +43,20 @@ public class Boss_3_Animations : MonoBehaviour
         boolName = "Preset_" + _presetIndex; // set the name of the bool that must be effected
         anim.SetBool(boolName, _activeState);  // update the given preset
         ActivateRaisers();
-        //Boss_3_RaiserConditions.CheckToActivate(_presetIndex);
+
+        _animated = _activeState;
+        manager.IncreaseStage();
     }
-    public void ReleasePlayer()
+
+    public void FinalAnimation()
     {
         DeactivateAllRaisers();
         anim.SetBool("End_Boss_3", true);
-        
+
+        Raisers[9].SetActive(true);
+
+        AnmationTriggers[0].SetActive(false);
+        AnmationTriggers[1].SetActive(true);
     }
 
     void ActivateRaisers()
@@ -65,9 +79,10 @@ public class Boss_3_Animations : MonoBehaviour
                 default:
                     DeactivateAllRaisers();
                     break;
-
             }
-        }else
+            
+        }
+        else
         {
             switch (_presetIndex)
             {
@@ -86,8 +101,6 @@ public class Boss_3_Animations : MonoBehaviour
                     break;
 
             }
-            
-
         }
 
     }
@@ -98,5 +111,26 @@ public class Boss_3_Animations : MonoBehaviour
         {
             Raisers[i].SetActive(false);
         }
+    }
+
+    public void ActivatePlatform()
+    {
+        Platform.SetActive(true);
+    }
+
+    public void SetTriggers()
+    {
+        if (Boss_3_Manager.ClockwiseRotation)
+        {
+            AnmationTriggers[0].SetActive(true);
+            AnmationTriggers[1].SetActive(false);
+
+        }
+        else
+        {
+            AnmationTriggers[0].SetActive(false);
+            AnmationTriggers[1].SetActive(true);
+        }
+
     }
 }

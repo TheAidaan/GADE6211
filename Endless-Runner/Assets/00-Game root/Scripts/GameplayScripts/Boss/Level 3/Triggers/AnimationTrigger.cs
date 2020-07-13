@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossActivationTrigger : MonoBehaviour
+public class AnimationTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        FindObjectOfType<BossManager>().BossActivation();
-
-        Destroy(gameObject);
-       
+        GetComponentInParent<Boss_3_Manager>().MayAnimate();
     }
 }
