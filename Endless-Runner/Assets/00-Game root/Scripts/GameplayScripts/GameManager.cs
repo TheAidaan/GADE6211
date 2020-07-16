@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     static  bool _bossMode;
     public static bool BossMode { get { return _bossMode; } }
+
+    static int _destroyDist;
+    public static int DestroyDist { get { return _destroyDist; } }
     Spawner spawn;
     UIManager UI;
 
@@ -35,17 +38,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _activateLevel = false;
-        _changedlevel = false;
-        _bossMode = false;
-        _spawnBoss = false;
-        _currentLevel = Levels.three;
-        characterDeath = false;
-        _transitionToBoss = false;
-        _spawnActive = false;
-        _displayingUI = false;
-        _clearPath = false;
-        _disablingSpawner = false;
+        _currentLevel = Levels.two;
+        _destroyDist = 6;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -168,7 +162,8 @@ public class GameManager : MonoBehaviour
     {
         int firstLane = (int)Player.transform.position.x - 1;
         float offset = ((int)Player.transform.position.x - 1) - firstLane;
-        
+
+        _destroyDist = 6;
         spawn.SetLanes(firstLane, offset);
         SpawnStartPlatform();
 
@@ -177,6 +172,8 @@ public class GameManager : MonoBehaviour
         spawn.SetSpawnPoint(spawnPoint);
         spawn.AssignObjects();
         UI.ShowDistance(true);
+
+
     }
 
     public void Transition()
@@ -224,24 +221,30 @@ public class GameManager : MonoBehaviour
         _bossMode = true;
         Boss =  Resources.LoadAll<Transform>("Prefabs/Boss");
 
-        Vector3 bossPos = Vector3.zero;
+        Vector3 bossSpawnPos = Vector3.zero;
 
         switch (CurrentLevel)
         {
             case 1:
-                bossPos = new Vector3(0, -.7f, spawnPoint + 100.7f);
+                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -.7f, spawnPoint + 100.7f);
                 break;
             case 2:
+                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, Spawner.WorldHeight+6, spawnPoint-2);
                 break;
             default:
-                bossPos = new Vector3(0, -15, spawnPoint + 100.7f);
+                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -15, spawnPoint + 100.7f);
                 break;
         }
 
-        Instantiate(Boss[CurrentLevel-1], bossPos, Boss[CurrentLevel-1].rotation);
+        Instantiate(Boss[CurrentLevel-1], bossSpawnPos, Boss[CurrentLevel-1].rotation);
         FindObjectOfType<BossManager>().GetSpawnPoint(spawnPoint);
         spawnPoint+=97;
         UI.ShowDistance(false);
+    }
+
+    public void ChangeDestroyDistance(int DestroyDist)
+    {
+        _destroyDist = DestroyDist;
     }
 
     }//Gamemanager

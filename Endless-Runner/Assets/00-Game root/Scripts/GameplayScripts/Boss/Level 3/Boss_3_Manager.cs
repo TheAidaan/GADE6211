@@ -6,7 +6,6 @@ public class Boss_3_Manager : BossManager
 {
     bool  _mayAnimate, _switchRotation;
 
-    GameObject empty;
     Boss_3_Animator animator;
 
     Boss_3_CharacterMovement playerMovement;
@@ -27,10 +26,6 @@ public class Boss_3_Manager : BossManager
         animator = GetComponentInChildren<Boss_3_Animator>();
 
         gameSpawner.SetSpawnPoint(spawnPoint);
-
-        empty = new GameObject();
-        empty.transform.position = new Vector3(-53, 1, transform.position.z);
-        gameSpawner.SetParent(empty);
 
         gameSpawner.ForceBreak(2, 47);
 
@@ -86,16 +81,6 @@ public class Boss_3_Manager : BossManager
                 animator.SetTriggers();
 
                 playerMovement.TurnAround();
-            }
-        }
-
-       
-        if (!GameManager.BossMode)
-        {
-            transform.Translate(Vector3.down * 3f);
-            if (transform.position.y<-50)
-            {
-                Destroy(gameObject);
             }
         }
     }

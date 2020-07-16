@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
-
     Vector3 movement;
     bool MoveR, MoveL, Jump;
 
@@ -17,10 +16,11 @@ public class CharacterMovement : MonoBehaviour
     bool _jumpLock =  false;
     bool _stopForward = false;
 
-    float _forwardIncrease;
+    float _forwardIncrease, _maxIncrease;
 
-    bool _fling, _endFling, _transition;
+    bool _fling, _endFling;
     bool _superSize;
+    bool _invert, _transition;
 
     Rigidbody rb;
     CharacterReact React;
@@ -30,7 +30,9 @@ public class CharacterMovement : MonoBehaviour
     private void Start()
     {
         _forwardIncrease = 1;
+        _maxIncrease = 2.5f;
         _increaseSpeedPoint = 200;
+
         rb = GetComponent<Rigidbody>();
         React = GetComponentInChildren<CharacterReact>();
 
@@ -64,14 +66,43 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.A)) && ((int)_currentlane > 1) && (!_controlLock))
+        if ((Input.GetKeyDown(KeyCode.A)) && (!_controlLock)) //A is left
         {
-           MoveL = true;
+            if (_invert) // if controls are inverted
+            {
+                if ((int)_currentlane < 3)
+                {
+                    MoveR = true;
+                }
+            }
+            else
+            {
+               if  ((int)_currentlane > 1)//A is left
+               {
+                    MoveL = true;
+               }
+
+            }
+           
         }
 
-        if ((Input.GetKeyDown(KeyCode.D)) && ((int)_currentlane < 3) && (!_controlLock))
-        {
-            MoveR = true;
+        if ((Input.GetKeyDown(KeyCode.D)) && (!_controlLock)) //D is right
+        { 
+            if (_invert)
+            {
+                if ((int)_currentlane > 1)
+                {
+                    MoveL = true;
+                }
+            }
+            else //if controls are not inverted
+            {
+                if ((int)_currentlane < 3)//D is right
+                {
+                    MoveR = true;
+                }  
+            }
+        
         } 
 
 
@@ -104,10 +135,15 @@ public class CharacterMovement : MonoBehaviour
         if (_stopForward==false)
         {
             
-            if (CharacterStats.Distance > _increaseSpeedPoint)
+            if ((CharacterStats.Distance > _increaseSpeedPoint) && (!GameManager.BossMode))
             {
-                _forwardIncrease += .3f;
-                _increaseSpeedPoint += 100;
+                if (_forwardIncrease<=_maxIncrease)
+                {
+                    _forwardIncrease += .3f;
+                    _increaseSpeedPoint += 100;
+
+                }
+                
             }
             movement.z = 5 * _forwardIncrease;
 
@@ -123,7 +159,7 @@ public class CharacterMovement : MonoBehaviour
         {
             rb.AddRelativeForce(Vector3.left * 2500);
             MoveL = false;
-            _currentlane -= 1;
+            _currentlane -= 1 ;
         }
 
         if (Jump)
@@ -280,5 +316,15 @@ public class CharacterMovement : MonoBehaviour
         _endFling = false;
         _jumpLock = false;
         _jumpCount = 0;
+    }
+
+    public float CurrentSpeed()
+    {
+        return 5 * _forwardIncrease;
+    }
+
+    public void InvertInput()
+    {
+        _invert = true;
     }
 }

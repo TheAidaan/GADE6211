@@ -100,7 +100,7 @@ public abstract class World : MonoBehaviour
     {
         if (!GameManager.characterDeath)
         {
-            if (gameObject.transform.position.z < GameManager.Player.position.z - 6f)
+            if (gameObject.transform.position.z < GameManager.Player.position.z - GameManager.DestroyDist)
             {
                 Destroy(gameObject);
             }

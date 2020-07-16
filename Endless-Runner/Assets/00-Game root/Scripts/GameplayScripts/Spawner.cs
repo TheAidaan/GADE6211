@@ -8,7 +8,9 @@ public class Spawner : MonoBehaviour
     Transform[] World = new Transform[5];
     Transform[] Triggers = new Transform[2];
 
-    int randNumber, _firstLane, spawnPoint, _worldHeight;
+    int randNumber, spawnPoint;
+    static int _worldHeight, _firstLane;
+
     Transform Object;
 
     float _offset;
@@ -27,6 +29,9 @@ public class Spawner : MonoBehaviour
     int ClearDistance;
 
     Transform _parent;
+
+    public static int WorldHeight { get { return _worldHeight; } }
+    public static int FirstLane { get { return _firstLane; } }
     public void AssignObjects()
     {
         World = Resources.LoadAll<Transform>("Prefabs/World");
