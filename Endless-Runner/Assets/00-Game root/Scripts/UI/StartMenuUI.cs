@@ -7,7 +7,7 @@ public class StartMenuUI : MonoBehaviour
 {
     readonly GameObject[] MenuParts = new GameObject[3];
     bool _showLeaderBoard, _showMainScreen;
-    // Start is called before the first frame update
+    
     void Start()
     {
         _showLeaderBoard = false;

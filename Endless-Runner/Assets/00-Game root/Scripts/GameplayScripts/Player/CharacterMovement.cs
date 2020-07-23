@@ -20,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
 
     bool _fling, _endFling;
     bool _superSize;
-    bool _invert, _transition;
+    bool _invertInput, _transition;
 
     Rigidbody rb;
     CharacterReact React;
@@ -29,6 +29,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Start()
     {
+        _invertInput = false;
         _forwardIncrease = 1;
         _maxIncrease = 2.5f;
         _increaseSpeedPoint = 200;
@@ -68,7 +69,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.A)) && (!_controlLock)) //A is left
         {
-            if (_invert) // if controls are inverted
+            if (_invertInput) // if controls are inverted
             {
                 if ((int)_currentlane < 3)
                 {
@@ -88,7 +89,7 @@ public class CharacterMovement : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.D)) && (!_controlLock)) //D is right
         { 
-            if (_invert)
+            if (_invertInput)
             {
                 if ((int)_currentlane > 1)
                 {
@@ -194,7 +195,7 @@ public class CharacterMovement : MonoBehaviour
         if (_fling)
         {
             movement.y = 500f;
-            movement.z += 500f;
+            movement.z = 505f;
             _fling = false;
             _endFling = true;
         } 
@@ -325,6 +326,12 @@ public class CharacterMovement : MonoBehaviour
 
     public void InvertInput()
     {
-        _invert = true;
+        _invertInput = !_invertInput;
+    }
+
+    public void ResetSpeed()
+    {
+        _maxIncrease = 2.5f;
+        _increaseSpeedPoint = CharacterStats.Distance + 200;
     }
 }

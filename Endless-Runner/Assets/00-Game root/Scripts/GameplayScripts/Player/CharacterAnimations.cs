@@ -11,10 +11,7 @@ public class CharacterAnimations: MonoBehaviour
     }
     public void SuperSize(bool enable)
     {
-        anim.SetBool("SuperSize_Forward", enable);
-        anim.SetBool("SuperSize_Transition", enable);
-      
-        
+        anim.SetBool("SuperSize_Forward", enable);       
     }
 
     public void Fling(bool enable)

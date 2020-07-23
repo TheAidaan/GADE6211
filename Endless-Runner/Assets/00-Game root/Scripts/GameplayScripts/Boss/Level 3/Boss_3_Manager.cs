@@ -103,6 +103,7 @@ public class Boss_3_Manager : BossManager
         Player.transform.eulerAngles = new Vector3(0, 0, 0);
         
         Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
+        Destroy(gameObject);
         
         base.DeactivateBoss();
     }

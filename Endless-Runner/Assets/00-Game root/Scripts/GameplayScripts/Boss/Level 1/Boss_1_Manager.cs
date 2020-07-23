@@ -94,7 +94,7 @@ public class Boss_1_Manager : BossManager
         GetSpawnPoint((int)transform.position.z);
 
         gameSpawner.SetSpawnPoint(spawnPoint);
-        gameSpawner.SetLanes(-53, 0.33f);
+        gameSpawner.SetLanes(-53.33f);
 
         spawn.SetLanes((int)transform.position.z - 52 , 0);
         spawn.SetSpawnPoint(Player.transform.position.x);

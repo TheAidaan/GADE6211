@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static bool characterDeath;
-    public static int CurrentLevel { get { return (int)_currentLevel; } }
 
     static  bool _bossMode;
     public static bool BossMode { get { return _bossMode; } }
@@ -15,13 +14,14 @@ public class GameManager : MonoBehaviour
     Spawner spawn;
     UIManager UI;
 
-    float waitToLoad = 0;
+    float _waitToLoad = 0;
 
     public Transform Character;
     public static Transform Player;
 
     enum Levels { one=1, two, three }
-    [SerializeField] static Levels _currentLevel;
+    static Levels _currentLevel;
+    public static int CurrentLevel { get { return (int)_currentLevel; } }
 
     Material[] environmentMaterial = new Material[4];
 
@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour
 
     Transform[] Boss = new Transform[3];
 
-    bool _spawnBoss, _transitionToBoss, _spawnActive, _changedlevel, _activateLevel, _displayingUI, _clearPath, _disablingSpawner;
+    bool _spawnBoss, _transitionToBoss, _spawnActive, _changedlevel, 
+        _activateLevel, _displayingUI, _clearPath, _disablingSpawner,
+        _randomizeLevels;
 
     int _clearDist;
 
@@ -38,7 +40,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _currentLevel = Levels.two;
+        characterDeath = false;
+        _bossMode = false;
+        _currentLevel = Levels.three;
         _destroyDist = 6;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
@@ -50,12 +54,11 @@ public class GameManager : MonoBehaviour
 
         World = new GameObject();
         spawn.SetParent(World);
-        spawn.SetLanes(-1,0);
+        spawn.SetLanes(-1);
         spawn.AssignObjects();
 
         environmentMaterial = Resources.LoadAll<Material>("Materials/World");
         RenderSettings.skybox = environmentMaterial[CurrentLevel];
-
     }
     void Start()
     {
@@ -123,10 +126,10 @@ public class GameManager : MonoBehaviour
 
         if (characterDeath)
         {
-            waitToLoad += Time.deltaTime;
+            _waitToLoad += Time.deltaTime;
         }
 
-        if (waitToLoad > 2)
+        if (_waitToLoad > 2)
         {
             if (!_displayingUI)
             {
@@ -150,21 +153,30 @@ public class GameManager : MonoBehaviour
     public void ChangeLevel()
     {
         UI.ShowPowerIndicator(true);
+        
+        if ((_currentLevel == Levels.three) && (!_randomizeLevels))
+        {
+            _randomizeLevels = true;
+        }
+
+        if (_randomizeLevels)
+        {
+            _currentLevel = (Levels)Random.Range(1, 3);
+        }
+        else
+        {
+            _currentLevel++;
+        }
+        
         _changedlevel = true;
-        _currentLevel++;
         RenderSettings.skybox = environmentMaterial[CurrentLevel];
         _activateLevel = true;
-
-
     }
 
     void ActivateLevel()
     {
-        int firstLane = (int)Player.transform.position.x - 1;
-        float offset = ((int)Player.transform.position.x - 1) - firstLane;
-
         _destroyDist = 6;
-        spawn.SetLanes(firstLane, offset);
+        spawn.SetLanes((int)Player.transform.position.x - 1);
         SpawnStartPlatform();
 
         _spawnActive = true;
@@ -172,6 +184,8 @@ public class GameManager : MonoBehaviour
         spawn.SetSpawnPoint(spawnPoint);
         spawn.AssignObjects();
         UI.ShowDistance(true);
+
+        Player.GetComponent<CharacterMovement>().ResetSpeed();
 
 
     }
@@ -182,8 +196,7 @@ public class GameManager : MonoBehaviour
         spawn.SetWorldHeight((int)Player.transform.position.y);
         
         if (BossMode)
-        {
-            
+        {    
             _spawnBoss = false;
 
             if (!_changedlevel)
