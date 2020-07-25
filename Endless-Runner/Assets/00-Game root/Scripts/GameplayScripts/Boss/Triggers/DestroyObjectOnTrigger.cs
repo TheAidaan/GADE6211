@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeCameraSettings : MonoBehaviour
+public class DestroyObjectOnTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        FindObjectOfType<CameraBehaviour>().Boss_2_CameraAdjustments();
+        Destroy(gameObject);
     }
 }

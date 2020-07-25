@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
 
     static int _destroyDist;
     public static int DestroyDist { get { return _destroyDist; } }
-    Spawner spawn;
-    UIManager UI;
+    Spawner _spawn;
+    UIManager _UI;
 
     float _waitToLoad = 0;
 
-    public Transform Character;
+    Transform _character;
     public static Transform Player;
 
     enum Levels { one=1, two, three }
@@ -42,20 +42,20 @@ public class GameManager : MonoBehaviour
     {
         characterDeath = false;
         _bossMode = false;
-        _currentLevel = Levels.three;
+        _currentLevel = Levels.two;
         _destroyDist = 6;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
        
-        spawn = GetComponent<Spawner>();
-        UI = GetComponentInChildren<UIManager>();
-        UI.Begin();
+        _spawn = GetComponent<Spawner>();
+        _UI = GetComponentInChildren<UIManager>();
+        _UI.Begin();
 
         World = new GameObject();
-        spawn.SetParent(World);
-        spawn.SetLanes(-1);
-        spawn.AssignObjects();
+        _spawn.SetParent(World);
+        _spawn.SetLanes(-1);
+        _spawn.AssignObjects();
 
         environmentMaterial = Resources.LoadAll<Material>("Materials/World");
         RenderSettings.skybox = environmentMaterial[CurrentLevel];
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         for (int spawnPoint = -1; spawnPoint < 12; spawnPoint++)
         {
-            spawn.SpawnBuildingBlocks(spawnPoint, null);
+            _spawn.SpawnBuildingBlocks(spawnPoint, null);
         }
         _spawnActive = true;
     }
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                
                     if (Player.position.z > (spawnPoint - 15))
                     {
-                        spawn.SpawnBuildingBlocks(spawnPoint, spawn.PickObject());
+                        _spawn.SpawnBuildingBlocks(spawnPoint, _spawn.PickObject());
                         spawnPoint++;
                     }
          
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (Player.position.z > (spawnPoint - 15))
                     {
-                        spawn.SpawnBuildingBlocks(spawnPoint, null);
+                        _spawn.SpawnBuildingBlocks(spawnPoint, null);
                         spawnPoint++;
                         if (spawnPoint == _clearDist)
                         {
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
                 if (_transitionToBoss)
                 {
-                    spawn.SpawnPlatform(spawnPoint, true);
+                    _spawn.SpawnPlatform(spawnPoint, true);
                     _transitionToBoss = false;
                 }
 
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         {
             if (!_displayingUI)
             {
-                UI.PlayerDeath();
+                _UI.PlayerDeath();
                 _displayingUI = true;
             }
 
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLevel()
     {
-        UI.ShowPowerIndicator(true);
+        _UI.ShowPowerIndicator(true);
         
         if ((_currentLevel == Levels.three) && (!_randomizeLevels))
         {
@@ -176,14 +176,14 @@ public class GameManager : MonoBehaviour
     void ActivateLevel()
     {
         _destroyDist = 6;
-        spawn.SetLanes((int)Player.transform.position.x - 1);
+        _spawn.SetLanes((int)Player.transform.position.x - 1);
         SpawnStartPlatform();
 
         _spawnActive = true;
-        spawn.SetParent(World);
-        spawn.SetSpawnPoint(spawnPoint);
-        spawn.AssignObjects();
-        UI.ShowDistance(true);
+        _spawn.SetParent(World);
+        _spawn.SetSpawnPoint(spawnPoint);
+        _spawn.AssignObjects();
+        _UI.ShowDistance(true);
 
         Player.GetComponent<CharacterMovement>().ResetSpeed();
 
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
     public void Transition()
     {
         spawnPoint = (int)Player.transform.position.z;
-        spawn.SetWorldHeight((int)Player.transform.position.y);
+        _spawn.SetWorldHeight((int)Player.transform.position.y);
         
         if (BossMode)
         {    
@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour
     void SpawnStartPlatform()
     {
         spawnPoint += 54;
-        spawn.SpawnPlatform(spawnPoint, false);
+        _spawn.SpawnPlatform(spawnPoint, false);
         spawnPoint += 5;
 
     }
@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
                 bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -.7f, spawnPoint + 100.7f);
                 break;
             case 2:
-                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, Spawner.WorldHeight+6, spawnPoint-2);
+                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, Spawner.WorldHeight, spawnPoint+2);
                 break;
             default:
                 bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -15, spawnPoint + 100.7f);
@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
         Instantiate(Boss[CurrentLevel-1], bossSpawnPos, Boss[CurrentLevel-1].rotation);
         FindObjectOfType<BossManager>().GetSpawnPoint(spawnPoint);
         spawnPoint+=97;
-        UI.ShowDistance(false);
+        _UI.ShowDistance(false);
     }
 
     public void ChangeDestroyDistance(int DestroyDist)

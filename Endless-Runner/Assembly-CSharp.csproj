@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\00-Game root\Scripts\CameraBehaviour.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossSpawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Manager.cs" />
@@ -76,8 +75,8 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlatformMidPoint.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlayerIsFinished.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Animator.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Lazer.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Manager.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Triggers\ChangeCameraSettings.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_Animator.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_Manager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_ParticleEffect.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Triggers\FinalRaise.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Triggers\StopForward.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Triggers\BossActivationTrigger.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Triggers\DestroyObjectOnTrigger.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Triggers\PutPlayerHere.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\GameManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Abstract Objects.cs" />

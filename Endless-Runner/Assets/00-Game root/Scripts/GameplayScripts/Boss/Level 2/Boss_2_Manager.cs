@@ -4,36 +4,38 @@ using UnityEngine;
 
 public class Boss_2_Manager : BossManager
 {
-    Rigidbody rb;
-    Boss_2_Animator animator;
+    Rigidbody _rb;
+    Boss_2_Animator _animator;
+    Boss_2_Lazer _lazer;
 
-    bool _moveForward,_maySpawn;
+    bool _maySpawn,_moveForward;
 
     float _forwardSpeed, _totalDistance, _startPosition;
     int _increaseStagepoint;
 
-    Transform[] Triggers;
-
     public override void Start()
     {
         base.Start();
-        animator = GetComponentInChildren<Boss_2_Animator>();
-        rb = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Boss_2_Animator>();
+        _lazer = GetComponentInChildren<Boss_2_Lazer>();
+        _rb = GetComponent<Rigidbody>();
 
         _startPosition = transform.position.z;
         _increaseStagepoint = 50;
         _maySpawn = true;
-
-        Triggers = Resources.LoadAll<Transform>("Prefabs/Boss/Level 2/Triggers");
-        Instantiate(Triggers[0], new Vector3(Spawner.FirstLane + 1, Spawner.WorldHeight+1, spawnPoint), Triggers[0].rotation);
+        
 
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        if (bossActive)
+        if (_moveForward)
         {
-            rb.velocity = Vector3.forward * _forwardSpeed;
+            _rb.velocity = Vector3.forward * _forwardSpeed;
+        }else
+        {
+            _rb.velocity = Vector3.zero;
         }
+  
     }
     void Update()
     {
@@ -41,7 +43,7 @@ public class Boss_2_Manager : BossManager
         {
             if (bossActive)
             {
-                if (Player.transform.position.z > (spawnPoint - 5))
+                if (Player.transform.position.z > (spawnPoint - 15))
                 {
                     _totalDistance = (transform.position.z - _startPosition);
 
@@ -50,60 +52,61 @@ public class Boss_2_Manager : BossManager
                         IncreaseStage();
                         _increaseStagepoint += 50;
                     }
-                    if(_maySpawn)
+                    if (_maySpawn)
                     {
                         gameSpawner.SpawnBuildingBlocks(spawnPoint, null);
                         spawnPoint++;
                     }
-                    
+
                 }
-            }else
+            }
+            else
             {
                 if (transform.position.z > (spawnPoint - 13))
                 {
                     gameSpawner.SpawnBuildingBlocks(spawnPoint, null);
                     spawnPoint++;
                 }
+            }
+        }else
+        {
+            _moveForward = false;
+        }
 
-                if (transform.position.z <= Player.transform.position.z - 7)
-                {
-                    BossActivation();
-                }
-            }    
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(_animator.Smash());
         }
     }
 
     public override void ActivateBoss()
     {
         _forwardSpeed = Player.GetComponent<CharacterMovement>().CurrentSpeed();
-        Player.GetComponent<CharacterMovement>().InvertInput();
+        _lazer.Activate(Player);
         _moveForward = true;
-        animator.isRunning();
-
-        FindObjectOfType<GameManager>().ChangeDestroyDistance(15);    
+        base.ActivateBoss();
     }
 
     public override void EndBoss()
     {
         gameSpawner.SpawnPlatform(spawnPoint, true);
         _maySpawn = false;
+
         Transform[] ActivationTriggers = Resources.LoadAll<Transform>("Prefabs/Boss/Triggers");
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            Instantiate(ActivationTriggers[0], new Vector3(Spawner.FirstLane + i, Spawner.WorldHeight + 1, spawnPoint+1), ActivationTriggers[0].rotation);
+            Instantiate(ActivationTriggers[0], new Vector3(Spawner.FirstLane + i, Spawner.WorldHeight + 1, spawnPoint + 1), ActivationTriggers[0].rotation);
         }
-        
+
         base.EndBoss();
     }
 
     public override void DeactivateBoss()
     {
         base.DeactivateBoss();
-        FindObjectOfType<CameraBehaviour>().Boss_2_CameraReset();
-        Player.GetComponent<CharacterMovement>().InvertInput();
         Destroy(gameObject);
     }
-        
+
 
 }

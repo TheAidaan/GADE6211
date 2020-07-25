@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5321135564202211142}
   - component: {fileID: 1773476067032476235}
   - component: {fileID: 4940679283260614304}
-  - component: {fileID: 8471062323244122475}
   m_Layer: 0
   m_Name: 0.Cube
   m_TagString: Lethal
@@ -107,15 +106,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rotation: {x: 0, y: 0, z: 0}
   Player: {fileID: 0}
---- !u!114 &8471062323244122475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2190592735852139235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9693cab7fd00d544914c9625b015871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

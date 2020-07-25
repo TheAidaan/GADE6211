@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
-    Vector3 movement;
+    Vector3 _movement;
     bool MoveR, MoveL, Jump;
 
     enum Lanes { Left = 1, Center, Right };
@@ -22,10 +22,10 @@ public class CharacterMovement : MonoBehaviour
     bool _superSize;
     bool _invertInput, _transition;
 
-    Rigidbody rb;
-    CharacterReact React;
+    Rigidbody _rb;
+    CharacterReact _react;
 
-    int _jumpCount, _maxJump, _increaseSpeedPoint;
+    int _increaseSpeedPoint;
 
     private void Start()
     {
@@ -34,18 +34,10 @@ public class CharacterMovement : MonoBehaviour
         _maxIncrease = 2.5f;
         _increaseSpeedPoint = 200;
 
-        rb = GetComponent<Rigidbody>();
-        React = GetComponentInChildren<CharacterReact>();
+        _rb = GetComponent<Rigidbody>();
+        _react = GetComponentInChildren<CharacterReact>();
 
         _currentlane = Lanes.Center;
-        if (GameManager.CurrentLevel == 3)
-        {
-            _maxJump = 1;
-        }else
-        {
-            _maxJump = 0;
-        }
-        _jumpCount = 0;
 
         GetComponentInChildren<CharacterAnimations>().Move(true);
     }
@@ -54,12 +46,12 @@ public class CharacterMovement : MonoBehaviour
         Move();
         if (_transition)
         {
-            rb.velocity = movement;
+            _rb.velocity = _movement;
             _transition = false;
         }
         else
         {
-            rb.velocity = gameObject.transform.TransformDirection(movement);
+            _rb.velocity = gameObject.transform.TransformDirection(_movement);
 
         }
         
@@ -107,22 +99,20 @@ public class CharacterMovement : MonoBehaviour
         } 
 
 
-        if ((Input.GetKeyDown(KeyCode.W)) && (!_jumpLock) && ( (OnGround()) || (_jumpCount < _maxJump)))
+        if ((Input.GetKeyDown(KeyCode.W)) && (!_jumpLock))
         {
             Jump = true;
-            _jumpCount++;
 
         }
 
         if (OnGround()) 
         {
-            _jumpCount = 0;
            
             if (_endFling)
             {
                 _endFling = false;
                 _jumpLock = false;
-                React.EndFling();
+                _react.EndFling();
             }
         }
        
@@ -131,7 +121,7 @@ public class CharacterMovement : MonoBehaviour
     void Move()
     {
 
-        movement = Vector3.zero;
+        _movement = Vector3.zero;
 
         if (_stopForward==false)
         {
@@ -146,31 +136,31 @@ public class CharacterMovement : MonoBehaviour
                 }
                 
             }
-            movement.z = 5 * _forwardIncrease;
+            _movement.z = 5 * _forwardIncrease;
 
         }
 
         if (MoveR)
         {
-            rb.AddRelativeForce(Vector3.right * 2500);
+            _rb.AddRelativeForce(Vector3.right * 2500);
             MoveR = false;
             _currentlane += 1;
         }
         if (MoveL)
         {
-            rb.AddRelativeForce(Vector3.left * 2500);
+            _rb.AddRelativeForce(Vector3.left * 2500);
             MoveL = false;
             _currentlane -= 1 ;
         }
 
         if (Jump)
         {
-            movement.y = 100f;
+            _movement.y = 100f;
 
-            if (_stopForward == false)
-            {
-                movement.z += 50f;
-            }
+            //if (_stopForward == false)
+            //{
+            //    _movement.z += 50f;
+            //}
             
             Jump = false;
         }
@@ -181,29 +171,29 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!SuperSizeGroundCheck())
                 {
-                    movement.y -= 6;
+                    _movement.y -= 6;
                 }
-                
-            }else
-            {
-                movement.y -= 6;
 
+            }
+            else
+            {
+                _movement.y -= 6;
             }
             
         }
 
         if (_fling)
         {
-            movement.y = 500f;
-            movement.z = 505f;
+            _movement.y = 500f;
+            _movement.z = 505f;
             _fling = false;
             _endFling = true;
         } 
         
         if (_transition)
         {
-            movement.y = 1500f;
-            movement.z += 1500f;
+            _movement.y = 1500f;
+            _movement.z += 1500f;
       
             _endFling = true;
 
@@ -219,7 +209,7 @@ public class CharacterMovement : MonoBehaviour
     public void Hole()
     {
         StopAllMovement();
-        rb.AddForce(Vector3.forward * 1200);
+        _rb.AddForce(Vector3.forward * 1200);
     }
 
     public void Fling()
@@ -299,10 +289,10 @@ public class CharacterMovement : MonoBehaviour
         switch ((int)_currentlane)
         {
             case 1:
-                rb.AddRelativeForce(Vector3.right * 2500);
+                _rb.AddRelativeForce(Vector3.right * 2500);
                 break;
             case 3:
-                rb.AddRelativeForce(Vector3.left * 2500);
+                _rb.AddRelativeForce(Vector3.left * 2500);
                 break;
         }
 
@@ -312,11 +302,10 @@ public class CharacterMovement : MonoBehaviour
     public void Bounce(Vector3 force)
     {
         Debug.Log("Bouncijg");
-        rb.AddRelativeForce(force);
+        _rb.AddRelativeForce(force);
 
         _endFling = false;
         _jumpLock = false;
-        _jumpCount = 0;
     }
 
     public float CurrentSpeed()
