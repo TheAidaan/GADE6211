@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
 
-    UIManager UI;
+    GameUI UI;
     CharacterAbility characterAbility;
 
     int  _totalCoins;
@@ -20,7 +20,7 @@ public class CharacterStats : MonoBehaviour
     void Start()
     {
         characterAbility = GetComponentInParent<CharacterAbility>();
-        UI = FindObjectOfType<UIManager>();
+        UI = FindObjectOfType<GameUI>();
 
         _startPosition = transform.position;
         _totalCoins = 0;

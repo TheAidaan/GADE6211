@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     static int _destroyDist;
     public static int DestroyDist { get { return _destroyDist; } }
     Spawner _spawn;
-    UIManager _UI;
+    GameUI _UI;
 
     float _waitToLoad = 0;
 
@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").transform;
        
         _spawn = GetComponent<Spawner>();
-        _UI = GetComponentInChildren<UIManager>();
-        _UI.Begin();
+        _UI = GetComponentInChildren<GameUI>();
+        //_UI.Begin();
 
         World = new GameObject();
         _spawn.SetWorldHeight(0);
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     }
     private void Events_OnObstaclePased(object sender, EventSystem.OnObstaclePasedEventArgs e)
     {
+        e.obstaclesPassed++;
         Debug.Log(e.obstaclesPassed);
     }
     void Start()

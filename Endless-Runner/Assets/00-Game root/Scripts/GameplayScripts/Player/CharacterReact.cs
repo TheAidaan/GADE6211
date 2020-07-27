@@ -10,7 +10,7 @@ public class CharacterReact : MonoBehaviour
     CharacterAnimations animator;
     CharacterMovement Movement;
     CharacterAbility ability;
-    UIManager UI;
+    GameUI UI;
 
     bool _flingActive;
 
@@ -25,7 +25,7 @@ public class CharacterReact : MonoBehaviour
         animator = GetComponent<CharacterAnimations>();
         ability = GetComponentInParent<CharacterAbility>();
         Movement = GetComponentInParent<CharacterMovement>();
-        UI = FindObjectOfType<UIManager>();
+        UI = FindObjectOfType<GameUI>();
 
         CurrentResistanceLevel = playerResistance.none;
         rend = GetComponent<Renderer>();

@@ -43,16 +43,18 @@ public abstract class Collectable : Objects
 
 public abstract class Obstacle : Objects
 {
-    bool _counted;
+    bool _counted = false;
     void Update()
     {
         if (!GameManager.characterDeath)
         {
-            if ((gameObject.transform.position.z < GameManager.Player.position.z) && (!_counted))
+            if ((transform.position.z < GameManager.Player.position.z) && (!_counted))
             {
+                Debug.Log("sent");
                 FindObjectOfType<GameManager>().ObstaclePassed();
                 _counted = true;
             }
+            Debug.Log(_counted);
         }
     }
 

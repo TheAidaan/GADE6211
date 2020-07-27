@@ -115,6 +115,8 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterStats.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Spawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\Data.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\UI\EndMenu.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\UI\GameUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\Leaderboard.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\StartMenuUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\UIManager.cs" />

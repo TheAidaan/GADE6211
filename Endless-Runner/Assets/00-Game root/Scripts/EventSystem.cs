@@ -14,7 +14,6 @@ public class EventSystem : MonoBehaviour
 
     public void ObstaclePassed()
     {
-        _obstaclesPassed++;
         OnObstaclePased?.Invoke(this, new OnObstaclePasedEventArgs { obstaclesPassed = _obstaclesPassed });
     }
 
