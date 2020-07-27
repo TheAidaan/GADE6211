@@ -6,7 +6,7 @@ public class Boss_2_Manager : BossManager
 {
     Rigidbody _rb;
     Boss_2_Animator _animator;
-    Boss_2_Lazer _lazer;
+    Boss_2_Laser _laser;
 
     bool _maySpawn,_moveForward;
 
@@ -17,7 +17,7 @@ public class Boss_2_Manager : BossManager
     {
         base.Start();
         _animator = GetComponentInChildren<Boss_2_Animator>();
-        _lazer = GetComponentInChildren<Boss_2_Lazer>();
+        _laser = GetComponentInChildren<Boss_2_Laser>();
         _rb = GetComponent<Rigidbody>();
 
         _startPosition = transform.position.z;
@@ -73,16 +73,16 @@ public class Boss_2_Manager : BossManager
             _moveForward = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(_animator.Smash());
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    StartCoroutine(_animator.Smash());
+        //}
     }
 
     public override void ActivateBoss()
     {
         _forwardSpeed = Player.GetComponent<CharacterMovement>().CurrentSpeed();
-        _lazer.Activate(Player);
+        _laser.Activate(Player);
         _moveForward = true;
         base.ActivateBoss();
     }

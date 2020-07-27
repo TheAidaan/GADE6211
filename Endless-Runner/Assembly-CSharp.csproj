@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\00-Game root\Scripts\EventSystem.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossSpawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Manager.cs" />
@@ -74,8 +75,9 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\LookAtCenter.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlatformMidPoint.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlayerIsFinished.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Ammo.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Animator.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Lazer.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Laser.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Manager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_Animator.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_Manager.cs" />
@@ -102,11 +104,10 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Constants\TakeAwayPowers.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Gone.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Triggers\Hole.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Blocks.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Destroyer.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Ground.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Platform.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Transitioner.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\World\Wall.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterAbility.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterAnimations.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterMovement.cs" />
@@ -121,10 +122,20 @@
     <Compile Include="Assets\Tester\Rotation.cs" />
     <Compile Include="Assets\Tester\TestCharacterMovement.cs" />
     <Compile Include="Assets\Tester\TestSpawner.cs" />
+    <Compile Include="Assets\VolumetricLines\BuiltInRenderPipeline\ExampleScenes\ExampleScripts\CannonBehavior.cs" />
+    <Compile Include="Assets\VolumetricLines\BuiltInRenderPipeline\ExampleScenes\ExampleScripts\CreateSinShapedLineStrip.cs" />
+    <Compile Include="Assets\VolumetricLines\BuiltInRenderPipeline\ExampleScenes\ExampleScripts\VolumetricMultiLineBehavior.cs" />
+    <Compile Include="Assets\VolumetricLines\Scripts\VolumetricLineBehavior.cs" />
+    <Compile Include="Assets\VolumetricLines\Scripts\VolumetricLineStripBehavior.cs" />
+    <Compile Include="Assets\VolumetricLines\Scripts\VolumetricLineVertexData.cs" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\_LineStripShader.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-LightSaber.shader" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-LightSaber.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAdditive.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
@@ -132,10 +143,14 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAlphaBlended.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAlphaBlended.shader" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAdditive.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\_SingleLineShader.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />

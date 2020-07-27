@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public abstract class PowerUps : Objects
@@ -45,6 +43,19 @@ public abstract class Collectable : Objects
 
 public abstract class Obstacle : Objects
 {
+    bool _counted;
+    void Update()
+    {
+        if (!GameManager.characterDeath)
+        {
+            if ((gameObject.transform.position.z < GameManager.Player.position.z) && (!_counted))
+            {
+                FindObjectOfType<GameManager>().ObstaclePassed();
+                _counted = true;
+            }
+        }
+    }
+
     public virtual void Effect() 
     { if (Player.GetComponent<CharacterReact>()!= null) 
         { 
@@ -68,6 +79,12 @@ public abstract class Obstacle : Objects
                 break;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+    }
+
 }
 
 public abstract class Trigger : Objects
@@ -109,49 +126,6 @@ public abstract class World : MonoBehaviour
     }
 }
 
-public abstract class Blocks : World
-{
-    public bool wall;
-    int materialIndex;
-
-    Material[] materials = new Material[12];
-    Renderer rend;
-    void Start()
-    {
-        rend = GetComponent<Renderer>();
-        rend.enabled = true;
-        materials = Resources.LoadAll<Material>("Materials/Blocks");
-
-        GetMaterial();
-
-        rend.sharedMaterial = materials[materialIndex];
-    }
-
-    public virtual void GetMaterial()
-    {
-        switch (GameManager.CurrentLevel)
-        {
-            case 1:
-                materialIndex = 0;
-                break;
-            case 2:
-                materialIndex = 2;
-                if (wall)
-                {
-                    materialIndex--;
-                }
-                break;
-            case 3:
-                materialIndex = 3;
-                break;
-            default:
-                materialIndex = 9;
-                break;
-        }
-    }
-
-}
-
 public abstract class Objects : World
 {
     void Update()
@@ -180,6 +154,7 @@ public abstract class Objects : World
         }
         
     }
+    public virtual void Count() { }
 
     public virtual void CollisionEffect() { }
 

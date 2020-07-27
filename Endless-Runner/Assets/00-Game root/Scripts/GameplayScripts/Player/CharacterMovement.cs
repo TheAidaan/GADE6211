@@ -301,7 +301,6 @@ public class CharacterMovement : MonoBehaviour
 
     public void Bounce(Vector3 force)
     {
-        Debug.Log("Bouncijg");
         _rb.AddRelativeForce(force);
 
         _endFling = false;

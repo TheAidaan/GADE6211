@@ -36,10 +36,15 @@ public class GameManager : MonoBehaviour
     int _clearDist;
 
     GameObject World;
+    EventSystem _events;
 
     // Start is called before the first frame update
     void Awake()
     {
+        _events = GetComponent<EventSystem>();
+
+        _events.OnObstaclePased += Events_OnObstaclePased;
+
         characterDeath = false;
         _bossMode = false;
         _currentLevel = Levels.two;
@@ -53,12 +58,17 @@ public class GameManager : MonoBehaviour
         _UI.Begin();
 
         World = new GameObject();
+        _spawn.SetWorldHeight(0);
         _spawn.SetParent(World);
         _spawn.SetLanes(-1);
         _spawn.AssignObjects();
 
         environmentMaterial = Resources.LoadAll<Material>("Materials/World");
         RenderSettings.skybox = environmentMaterial[CurrentLevel];
+    }
+    private void Events_OnObstaclePased(object sender, EventSystem.OnObstaclePasedEventArgs e)
+    {
+        Debug.Log(e.obstaclesPassed);
     }
     void Start()
     {
@@ -72,16 +82,15 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (CharacterStats.Distance > 1000)
-        //{
+        if (CharacterStats.Distance > 1000)
+        {
             if (!_disablingSpawner)
             {
                 DisableSpawner();
                 _spawnBoss = true;
 
             }
-
-        //}
+        }
 
     }
 
@@ -258,6 +267,11 @@ public class GameManager : MonoBehaviour
     public void ChangeDestroyDistance(int DestroyDist)
     {
         _destroyDist = DestroyDist;
+    }
+
+    public void ObstaclePassed()
+    {
+        _events.ObstaclePassed();
     }
 
     }//Gamemanager

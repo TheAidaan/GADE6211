@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5321135564202211142}
   - component: {fileID: 1773476067032476235}
   - component: {fileID: 4940679283260614304}
+  - component: {fileID: 8594293859364421314}
   m_Layer: 0
   m_Name: 0.Cube
   m_TagString: Lethal
@@ -90,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.8, z: 1}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!114 &4940679283260614304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,3 +107,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rotation: {x: 0, y: 0, z: 0}
   Player: {fileID: 0}
+--- !u!65 &8594293859364421314
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190592735852139235}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.2, z: 1}
+  m_Center: {x: 0, y: 0.4, z: 0}
