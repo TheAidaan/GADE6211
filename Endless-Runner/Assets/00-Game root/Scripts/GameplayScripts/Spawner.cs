@@ -72,10 +72,9 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            if ((24 < randNumber) && (randNumber < 35))//+-10% chance
+            if ((24 < randNumber) && (randNumber < 35) && GameManager.CharacterAbility)//+-10% chance
             {
-                randObject = Random.Range(0, 2);
-                return Objects[1, randObject]; //collector objects
+                return Objects[1, 0]; //power charge
             }
             else
             {
@@ -143,6 +142,11 @@ public class Spawner : MonoBehaviour
             if (Object.gameObject.name == "3.Stump")
             {
                 randLane = StumpCheck();
+            }
+
+            if (Object.gameObject.name == "1.BasicMoving")
+            {
+                randLane = _firstLane + 1;
             }
         }
 

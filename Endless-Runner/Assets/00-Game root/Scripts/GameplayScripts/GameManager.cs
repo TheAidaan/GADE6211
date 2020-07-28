@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static bool characterDeath;
 
+    static bool _characterAbility;
+    public static bool CharacterAbility { get { return _characterAbility; } }
+
     static  bool _bossMode;
     public static bool BossMode { get { return _bossMode; } }
 
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
 
         _events.OnObstaclePased += Events_OnObstaclePased;
 
+        _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
         _currentLevel = Levels.two;
@@ -136,6 +140,7 @@ public class GameManager : MonoBehaviour
 
         if (characterDeath)
         {
+            _characterAbility = false;
             _waitToLoad += Time.deltaTime;
         }
 
@@ -162,7 +167,6 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLevel()
     {
-        _UI.ShowPowerIndicator(true);
         
         if ((_currentLevel == Levels.three) && (!_randomizeLevels))
         {
@@ -176,6 +180,10 @@ public class GameManager : MonoBehaviour
         else
         {
             _currentLevel++;
+        }
+        if (!_characterAbility)
+        {
+            _characterAbility = true;
         }
         
         _changedlevel = true;

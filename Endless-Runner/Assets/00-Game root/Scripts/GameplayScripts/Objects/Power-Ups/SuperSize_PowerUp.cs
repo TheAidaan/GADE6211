@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SuperSize_PowerUp : PowerUps
 {
-    void Start()
+    private void FixedUpdate()
     {
-        Rotation = new Vector3(0f, 0f, 3f);
+        transform.Rotate(0f, 0f, 3f);
     }
-   
+
     public override void Effect()
     {
         if (Player.GetComponent<CharacterReact>() != null)

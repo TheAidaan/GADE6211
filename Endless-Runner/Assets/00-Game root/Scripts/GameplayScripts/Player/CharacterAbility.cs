@@ -19,7 +19,7 @@ public class CharacterAbility : MonoBehaviour
     }
     void Update()
     {
-        if ((Input.GetKey(KeyCode.S)) && (_charged) && ((GameManager.CurrentLevel > 1) || (GameManager.CurrentLevel == 0 )))
+        if ((Input.GetKey(KeyCode.S)) && (_charged) && (GameManager.CharacterAbility))
         {
             Shoot();
             stats.ChangePower(-100f);

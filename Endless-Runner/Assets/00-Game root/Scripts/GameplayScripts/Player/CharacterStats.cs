@@ -38,12 +38,6 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void IncreaseCoins(int increment)
-    {
-        _totalCoins += increment;
-        UI.SetTotCoins(_totalCoins.ToString());
-    }
-
     public void ChangePower(float charge)
     {
         _power += charge;

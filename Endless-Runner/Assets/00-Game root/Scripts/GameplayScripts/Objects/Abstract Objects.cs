@@ -21,24 +21,7 @@ public abstract class PowerUps : Objects
                 break;
         }
     }
-    public override void IdleEffect()
-    {
-        transform.Rotate(Rotation);
-    }
 
-}
-
-public abstract class Collectable : Objects
-{
-    public virtual void Effect() { Destroy(gameObject); }
-    public override void CollisionEffect()
-    {
-        Effect();
-    }
-    public override void IdleEffect()
-    {
-        transform.Rotate(Rotation);
-    }
 }
 
 public abstract class Obstacle : Objects
@@ -130,11 +113,7 @@ public abstract class World : MonoBehaviour
 
 public abstract class Objects : World
 {
-    void Update()
-    {
-        IdleEffect();
-    }
-    public Vector3 Rotation;
+
     public GameObject Player;
 
     void OnTriggerEnter(Collider collision) // All objects except obstacles,excluding hole
@@ -156,11 +135,7 @@ public abstract class Objects : World
         }
         
     }
-    public virtual void Count() { }
-
     public virtual void CollisionEffect() { }
-
-    public virtual void IdleEffect() { }
 
 
 }

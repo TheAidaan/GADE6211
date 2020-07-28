@@ -91,10 +91,9 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Triggers\PutPlayerHere.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\GameManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Abstract Objects.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Collectables\Coin_Collectable.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Collectables\Power_PowerUps.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\Cube_Obstacle.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\CubeMoving_Obstacle.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Collectables\PowerCharge_Collectable.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\Basic_Obstacle.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Obstacles\BasicMoving_Obstacle.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\Fling_PowerUp.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\Immunity_PowerUp.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Objects\Power-Ups\SuperSize_PowerUp.cs" />

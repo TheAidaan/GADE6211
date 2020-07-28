@@ -9,11 +9,11 @@ public class GameUI : MonoBehaviour
 {
     int _score;
 
-    bool _showPowerIndicator, _showDistanceText, _showCoinsText;
+    bool  _showDistanceText, _showCoinsText;
     bool _showGameOver, _showPause;
 
     GameObject[] UIParts = new GameObject[2];
-    TextMeshProUGUI[] DisplayText = new TextMeshProUGUI[2];
+    TextMeshProUGUI _distanceText;
     Slider characterPowerIndicator;
 
     void Awake()
@@ -22,7 +22,7 @@ public class GameUI : MonoBehaviour
         _showCoinsText = true;
 
         int x = 0;
-        for (int i = 4; i < 6; i++)
+        for (int i = 3; i < 5; i++)
         {
             UIParts[x] = transform.GetChild(i).gameObject;
             x++;
@@ -30,15 +30,29 @@ public class GameUI : MonoBehaviour
 
 
         characterPowerIndicator = GetComponentInChildren<UnityEngine.UI.Slider>();
-        DisplayText = GetComponentsInChildren<TextMeshProUGUI>();
-        SetGUI();
+        _distanceText = GetComponentInChildren<TextMeshProUGUI>();
+        Continue();
 
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!_showPause)
+            {
+                Pause();
+            }else
+            {
+                Continue();
+            }
+            
+        }
     }
     public void SetGUI()
     {
-        characterPowerIndicator.gameObject.SetActive(_showPowerIndicator);
-        DisplayText[0].gameObject.SetActive(_showCoinsText);
-        DisplayText[1].gameObject.SetActive(_showDistanceText);
+        characterPowerIndicator.gameObject.SetActive(GameManager.CharacterAbility);
+        _distanceText.gameObject.SetActive(_showDistanceText);
 
         UIParts[0].SetActive(_showGameOver); ;
         UIParts[1].SetActive(_showPause);
@@ -50,25 +64,20 @@ public class GameUI : MonoBehaviour
         characterPowerIndicator.value = value;
     }
 
-    public void SetTotCoins(string coinTot)
-    {
-        DisplayText[0].text = "Coins: " + coinTot;
-    }
-
+ 
     public void SetTotDist(int disTot)
     {
-        DisplayText[1].text = disTot.ToString() + "M";
+        _distanceText.text = disTot.ToString() + "M";
         _score = disTot;
     }
 
     public void PlayerDeath()
     {
-        _showPowerIndicator = false;
         _showCoinsText = false;
 
         _showGameOver = true;
-        DisplayText[1].text = "Score: " + _score.ToString();
-        DisplayText[1].GetComponent<RectTransform>().localPosition = new Vector3(-40, 300, 0);
+        _distanceText.text = "Score: " + _score.ToString();
+        _distanceText.GetComponent<RectTransform>().localPosition = new Vector3(-40, 300, 0);
         _showDistanceText = true;
 
         SetGUI();
@@ -82,7 +91,7 @@ public class GameUI : MonoBehaviour
 
     public void ChangeColour(Material playerMaterial)
     {
-        DisplayText[1].color = playerMaterial.color;
+        _distanceText.color = playerMaterial.color;
     }
 
     public void SaveScore(TMP_InputField name)
@@ -90,11 +99,6 @@ public class GameUI : MonoBehaviour
         Data.AddNewHighscore(name.text, _score);
     }
 
-    public void ShowPowerIndicator(bool showPowerIndicator)
-    {
-        _showPowerIndicator = showPowerIndicator;
-        SetGUI();
-    }
     public void ShowDistanceText(bool showDistanceText)
     {
         _showDistanceText = showDistanceText;

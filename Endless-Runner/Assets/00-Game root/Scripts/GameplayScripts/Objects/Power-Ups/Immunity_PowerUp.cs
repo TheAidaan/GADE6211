@@ -5,15 +5,9 @@ using UnityEngine;
 public class Immunity_PowerUp : PowerUps
 {
 
-    void Start()
+    void FixedUpdate()
     {
-        Rotation = new Vector3(3f, 0f, 0f);
-            
-    }
-
-    void Update()
-    {
-        IdleEffect();
+        transform.Rotate(3f, 0f, 0f);
     }
 
     public override void Effect()
