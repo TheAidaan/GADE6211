@@ -26,18 +26,25 @@ public abstract class PowerUps : Objects
 
 public abstract class Obstacle : Objects
 {
+    static int _obstaclesPassed = 0;
     bool _counted = false;
+
+    private void updateObstaclesPassed()
+    {
+        _obstaclesPassed++;
+        print("Obstacles Passed " + _obstaclesPassed);
+        GameManager.gameManager.updateMetrics -= updateObstaclesPassed;
+    }
+
     void Update()
     {
         if (!GameManager.characterDeath)
         {
             if ((transform.position.z < GameManager.Player.position.z) && (!_counted))
             {
-                Debug.Log("sent");
-                FindObjectOfType<GameManager>().ObstaclePassed();
+                GameManager.gameManager.updateMetrics += updateObstaclesPassed;
                 _counted = true;
             }
-            Debug.Log(_counted);
         }
     }
 
@@ -102,7 +109,7 @@ public abstract class World : MonoBehaviour
     {
         if (!GameManager.characterDeath)
         {
-            if (gameObject.transform.position.z < GameManager.Player.position.z - GameManager.DestroyDist)
+            if (gameObject.transform.position.z < GameManager.Player.position.z - 6)
             {
                 Destroy(gameObject);
             }

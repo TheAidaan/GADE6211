@@ -63,7 +63,7 @@ public class Boss_1_Manager : BossManager
             }
             else
             {
-                if (CurrrentStage == 0)
+                if (CurrrentStage == 1)
                 {
                     FetchPlayer();
                 }
@@ -105,6 +105,7 @@ public class Boss_1_Manager : BossManager
 
     public override void DeactivateBoss()
     {
+        Debug.Log("here");
         Player.transform.eulerAngles = new Vector3(0, 0, 0);
         Destroy(playerMovement);
         Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);

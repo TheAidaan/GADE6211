@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gameManager;
+
     public static bool characterDeath;
 
     static bool _characterAbility;
@@ -12,8 +14,6 @@ public class GameManager : MonoBehaviour
     static  bool _bossMode;
     public static bool BossMode { get { return _bossMode; } }
 
-    static int _destroyDist;
-    public static int DestroyDist { get { return _destroyDist; } }
     Spawner _spawn;
     GameUI _UI;
 
@@ -36,23 +36,25 @@ public class GameManager : MonoBehaviour
         _activateLevel, _displayingUI, _clearPath, _disablingSpawner,
         _randomizeLevels;
 
-    int _clearDist;
+    int _clearDist,_bossOneSpawned, _bossTwoSpawned, _bossThreeSpawned, _bossesBeaten;
 
     GameObject World;
-    EventSystem _events;
+    public event Action updateMetrics;
 
     // Start is called before the first frame update
     void Awake()
     {
-        _events = GetComponent<EventSystem>();
-
-        _events.OnObstaclePased += Events_OnObstaclePased;
+        gameManager = this;
 
         _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
         _currentLevel = Levels.one;
-        _destroyDist = 6;
+
+        _bossOneSpawned = 0;
+        _bossTwoSpawned = 0;
+        _bossThreeSpawned = 0;
+        _bossesBeaten = 0;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -70,11 +72,9 @@ public class GameManager : MonoBehaviour
         environmentMaterial = Resources.LoadAll<Material>("Materials/World");
         RenderSettings.skybox = environmentMaterial[CurrentLevel];
     }
-    private void Events_OnObstaclePased(object sender, EventSystem.OnObstaclePasedEventArgs e)
-    {
-        e.obstaclesPassed++;
-        Debug.Log(e.obstaclesPassed);
-    }
+
+   
+   
     void Start()
     {
 
@@ -96,6 +96,11 @@ public class GameManager : MonoBehaviour
 
             }
         //}
+
+        if (updateMetrics != null)
+        {
+            updateMetrics();
+        }
 
     }
 
@@ -153,7 +158,9 @@ public class GameManager : MonoBehaviour
             }
 
         }
+
         
+
     }
 
     public void DisableSpawner()
@@ -175,7 +182,7 @@ public class GameManager : MonoBehaviour
 
         if (_randomizeLevels)
         {
-            _currentLevel = (Levels)Random.Range(1, 3);
+            _currentLevel = (Levels)UnityEngine.Random.Range(1, 3);
         }
         else
         {
@@ -193,8 +200,9 @@ public class GameManager : MonoBehaviour
 
     void ActivateLevel()
     {
-        _destroyDist = 6;
-        _spawn.SetLanes((int)Player.transform.position.x - 1);
+
+        _spawn.SetLanes((int)Player.transform.position.x-1);
+        Player.GetComponent<CharacterMovement>().SetLane(2);
         SpawnStartPlatform();
 
         _spawnActive = true;
@@ -223,6 +231,7 @@ public class GameManager : MonoBehaviour
             }
 
             _bossMode = false;
+            updateMetrics += updateBossesBeaten;
         }
 
         if (_spawnBoss && !BossMode)
@@ -257,13 +266,16 @@ public class GameManager : MonoBehaviour
         switch (CurrentLevel)
         {
             case 1:
-                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -.7f, spawnPoint + 100.7f);
+                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, Spawner.WorldHeight, spawnPoint + 2);
+                updateMetrics += updateBossOneSpawned;
                 break;
             case 2:
-                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, Spawner.WorldHeight, spawnPoint+2);
+                bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -.7f, spawnPoint + 100.7f);
+                updateMetrics += updateBossTwoSpawned;
                 break;
             default:
                 bossSpawnPos = new Vector3(Spawner.FirstLane + 1, -15, spawnPoint + 100.7f);
+                updateMetrics += updateBossThreeSpawned;
                 break;
         }
 
@@ -273,14 +285,30 @@ public class GameManager : MonoBehaviour
         _UI.ShowDistance(false);
     }
 
-    public void ChangeDestroyDistance(int DestroyDist)
+    private void updateBossOneSpawned()
     {
-        _destroyDist = DestroyDist;
+        _bossOneSpawned++;
+        print("Boss1 has been spawned " + _bossOneSpawned +" times");
+        updateMetrics -= updateBossOneSpawned;
+    }
+    private void updateBossTwoSpawned()
+    {
+        _bossTwoSpawned++;
+        print("Boss2 has been spawned " + _bossTwoSpawned + " times");
+        updateMetrics -= updateBossTwoSpawned;
+    }
+    private void updateBossThreeSpawned()
+    {
+        _bossThreeSpawned++;
+        print("Boss3 has been spawned " + _bossThreeSpawned + " times");
+        updateMetrics -= updateBossThreeSpawned;
     }
 
-    public void ObstaclePassed()
+    private void updateBossesBeaten()
     {
-        _events.ObstaclePassed();
+        _bossesBeaten++;
+        print("Bosses beaten " + _bossThreeSpawned);
+        updateMetrics -= updateBossesBeaten;
     }
 
-    }//Gamemanager
+}//Gamemanager

@@ -7,7 +7,7 @@ public class Immunity_PowerUp : PowerUps
 
     void FixedUpdate()
     {
-        transform.Rotate(3f, 0f, 0f);
+        transform.Rotate(0f, 3f, 0f);
     }
 
     public override void Effect()

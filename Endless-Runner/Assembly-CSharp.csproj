@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\00-Game root\Scripts\EventSystem.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossSpawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_CharacterMovement.cs" />
@@ -74,9 +73,10 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Obstacles\Boss_1_Obsatcle_1.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Tower\Boss_1_InsideTower.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Tower\Boss_1_Tower.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\CompleteCircle_Trigger.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\LookAtCenter.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlatformMidPoint.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlayerIsFinished.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\ReleasePlayer_Trigger.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Ammo.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Animator.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Laser.cs" />

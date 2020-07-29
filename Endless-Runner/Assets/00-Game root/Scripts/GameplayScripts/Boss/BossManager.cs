@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BossManager : MonoBehaviour
 {
-    public enum BOSS_STAGES { Start = 0, One, Two, Three, End }
+    public enum BOSS_STAGES { One=1, Two, Three, End }
     static BOSS_STAGES _currrentStage;
 
     bool _fetched;
@@ -21,7 +21,7 @@ public abstract class BossManager : MonoBehaviour
 
     public virtual void Start()
     {
-        _currrentStage = BOSS_STAGES.Start;
+        _currrentStage = BOSS_STAGES.One;
         _bossActive = false;
         _endBoss = false;
         Player = GameObject.FindGameObjectWithTag("Player").transform;

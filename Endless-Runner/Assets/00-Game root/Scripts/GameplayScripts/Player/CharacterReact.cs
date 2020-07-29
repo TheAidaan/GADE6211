@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterReact : MonoBehaviour
 {
+    int _flingCount, superSizeCount, _immunityCount;
+
     Material[] materials = new Material[6];
     Renderer rend;
 
@@ -22,6 +24,10 @@ public class CharacterReact : MonoBehaviour
 
     void Start()
     {
+        _flingCount = 0;
+        superSizeCount = 0;
+        _immunityCount = 0;
+        
         animator = GetComponent<CharacterAnimations>();
         ability = GetComponentInParent<CharacterAbility>();
         Movement = GetComponentInParent<CharacterMovement>();
@@ -33,6 +39,25 @@ public class CharacterReact : MonoBehaviour
 
         materials = Resources.LoadAll<Material>("Materials/Player");
         UI.ChangeColour(materials[0]);
+    }
+
+    private void UpdateFling()
+    {
+        _flingCount++;
+        print("Fling has been activated " + _flingCount + " times");
+        GameManager.gameManager.updateMetrics -= UpdateFling;
+    }
+    private void UpdateImmunity()
+    {
+        _immunityCount++;
+        print("Immunity has been activated " + _immunityCount + " times");
+        GameManager.gameManager.updateMetrics -= UpdateImmunity;
+    }
+    private void UpdateSuperSize()
+    {
+        superSizeCount++;
+        print("SuperSize has been activated " + superSizeCount + " times");
+        GameManager.gameManager.updateMetrics -= UpdateSuperSize;
     }
 
     void Update()
@@ -58,6 +83,8 @@ public class CharacterReact : MonoBehaviour
     #region Fling Reaction
     public void Fling()
     {
+        GameManager.gameManager.updateMetrics += UpdateFling;
+
         animator.Fling(true);
         _flingActive = true;
 
@@ -93,6 +120,7 @@ public class CharacterReact : MonoBehaviour
 
     public void SuperSize()
     {
+        GameManager.gameManager.updateMetrics += UpdateSuperSize;
         StartCoroutine(SuperSizeEffect());
     }
     IEnumerator SuperSizeEffect()
@@ -130,6 +158,8 @@ public class CharacterReact : MonoBehaviour
 
     public void Immunity()
     {
+        GameManager.gameManager.updateMetrics += UpdateImmunity;
+
         CurrentResistanceLevel = playerResistance.simple;
         ChangeMaterial(1);
     }

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Boss_1_Tower : MonoBehaviour
 {
-    int _nextStageHeight = -300;
+    static bool _releasePlayer;
+    public static bool RealesePlayer {get{ return _releasePlayer; } }
+    int _nextStageHeight = -450;
     void Update()
     {
         if (BossManager.bossActive)
@@ -18,7 +20,9 @@ public class Boss_1_Tower : MonoBehaviour
 
                 if (_nextStageHeight == -750)
                 {
+                    _releasePlayer = true;
                     _nextStageHeight = -720;
+                    
                 }
             }
         }
@@ -43,7 +47,7 @@ public class Boss_1_Tower : MonoBehaviour
                 return 0.15f;
             case 3:
                 return 0.2f;
-            default:
+            default:                
                 return 0f;
         }
     }

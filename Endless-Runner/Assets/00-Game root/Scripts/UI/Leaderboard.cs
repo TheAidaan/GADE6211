@@ -5,17 +5,15 @@ using TMPro;
 
 public class Leaderboard : MonoBehaviour
 {
-	TextMeshProUGUI[] leaderBoardTexts = new TextMeshProUGUI[10];
+	TextMeshProUGUI[] leaderBoardTexts = new TextMeshProUGUI[5];
 	Data data;
 
 	void Start()
 	{
 		data = GetComponentInParent<Data>();
-		int x = 0;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < leaderBoardTexts.Length; i++)
 		{
-			leaderBoardTexts[x] = transform.GetChild(i).gameObject.GetComponent< TextMeshProUGUI >();
-			x++;
+			leaderBoardTexts[i] = transform.GetChild(i).gameObject.GetComponent< TextMeshProUGUI >();
 		}
 
 		for (int i = 0; i < leaderBoardTexts.Length; i++)
@@ -33,7 +31,7 @@ public class Leaderboard : MonoBehaviour
 			leaderBoardTexts[i].text = i + 1 + ". ";
 			if (i < highscoreList.Length)
 			{
-				leaderBoardTexts[i].text += highscoreList[i].username + " - " + highscoreList[i].score;
+				leaderBoardTexts[i].text += highscoreList[i].username + '\t' + " - "  +'\t' + highscoreList[i].score;
 			}
 		}
 	}

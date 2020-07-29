@@ -157,11 +157,6 @@ public class CharacterMovement : MonoBehaviour
         {
             _movement.y = 100f;
 
-            //if (_stopForward == false)
-            //{
-            //    _movement.z += 50f;
-            //}
-            
             Jump = false;
         }
 
