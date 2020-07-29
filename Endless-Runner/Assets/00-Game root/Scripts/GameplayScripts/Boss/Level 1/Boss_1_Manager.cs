@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Boss_1_Manager : BossManager
 {
-    
+    Boss_1_PathController _path;
+    Boss_1_CharacterMovement playerMovement;
     Boss_1_Spawner spawn;
-
 
     bool _maySpawnObjects,_spawnObject;
 
@@ -21,7 +21,7 @@ public class Boss_1_Manager : BossManager
         _maySpawnObjects = true;
         _coolOffTime = 1f;
 
-
+        _path = GetComponentInChildren<Boss_1_PathController>();
 
         spawn = GetComponent<Boss_1_Spawner>();
         spawn.SetLanes(-1,0);
@@ -39,27 +39,25 @@ public class Boss_1_Manager : BossManager
         {
             if (bossActive)
             {
-                transform.Rotate(0, -0.29f, 0);
-
                 if (_maySpawnObjects)
                 {
                     if (_spawnObject)  
                     {
-                        int randNumber = Random.Range(-53, -50);
+                        //int randNumber = Random.Range(-53, -50);
 
-                        Transform obj = gameSpawner.PickObject();
-                        if (obj != null)
-                        {
-                            if (obj.gameObject.GetComponent<Boss_1_ObjectController>() == null)
-                            {
+                        //Transform obj = gameSpawner.PickObject();
+                        //if (obj != null)
+                        //{
+                        //    if (obj.gameObject.GetComponent<Boss_1_ObjectController>() == null)
+                        //    {
                                 
-                                obj.gameObject.AddComponent<Boss_1_ObjectController>();
-                            }
-                            spawn.Attack();
-                            gameSpawner.SpawnObject(randNumber, obj, false);
-                        }
-                        _spawnObject = false;
-                        StartCoroutine(CoolOff());
+                        //        obj.gameObject.AddComponent<Boss_1_ObjectController>();
+                        //    }
+                        //    spawn.Attack();
+                        //    gameSpawner.SpawnObject(randNumber, obj, false);
+                        //}
+                        //_spawnObject = false;
+                        //StartCoroutine(CoolOff());
                     }
                 }
             }
@@ -89,7 +87,11 @@ public class Boss_1_Manager : BossManager
     public override void ActivateBoss()
     {
         Player.GetComponent<CharacterMovement>().StopForwardMovement(true, true);
-        Player.transform.eulerAngles = new Vector3(0,-90,0); 
+        Player.transform.eulerAngles = new Vector3(0,-90,0);
+
+        Player.gameObject.AddComponent<Boss_1_CharacterMovement>();
+
+        playerMovement = Player.GetComponent<Boss_1_CharacterMovement>();
 
         GetSpawnPoint((int)transform.position.z);
 
@@ -104,6 +106,7 @@ public class Boss_1_Manager : BossManager
     public override void DeactivateBoss()
     {
         Player.transform.eulerAngles = new Vector3(0, 0, 0);
+        Destroy(playerMovement);
         Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
 
         base.DeactivateBoss();
@@ -111,18 +114,11 @@ public class Boss_1_Manager : BossManager
 
     public void ReleasePlayer()
     {
-        spawn.ReleasePlayer();
+        _path.ReleasePlayer();
         _maySpawnObjects = false;
     }
     public override void IncreaseStage()
     { 
-        _coolOffTime /= 2;
         base.IncreaseStage();
-    }
-
-    IEnumerator CoolOff()
-    {
-        yield return new WaitForSeconds(_coolOffTime);
-        _spawnObject = true;
     }
 }

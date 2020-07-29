@@ -161,10 +161,4 @@ public class Boss_3_Manager : BossManager
 
         base.EndBoss(); 
     }
-
-    //IEnumerator CoolOff()
-    //{
-    //    yield return new WaitForSeconds(_coolOffTime);
-    //    _spawnObject = true;
-    //}
 }

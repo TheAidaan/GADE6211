@@ -46,11 +46,11 @@ public class CharacterAbility : MonoBehaviour
 
     void Kill()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 3f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
 
         foreach (Collider col in colliders)
         {
-            if (col.CompareTag("Lethal"))
+            if (col.gameObject.layer == 11)
             {
                 Destroy(col.gameObject);
             }

@@ -26,7 +26,7 @@ public class Boss_3_CharacterMovement : MonoBehaviour
         }
         else
         {
-            transform.RotateAround(target.transform.position, Vector3.down, .2f);
+            transform.RotateAround(target.transform.position, Vector3.down, .29f);
         }  
     }
 

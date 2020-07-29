@@ -93,7 +93,7 @@ public class Spawner : MonoBehaviour
                     if ((GameManager.CurrentLevel > 1) && (90 < randNumber) && (randNumber < 96) && (_raiseWorld == false)) //5% chance
                     {
                         _raiseWorld = true;
-                       ClearPath(2);
+                        ClearPath(2);
                     }
                     return null;
                 }
@@ -104,7 +104,7 @@ public class Spawner : MonoBehaviour
 
     float RandLane()
     {
-        return _firstLane + Random.Range(1, 4);
+        return _firstLane + Random.Range(1, 3);
     }
     int RandNum()
     {
@@ -120,6 +120,7 @@ public class Spawner : MonoBehaviour
         if (!_pathClear)
         {
             Object = null;
+            //Debug.Log(SpawnPoint);
             if (_clearDistance == _spawnPoint)
             {
                 _pathClear = true;
@@ -128,7 +129,7 @@ public class Spawner : MonoBehaviour
 
         if (_raiseWorld && _pathClear)
         {
-            RaisePlatform();
+            RaiseWorld();
             _raiseWorld = false;
         }
 
@@ -284,15 +285,16 @@ public class Spawner : MonoBehaviour
 
     }
 
-    void RaisePlatform()
+    void RaiseWorld()
     {
-        if (RandNum() < 11)
+        if (RandNum() < 11) // 10% chance of world being risen
         {
             _heightChangePoint = _spawnPoint;
             _worldHeight += 4;
             Object = null;
             SpawnRaiser();
         }
+
 
 
         if (_heightChangePoint >= _spawnPoint - 2)
@@ -304,14 +306,17 @@ public class Spawner : MonoBehaviour
     {
 
         float randLane = RandLane();
+
         if (_worldBroken)
         {
             randLane = _singleLane;
         }
-        Instantiate(World[2], new Vector3(randLane, _worldHeight - 3, _spawnPoint - 1), World[2].rotation, _parent);
+
+        Instantiate(World[2], new Vector3(randLane, _worldHeight - 3.49f, _spawnPoint - 1), World[2].rotation, _parent); // the raiser
         Instantiate(Triggers[2], new Vector3(_firstLane + 1, 1.5f, _spawnPoint + 1), Triggers[2].rotation, _parent); // the gone trigger
 
-       ClearPath(3);
+        Debug.Log(_spawnPoint-1);
+        ClearPath(3);
 
     }
 
@@ -392,7 +397,6 @@ public class Spawner : MonoBehaviour
 
     void ClearPath(int Length)
     {
-
         _clearDistance = _spawnPoint + Length;
 
         _pathClear = false;

@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: -7355944018470941518}
   - component: {fileID: 917822339633851485}
   - component: {fileID: 439257917303958880}
-  m_Layer: 0
-  m_Name: Stump_Obstacle
+  m_Layer: 11
+  m_Name: 3.Stump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,5 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8963f9973a2581e4683b962150391a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotation: {x: 0, y: 0, z: 0}
   Player: {fileID: 0}

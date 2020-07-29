@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
-        _currentLevel = Levels.two;
+        _currentLevel = Levels.one;
         _destroyDist = 6;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
@@ -87,15 +87,15 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CharacterStats.Distance > 1000)
-        {
+        //if (CharacterStats.Distance > 1000)
+        //{
             if (!_disablingSpawner)
             {
                 DisableSpawner();
                 _spawnBoss = true;
 
             }
-        }
+        //}
 
     }
 

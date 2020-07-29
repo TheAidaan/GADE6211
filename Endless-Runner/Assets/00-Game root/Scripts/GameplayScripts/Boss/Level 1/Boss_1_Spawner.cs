@@ -6,30 +6,12 @@ public class Boss_1_Spawner : BossSpawner
 {
     Transform[] bossObstacles = new Transform[4];
 
-    readonly GameObject[] _children = new GameObject[6];
-
-   readonly bool _activateWalkway = true;
+    //readonly GameObject[] _children = new GameObject[6];
 
     void Start()
     {
         bossObstacles = Resources.LoadAll<Transform>("Prefabs/Boss/Level 1/Obstacles");
 
-        for ( int i = 0; i < 5; i++) 
-        {
-            _children[i] = transform.GetChild(i).gameObject;
-        }
-
-        _children[2].SetActive(false);
-        _children[4].SetActive(false);
-    }
-
-    public void ActivateWalkway()
-    {
-        if (_activateWalkway)
-        {
-            _children[3].SetActive(false);
-            _children[2].SetActive(true);
-        }
     }
 
    public  void Attack()
@@ -53,11 +35,5 @@ public class Boss_1_Spawner : BossSpawner
             obj = Instantiate(obj, new Vector3(randNumber + 0.3f, 1, transform.position.z), obj.transform.rotation, transform);
             obj.AddComponent<Boss_1_ObjectController>();
         }
-    }
-
-    public void ReleasePlayer()
-    {
-        _children[4].SetActive(true);
-        Destroy(_children[1]);
     }
 }

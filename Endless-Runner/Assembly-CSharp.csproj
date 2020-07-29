@@ -66,7 +66,9 @@
     <Compile Include="Assets\00-Game root\Scripts\EventSystem.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\BossSpawner.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_CharacterMovement.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Manager.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_PathController.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Spawner.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Obstacles\Boss_1_ObjectController.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Obstacles\Boss_1_Obsatcle_1.cs" />

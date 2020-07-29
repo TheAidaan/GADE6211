@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4258058217334346750}
   - component: {fileID: -7774287221121794501}
   - component: {fileID: 1499913531033407402}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 1.BasicMoving
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,5 +138,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ad44bd2a14adc49bb2b977d81ee17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotation: {x: 0, y: 0, z: 0}
   Player: {fileID: 0}
