@@ -12,7 +12,6 @@ public class Boss_1_PathController : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             _children[i] = transform.GetChild(i).gameObject;
-            Debug.Log(_children[i]);
         }
 
         _children[2].SetActive(false); //Exit platform

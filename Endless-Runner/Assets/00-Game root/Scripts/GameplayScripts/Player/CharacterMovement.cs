@@ -20,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
 
     bool _fling, _endFling;
     bool _superSize;
-    bool _invertInput, _transition;
+    bool _transition;
 
     Rigidbody _rb;
     CharacterReact _react;
@@ -29,7 +29,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void Start()
     {
-        _invertInput = false;
         _forwardIncrease = 1;
         _maxIncrease = 2.5f;
         _increaseSpeedPoint = 200;
@@ -61,45 +60,29 @@ public class CharacterMovement : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.A)) && (!_controlLock)) //A is left
         {
-            if (_invertInput) // if controls are inverted
-            {
-                if ((int)_currentlane < 3)
-                {
-                    MoveR = true;
-                }
-            }
-            else
-            {
+            
                if  ((int)_currentlane > 1)//A is left
                {
                     MoveL = true;
                }
 
-            }
+            
            
         }
 
         if ((Input.GetKeyDown(KeyCode.D)) && (!_controlLock)) //D is right
         { 
-            if (_invertInput)
-            {
-                if ((int)_currentlane > 1)
-                {
-                    MoveL = true;
-                }
-            }
-            else //if controls are not inverted
-            {
+            
                 if ((int)_currentlane < 3)//D is right
                 {
                     MoveR = true;
                 }  
-            }
+            
         
         } 
 
 
-        if ((Input.GetKeyDown(KeyCode.W)) && (!_jumpLock))
+        if ((Input.GetKeyDown(KeyCode.W)) && (!_jumpLock)&& OnGround())
         {
             Jump = true;
 
@@ -145,12 +128,16 @@ public class CharacterMovement : MonoBehaviour
             _rb.AddRelativeForce(Vector3.right * 2500);
             MoveR = false;
             _currentlane += 1;
+
+            SoundManager.PlaySoundEffect(0);
         }
         if (MoveL)
         {
             _rb.AddRelativeForce(Vector3.left * 2500);
             MoveL = false;
-            _currentlane -= 1 ;
+            _currentlane -= 1;
+
+            SoundManager.PlaySoundEffect(0);
         }
 
         if (Jump)
@@ -307,14 +294,14 @@ public class CharacterMovement : MonoBehaviour
         return 5 * _forwardIncrease;
     }
 
-    public void InvertInput()
-    {
-        _invertInput = !_invertInput;
-    }
-
     public void ResetSpeed()
     {
         _maxIncrease = 2.5f;
         _increaseSpeedPoint = CharacterStats.Distance + 200;
+    }
+
+    private void OnDestroy()
+    {
+        SoundManager.PlaySoundEffect(2);
     }
 }

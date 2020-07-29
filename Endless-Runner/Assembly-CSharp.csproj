@@ -68,7 +68,7 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_CharacterMovement.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Manager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_PathController.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_Spawner.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Boss_1_SpawnPositions.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Obstacles\Boss_1_ObjectController.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Obstacles\Boss_1_Obsatcle_1.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Tower\Boss_1_InsideTower.cs" />
@@ -77,10 +77,11 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\LookAtCenter.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\PlayerIsFinished.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 1\Triggers\ReleasePlayer_Trigger.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Ammo.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Animator.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Laser.cs" />
-    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 2\Boss_2_Manager.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\''Level 2''\Boss_2_Ammo.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\''Level 2''\Boss_2_Animator.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\''Level 2''\Boss_2_Hammer.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\''Level 2''\Boss_2_Laser.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\''Level 2''\Boss_2_Manager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_Animator.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_Manager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Boss\Level 3\Boss_3_ParticleEffect.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterReact.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Player\CharacterStats.cs" />
     <Compile Include="Assets\00-Game root\Scripts\GameplayScripts\Spawner.cs" />
+    <Compile Include="Assets\00-Game root\Scripts\SoundManager.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\Data.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\EndMenu.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\GameUI.cs" />

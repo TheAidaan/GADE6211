@@ -13,6 +13,10 @@ public class Boss_1_CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.RotateAround(target.transform.position, Vector3.up, .29f);
+        if (BossManager.bossActive)
+        {
+            transform.RotateAround(target.transform.position, Vector3.up, .29f);
+        }
+        
     }
 }

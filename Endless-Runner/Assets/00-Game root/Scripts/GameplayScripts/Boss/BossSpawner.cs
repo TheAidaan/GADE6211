@@ -7,7 +7,6 @@ public class BossSpawner : MonoBehaviour
     public int firstLane;
     public float spawnPoint,offset;
     public int randLane;
-
     public void SetSpawnPoint(float SpawnPoint)
     {
         spawnPoint = SpawnPoint;

@@ -83,6 +83,7 @@ public class CharacterReact : MonoBehaviour
     #region Fling Reaction
     public void Fling()
     {
+        SoundManager.PlaySoundEffect(3);
         GameManager.gameManager.updateMetrics += UpdateFling;
 
         animator.Fling(true);
@@ -121,6 +122,7 @@ public class CharacterReact : MonoBehaviour
     public void SuperSize()
     {
         GameManager.gameManager.updateMetrics += UpdateSuperSize;
+        SoundManager.PlaySoundEffect(4);
         StartCoroutine(SuperSizeEffect());
     }
     IEnumerator SuperSizeEffect()
@@ -158,6 +160,7 @@ public class CharacterReact : MonoBehaviour
 
     public void Immunity()
     {
+        SoundManager.PlaySoundEffect(2);
         GameManager.gameManager.updateMetrics += UpdateImmunity;
 
         CurrentResistanceLevel = playerResistance.simple;

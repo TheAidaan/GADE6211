@@ -352,15 +352,16 @@ public class Spawner : MonoBehaviour
             {
                 case 1:
                     Objects[0, 1] = null; //removes moving object
-                    Objects[0, 2] = null; //removes hole object
+                    Objects[0, 3] = null; //removes stump object
 
                     Objects[2, 2] = null; //removes Fling powerup
+                    Objects[2, 1] = null;//removes superSize powerUp
 
-                    Objects[1, 1] = null; //removes Fling powerup
                     break;
                 case 2:
-                    Objects[0, 0] = null;//removes cube object 
-                    Objects[2, 0] = null;//removes immunity powerUp
+                    Objects[0, 1] = null; //removes moving object 
+
+                    Objects[2, 2] = null; //removes Fling powerup
                     break;
                 case 3:
                     Objects[2, 1] = null;//removes superSize powerUp
@@ -377,7 +378,6 @@ public class Spawner : MonoBehaviour
             {
                 case 1:
                     Objects[0, 3] = null; //removes stump object
-                    Objects[1, 1] = null; //removes powercharge
                     break;
                 case 2:
                     Objects[0, 0] = null;//removes cube object 
@@ -390,6 +390,11 @@ public class Spawner : MonoBehaviour
                     break;
 
             }
+        }
+
+        if (!GameManager.CharacterAbility)
+        {
+            Objects[1, 1] = null; //removes powercharge
         }
 
     }
