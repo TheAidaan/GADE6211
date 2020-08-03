@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         _activateLevel, _displayingUI, _clearPath, _disablingSpawner,
         _randomizeLevels;
 
-    int _clearDist,_bossOneSpawned, _bossTwoSpawned, _bossThreeSpawned, _bossesBeaten;
+    int _clearDist, _bossSpawnPoint,_bossOneSpawned, _bossTwoSpawned, _bossThreeSpawned, _bossesBeaten;
 
     GameObject World;
     public event Action updateMetrics;
@@ -49,12 +49,14 @@ public class GameManager : MonoBehaviour
         _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
-        _currentLevel = Levels.one;
+        _currentLevel = Levels.two;
 
         _bossOneSpawned = 0;
         _bossTwoSpawned = 0;
         _bossThreeSpawned = 0;
         _bossesBeaten = 0;
+
+        _bossSpawnPoint = 1000;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -70,7 +72,7 @@ public class GameManager : MonoBehaviour
         _spawn.AssignObjects();
 
         environmentMaterial = Resources.LoadAll<Material>("Materials/World");
-        RenderSettings.skybox = environmentMaterial[CurrentLevel];
+        RenderSettings.skybox = environmentMaterial[CurrentLevel-1];
     }
 
    
@@ -87,9 +89,9 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (CharacterStats.Distance > 1000)
+        //if (CharacterStats.Distance > _bossSpawnPoint)
         //{
-            if (!_disablingSpawner)
+        if (!_disablingSpawner)
             {
                 DisableSpawner();
                 _spawnBoss = true;
@@ -194,7 +196,7 @@ public class GameManager : MonoBehaviour
         }
         
         _changedlevel = true;
-        RenderSettings.skybox = environmentMaterial[CurrentLevel];
+        RenderSettings.skybox = environmentMaterial[CurrentLevel-1];
         _activateLevel = true;
     }
 
@@ -212,6 +214,8 @@ public class GameManager : MonoBehaviour
         _UI.ShowDistance(true);
 
         Player.GetComponent<CharacterMovement>().ResetSpeed();
+
+        _bossSpawnPoint = CharacterStats.Distance + 1000;
 
 
     }

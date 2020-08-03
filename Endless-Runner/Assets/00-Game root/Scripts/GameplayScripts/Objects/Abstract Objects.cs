@@ -49,9 +49,13 @@ public abstract class Obstacle : Objects
     }
 
     public virtual void Effect() 
-    { if (Player.GetComponent<CharacterReact>()!= null) 
+    { 
+        if (Player.GetComponent<CharacterReact>()!= null) 
         { 
             Player.GetComponent<CharacterReact>().Die(true, true);
+        }else
+        {
+            Destroy(gameObject);
         }
     }
     public override void CollisionEffect()

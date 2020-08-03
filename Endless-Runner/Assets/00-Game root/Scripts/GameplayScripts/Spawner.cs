@@ -351,19 +351,22 @@ public class Spawner : MonoBehaviour
             switch (GameManager.CurrentLevel)
             {
                 case 1:
-                    Objects[0, 1] = null; //removes moving object
-                    Objects[0, 3] = null; //removes stump object
+                    Objects[0, 1] = null; //removes moving obstacle
+                    Objects[0, 3] = null; //removes stump obstacle
 
                     Objects[2, 2] = null; //removes Fling powerup
                     Objects[2, 1] = null;//removes superSize powerUp
 
                     break;
                 case 2:
-                    Objects[0, 1] = null; //removes moving object 
+                    Objects[0, 1] = null; //removes moving obstacle 
+                    Objects[0, 2] = null; //removes hole obstacle
 
                     Objects[2, 2] = null; //removes Fling powerup
                     break;
                 case 3:
+                    Objects[0, 2] = null; //removes hole obstacle
+
                     Objects[2, 1] = null;//removes superSize powerUp
                     break;
                 default:

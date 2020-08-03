@@ -20,8 +20,6 @@ public class Boss_1_Manager : BossManager
 
         _path = GetComponentInChildren<Boss_1_PathController>();
         _pos = GetComponentInChildren<Boss_1_SpawnPositions>();
-
-
     }
     void Update()
     {
@@ -30,13 +28,18 @@ public class Boss_1_Manager : BossManager
             if (bossActive)
             {
                 if (_maySpawnObjects)
-                {
-                    
+                {                    
                     _obj = gameSpawner.PickObject();
-                    Debug.Log(_obj);
-                    if (_obj = null)
+                    
+                    if (_obj != null)
                     {
-                        Instantiate(_obj, _pos.Spawnposition(), _obj.rotation);
+                        if (_obj.gameObject.name == "3.Stump")
+                        {
+                            Instantiate(_obj, _pos.MiddleLane(), Quaternion.Euler(_pos.Rotation()));
+                        }else
+                        {
+                            Instantiate(_obj, _pos.Spawnposition(), Quaternion.Euler(_pos.Rotation()));
+                        }
                     }
                 }
             }

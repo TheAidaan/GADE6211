@@ -6,12 +6,20 @@ public class Hole : Trigger
 {
     public override void BounceEffect()
     {
-        Player.GetComponentInChildren<CharacterReact>().Bounce(Vector3.up*7500f);
+        if (Player.GetComponent<CharacterReact>() != null)
+        {
+            Player.GetComponentInChildren<CharacterReact>().Bounce(Vector3.up * 7500f);
+        }
+        
     }
 
     public override void Effect()
     {
-        Player.GetComponent<CharacterReact>().Hole();
+        if(Player.GetComponent<CharacterReact>()!= null)
+        {
+            Player.GetComponent<CharacterReact>().Hole();
+        }
+        
 
     }
 
