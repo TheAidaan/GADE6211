@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
-        _currentLevel = Levels.two;
+        _currentLevel = Levels.three;
 
         _bossOneSpawned = 0;
         _bossTwoSpawned = 0;

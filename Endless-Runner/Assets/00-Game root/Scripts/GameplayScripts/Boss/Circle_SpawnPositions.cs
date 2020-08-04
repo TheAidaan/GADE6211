@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_1_SpawnPositions : MonoBehaviour
+public class Circle_SpawnPositions : MonoBehaviour
 {
     Transform[] _spawnPositions = new Transform[3];
 

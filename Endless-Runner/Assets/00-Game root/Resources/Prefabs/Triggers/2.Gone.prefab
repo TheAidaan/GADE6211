@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3916209365344844140}
   m_Layer: 0
   m_Name: 2.Gone
-  m_TagString: AK
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,5 +57,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e351eed54088e488dced7838b9800a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rotation: {x: 0, y: 0, z: 0}
   Player: {fileID: 0}

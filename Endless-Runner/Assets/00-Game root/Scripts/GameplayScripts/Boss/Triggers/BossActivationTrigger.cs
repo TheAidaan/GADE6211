@@ -6,9 +6,11 @@ public class BossActivationTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        FindObjectOfType<BossManager>().BossActivation();
-
-        Destroy(gameObject);
+        if (other.transform.parent.CompareTag("Player"))
+        {
+            FindObjectOfType<BossManager>().BossActivation();
+            Destroy(gameObject);
+        }  
        
     }
 }

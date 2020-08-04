@@ -6,6 +6,10 @@ public class CenterPlayer : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponentInParent<CharacterMovement>().CenterPlayer();
+        if (other.gameObject.GetComponentInParent<CharacterMovement>() != null)
+        {
+            other.gameObject.GetComponentInParent<CharacterMovement>().CenterPlayer();
+        }
+        
     }
 }

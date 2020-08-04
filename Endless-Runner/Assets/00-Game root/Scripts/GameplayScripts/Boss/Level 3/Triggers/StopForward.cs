@@ -7,5 +7,6 @@ public class StopForward : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.gameObject.GetComponentInParent<CharacterMovement>().StopForwardMovement(true, false);
+        Destroy(gameObject);
     }
 }

@@ -23,7 +23,9 @@ public class Boss_2_Manager : BossManager
         _startPosition = transform.position.z;
         _increaseStagepoint = 50;
         _maySpawn = true;
-        
+
+        coolOffTime = 1.4f;
+
 
     }
     void FixedUpdate()
@@ -43,13 +45,10 @@ public class Boss_2_Manager : BossManager
         {
             if (bossActive)
             {
-                if (!_attacking)
+                if (mayAttack)
                 {
-                    if(!_assessing) // assessing whether to attack or not
-                    {
-                        StartCoroutine(Attack());
-                    }
-                    
+
+                   Attack();
                 }
                 
 
@@ -92,11 +91,9 @@ public class Boss_2_Manager : BossManager
         base.ActivateBoss();
     }
 
-    IEnumerator Attack()
+    void  Attack()
     {
-        _assessing = true;
-        yield return new WaitForSeconds(1f);
-
+        mayAttack = false;
         int RandNum = Random.Range(0, 10);
 
         if (RandNum<4)
@@ -112,9 +109,12 @@ public class Boss_2_Manager : BossManager
                 StartCoroutine(_gun.Shoot());
 
                 Attacking();
+            }else
+            {
+                StartCoroutine(CoolOff());
             }
         }
-        _assessing = false;
+        
     }
             
 
@@ -141,7 +141,7 @@ public class Boss_2_Manager : BossManager
 
     public void Attacking()
     {
-        _attacking = !_attacking;
+        StartCoroutine(CoolOff());
     }
 
 

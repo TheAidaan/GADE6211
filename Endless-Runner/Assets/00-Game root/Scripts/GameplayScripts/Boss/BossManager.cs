@@ -8,6 +8,7 @@ public abstract class BossManager : MonoBehaviour
     static BOSS_STAGES _currrentStage;
 
     bool _fetched;
+    public bool mayAttack,stopAttacking;
     public static int CurrrentStage { get { return (int)_currrentStage; } }
 
     public Transform Player;
@@ -16,6 +17,8 @@ public abstract class BossManager : MonoBehaviour
     public int spawnPoint;
     static bool _bossActive;
     static bool _endBoss;
+
+    public float coolOffTime;
     public static bool bossActive { get { return _bossActive; } }
     public static bool endBoss { get { return _endBoss; } }
 
@@ -24,6 +27,7 @@ public abstract class BossManager : MonoBehaviour
         _currrentStage = BOSS_STAGES.One;
         _bossActive = false;
         _endBoss = false;
+
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 
         gameSpawner = FindObjectOfType<Spawner>();
@@ -86,5 +90,12 @@ public abstract class BossManager : MonoBehaviour
     public virtual void EndBoss(){ _endBoss = true; }
 
     public virtual void DeactivateBoss() { _bossActive = false; }
+
+
+    public IEnumerator CoolOff()
+    {
+        yield return new WaitForSeconds(coolOffTime);
+        mayAttack = true;
+    }
 
 }

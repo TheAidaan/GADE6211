@@ -111,14 +111,19 @@ public abstract class World : MonoBehaviour
 {
     void Update()
     {
+
+        DestroyCondition();
+    }
+
+    public virtual void DestroyCondition()
+    {
         if (!GameManager.characterDeath)
         {
-            if (gameObject.transform.position.z < GameManager.Player.position.z - 6)
+            if (gameObject.transform.position.z < GameManager.Player.position.z - 6f)
             {
                 Destroy(gameObject);
             }
         }
-
     }
 }
 

@@ -6,12 +6,18 @@ public class Gone : Trigger
 {
     public override void BounceEffect()
     {
-        Player.GetComponentInChildren<CharacterReact>().Bounce(Vector3.back* 10000f);
+        if (Player.GetComponentInChildren<CharacterReact>() != null)
+        {
+            Player.GetComponentInChildren<CharacterReact>().Bounce(Vector3.back * 10000f);
+        }
+
     }
 
     public override void Effect()
     {
-        Player.GetComponent<CharacterReact>().Gone();
-
+        if (Player.GetComponent<CharacterReact>()!= null)
+        {
+            Player.GetComponent<CharacterReact>().Gone();
+        }
     }
 }

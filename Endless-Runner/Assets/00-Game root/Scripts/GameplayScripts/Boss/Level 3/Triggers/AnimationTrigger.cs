@@ -6,6 +6,10 @@ public class AnimationTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GetComponentInParent<Boss_3_Manager>().MayAnimate();
+        if (other.transform.parent.CompareTag("Player"))
+        {
+            GetComponentInParent<Boss_3_Manager>().MayAnimate();
+        }
+        
     }
 }

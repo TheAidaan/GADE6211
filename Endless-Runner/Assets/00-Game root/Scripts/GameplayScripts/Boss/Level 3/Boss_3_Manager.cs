@@ -7,7 +7,7 @@ public class Boss_3_Manager : BossManager
     bool  _mayAnimate, _switchRotation;
 
     Boss_3_Animator animator;
-
+    Circle_SpawnPositions _pos;
     Boss_3_CharacterMovement playerMovement;
 
     
@@ -32,6 +32,7 @@ public class Boss_3_Manager : BossManager
         _rotationSpeed = 1;
         _playerRotations = 0;
         _rotationsNeededForNextStage = 3;
+        _pos = GetComponentInChildren<Circle_SpawnPositions>();
 
     }
 
@@ -57,7 +58,7 @@ public class Boss_3_Manager : BossManager
             }
             else
             {
-                if (CurrrentStage == 0)
+                if (CurrrentStage == 1)
                 {
                     FetchPlayer();
                 }
@@ -81,6 +82,7 @@ public class Boss_3_Manager : BossManager
                 animator.SetTriggers();
 
                 playerMovement.TurnAround();
+                GetComponentInChildren<Boss_3_SpawnerMovement>().TurnAround();
             }
         }
     }
@@ -94,6 +96,8 @@ public class Boss_3_Manager : BossManager
         Player.gameObject.AddComponent<Boss_3_CharacterMovement>();
 
         playerMovement = Player.GetComponent<Boss_3_CharacterMovement>();
+
+        gameSpawner.RemoveHole();
     }
 
 
@@ -111,9 +115,9 @@ public class Boss_3_Manager : BossManager
     public void MayAnimate()// the player triggers this class
     {
        
-        if (CurrrentStage == 2)
+        if (CurrrentStage == 4)
         {
-            animator.ActivatePlatform();
+            //animator.ActivatePlatform();
         }else
         {
             _mayAnimate = true; //the animator gets permission to be called
@@ -126,25 +130,10 @@ public class Boss_3_Manager : BossManager
         if ((_playerRotations >= _rotationsNeededForNextStage) && !Boss_3_Animator.Animated)
         { 
             base.IncreaseStage();
-
-            if (CurrrentStage == 2)
-            {
-                EndBoss();
-
-                if (_clockwiseRotation)
-                {
-                    animator.FinalAnimation();
-                }else
-                {
-                    _switchRotation = true;
-                }
+        
+            _rotationsNeededForNextStage += 3;
+            _switchRotation = true;
                 
-            }
-            else
-            {
-                _rotationsNeededForNextStage += 3;
-                _switchRotation = true;
-            }    
         }
     }
 

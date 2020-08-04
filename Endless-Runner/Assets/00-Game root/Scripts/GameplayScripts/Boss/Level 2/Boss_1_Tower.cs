@@ -7,7 +7,7 @@ public class Boss_1_Tower : MonoBehaviour
     static bool _releasePlayer;
     public static bool RealesePlayer {get{ return _releasePlayer; } }
     int _nextStageHeight = -450;
-    void Update()
+    void FixedUpdate()
     {
         if (BossManager.bossActive)
         {

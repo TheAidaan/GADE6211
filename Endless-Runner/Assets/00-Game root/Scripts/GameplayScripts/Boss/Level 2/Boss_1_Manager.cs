@@ -6,20 +6,19 @@ public class Boss_1_Manager : BossManager
 {
     Boss_1_PathController _path;
     Boss_1_CharacterMovement playerMovement;
-    Boss_1_SpawnPositions _pos;
+    Circle_SpawnPositions _pos;
 
     Transform _obj;
 
-    bool _maySpawnObjects,_spawnObject;
 
     public override void Start()
     {
         base.Start();
-        _spawnObject = true;
-        _maySpawnObjects = true;
+
+        coolOffTime = 0.4f;
 
         _path = GetComponentInChildren<Boss_1_PathController>();
-        _pos = GetComponentInChildren<Boss_1_SpawnPositions>();
+        _pos = GetComponentInChildren<Circle_SpawnPositions>();
     }
     void Update()
     {
@@ -27,8 +26,9 @@ public class Boss_1_Manager : BossManager
         {
             if (bossActive)
             {
-                if (_maySpawnObjects)
-                {                    
+                if ((mayAttack) && (!stopAttacking))
+                {
+
                     _obj = gameSpawner.PickObject();
                     
                     if (_obj != null)
@@ -40,6 +40,8 @@ public class Boss_1_Manager : BossManager
                         {
                             Instantiate(_obj, _pos.Spawnposition(), Quaternion.Euler(_pos.Rotation()));
                         }
+                        mayAttack = false;
+                        StartCoroutine(CoolOff());
                     }
                 }
             }
@@ -75,7 +77,7 @@ public class Boss_1_Manager : BossManager
 
         playerMovement = Player.GetComponent<Boss_1_CharacterMovement>();
 
-        _maySpawnObjects = true;
+        mayAttack = true;
     }
 
 
@@ -91,7 +93,7 @@ public class Boss_1_Manager : BossManager
     public void ReleasePlayer()
     {
         _path.ReleasePlayer();
-        _maySpawnObjects = false;
+        stopAttacking = true;
     }
     public override void IncreaseStage()
     { 

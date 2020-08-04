@@ -365,7 +365,6 @@ public class Spawner : MonoBehaviour
                     Objects[2, 2] = null; //removes Fling powerup
                     break;
                 case 3:
-                    Objects[0, 2] = null; //removes hole obstacle
 
                     Objects[2, 1] = null;//removes superSize powerUp
                     break;
@@ -439,6 +438,11 @@ public class Spawner : MonoBehaviour
     public void SetWorldHeight(int worldHeight)
     {
         _worldHeight = worldHeight;
+    }
+
+    public void RemoveHole()
+    {
+        Objects[0, 2] = null; //removes hole obstacle
     }
 
 }

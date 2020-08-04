@@ -9,7 +9,7 @@ public class GameUI : MonoBehaviour
 {
     int _score;
 
-    bool  _showDistanceText, _showCoinsText;
+    bool  _showDistanceText;
     bool _showGameOver, _showPause;
 
     GameObject[] UIParts = new GameObject[2];
@@ -19,7 +19,6 @@ public class GameUI : MonoBehaviour
     void Awake()
     {
         _showDistanceText = true;
-        _showCoinsText = true;
 
         int x = 0;
         for (int i = 3; i < 5; i++)
@@ -73,7 +72,6 @@ public class GameUI : MonoBehaviour
 
     public void PlayerDeath()
     {
-        _showCoinsText = false;
 
         _showGameOver = true;
         _distanceText.text = "Score: " + _score.ToString();
