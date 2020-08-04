@@ -9,9 +9,15 @@ public class FinalRaise : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        playerRb = other.GetComponentInParent<Rigidbody>();
-        playerRb.AddForce(Vector3.up * 750, ForceMode.Impulse);
+        if (other.GetComponentInParent<Rigidbody>() != null)
+        {
+            playerRb = other.GetComponentInParent<Rigidbody>();
+            playerRb.AddForce(Vector3.up * 750, ForceMode.Impulse);
+        }
 
-        Destroy(gameObject);
+        if (other.gameObject.transform.parent.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

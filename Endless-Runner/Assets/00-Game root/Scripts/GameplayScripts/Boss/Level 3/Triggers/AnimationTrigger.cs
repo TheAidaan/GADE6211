@@ -6,10 +6,13 @@ public class AnimationTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.CompareTag("Player"))
+        if ((other.gameObject.transform.parent != null))
         {
-            GetComponentInParent<Boss_3_Manager>().MayAnimate();
-        }
-        
+            if (other.gameObject.transform.parent.CompareTag("Player"))
+            {
+                GetComponentInParent<Boss_3_Manager>().MayAnimate();
+            }
+
+        } 
     }
 }

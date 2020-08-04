@@ -46,8 +46,7 @@ public class Boss_2_Manager : BossManager
             if (bossActive)
             {
                 if (mayAttack)
-                {
-
+                { 
                    Attack();
                 }
                 
@@ -93,7 +92,6 @@ public class Boss_2_Manager : BossManager
 
     void  Attack()
     {
-        mayAttack = false;
         int RandNum = Random.Range(0, 10);
 
         if (RandNum<4)

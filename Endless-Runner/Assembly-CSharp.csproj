@@ -125,6 +125,7 @@
     <Compile Include="Assets\00-Game root\Scripts\UI\StartMenuUI.cs" />
     <Compile Include="Assets\00-Game root\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Tester\GivePlayerGround.cs" />
+    <Compile Include="Assets\Tester\PauseOnDestroy.cs" />
     <Compile Include="Assets\Tester\Rotation.cs" />
     <Compile Include="Assets\Tester\TestCharacterMovement.cs" />
     <Compile Include="Assets\Tester\TestSpawner.cs" />

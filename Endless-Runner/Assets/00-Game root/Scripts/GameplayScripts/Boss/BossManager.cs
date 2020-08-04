@@ -94,6 +94,7 @@ public abstract class BossManager : MonoBehaviour
 
     public IEnumerator CoolOff()
     {
+        mayAttack = false;
         yield return new WaitForSeconds(coolOffTime);
         mayAttack = true;
     }

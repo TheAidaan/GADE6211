@@ -22,6 +22,13 @@ public abstract class PowerUps : Objects
         }
     }
 
+    
+
+    public override void DestroyCondition()
+    {
+        HeightDestroy();
+    }
+
 }
 
 public abstract class Obstacle : Objects
@@ -36,8 +43,9 @@ public abstract class Obstacle : Objects
         GameManager.gameManager.updateMetrics -= updateObstaclesPassed;
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         if (!GameManager.characterDeath)
         {
             if ((transform.position.z < GameManager.Player.position.z) && (!_counted))
@@ -81,6 +89,16 @@ public abstract class Obstacle : Objects
         Destroy(gameObject);
     }
 
+    public override void DestroyCondition()
+    {
+        HeightDestroy();
+    }
+
+    public override void test()
+    {
+        Time.timeScale = 0;
+    }
+
 }
 
 public abstract class Trigger : Objects
@@ -109,22 +127,39 @@ public abstract class Trigger : Objects
 
 public abstract class World : MonoBehaviour
 {
-    void Update()
+    float _distance;
+    public virtual void Update()
     {
 
         DestroyCondition();
     }
-
-    public virtual void DestroyCondition()
+    public virtual void DestroyCondition() { DistanceDestroy(); }
+    public virtual void DistanceDestroy()
     {
         if (!GameManager.characterDeath)
         {
-            if (gameObject.transform.position.z < GameManager.Player.position.z - 6f)
+            if (gameObject.transform.position.z < GameManager.Player.position.z - 6)
             {
+                test();
                 Destroy(gameObject);
             }
         }
     }
+    public virtual void test()
+    {
+        
+    }
+
+    public virtual void HeightDestroy()
+    {
+        bool onGround = Physics.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Ground"));
+        
+        if (!onGround)
+        { 
+            Destroy(gameObject);
+        }
+    }
+    
 }
 
 public abstract class Objects : World

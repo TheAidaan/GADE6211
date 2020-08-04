@@ -40,7 +40,6 @@ public class Boss_1_Manager : BossManager
                         {
                             Instantiate(_obj, _pos.Spawnposition(), Quaternion.Euler(_pos.Rotation()));
                         }
-                        mayAttack = false;
                         StartCoroutine(CoolOff());
                     }
                 }

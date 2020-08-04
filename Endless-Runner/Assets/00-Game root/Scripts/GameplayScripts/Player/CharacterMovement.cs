@@ -90,13 +90,12 @@ public class CharacterMovement : MonoBehaviour
 
         if (OnGround()) 
         {
-           
             if (_endFling)
             {
                 _endFling = false;
-                _jumpLock = false;
                 _react.EndFling();
             }
+            _jumpLock = false;
         }
        
     }
@@ -159,7 +158,16 @@ public class CharacterMovement : MonoBehaviour
             }
             else
             {
-                _movement.y -= 6;
+                if (_endFling)
+                {
+                   
+                  _movement.y -= 3;
+                }
+                else
+                {
+                    _movement.y -= 6;
+                }
+                
             }
             
         }
@@ -167,7 +175,7 @@ public class CharacterMovement : MonoBehaviour
         if (_fling)
         {
             _movement.y = 500f;
-            _movement.z = 505f;
+            //_movement.z = 505f;
             _fling = false;
             _endFling = true;
         } 
@@ -176,8 +184,6 @@ public class CharacterMovement : MonoBehaviour
         {
             _movement.y = 1500f;
             _movement.z += 1500f;
-      
-            _endFling = true;
 
         }
     }

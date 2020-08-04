@@ -365,6 +365,7 @@ public class Spawner : MonoBehaviour
                     Objects[2, 2] = null; //removes Fling powerup
                     break;
                 case 3:
+                    Objects[0, 3] = null; //removes stump obstacle
 
                     Objects[2, 1] = null;//removes superSize powerUp
                     break;

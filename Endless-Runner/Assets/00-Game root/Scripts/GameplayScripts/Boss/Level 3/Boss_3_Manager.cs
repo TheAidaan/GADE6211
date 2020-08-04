@@ -10,7 +10,8 @@ public class Boss_3_Manager : BossManager
     Circle_SpawnPositions _pos;
     Boss_3_CharacterMovement playerMovement;
 
-    
+    Transform _obj;
+
     float _rotationSpeed;
 
     int _playerRotations, _rotationsNeededForNextStage;
@@ -32,6 +33,9 @@ public class Boss_3_Manager : BossManager
         _rotationSpeed = 1;
         _playerRotations = 0;
         _rotationsNeededForNextStage = 3;
+
+        coolOffTime = 0.35f;
+
         _pos = GetComponentInChildren<Circle_SpawnPositions>();
 
     }
@@ -41,19 +45,30 @@ public class Boss_3_Manager : BossManager
         if (!GameManager.characterDeath)
         {
             if (bossActive)
-            {
-                if (_clockwiseRotation)
-                {
-                    transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
-                }else
-                {
-                    transform.Rotate(Vector3.down, _rotationSpeed * Time.deltaTime);
-                }
-                
+            {                
                 if (_mayAnimate) //can the animator be called?
                 {
                    animator.SetAnimationState(); // the animator is called
                    _mayAnimate = false; // the animator looses permission to be called
+                }
+
+                if ((mayAttack) && (!stopAttacking))
+                {
+                    _obj = gameSpawner.PickObject();
+
+                    if (_obj != null)
+                    {
+                        if (_obj.gameObject.name == "1.BasicMoving")
+                        {
+                            Instantiate(_obj, _pos.MiddleLane(), Quaternion.Euler(_pos.Rotation()));
+                        }
+                        else
+                        {
+                            Instantiate(_obj, _pos.Spawnposition(), Quaternion.Euler(_pos.Rotation()));
+                        }
+
+                        StartCoroutine(CoolOff());
+                    }
                 }
             }
             else
@@ -66,13 +81,18 @@ public class Boss_3_Manager : BossManager
         }else
         {
             base.DeactivateBoss();
-            Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
-            Destroy(playerMovement);
+            if (Player != null)
+            {
+                Player.GetComponent<CharacterMovement>().StopForwardMovement(false, true);
+                Destroy(playerMovement);
+            }
+            
         }
 
         if (_switchRotation)
         {
             _rotationSpeed -= Time.deltaTime;
+
             if (_rotationSpeed < 0)
             {
                 _switchRotation = false;
@@ -89,6 +109,7 @@ public class Boss_3_Manager : BossManager
 
     public override void ActivateBoss()
     {
+        mayAttack = true;
         Player.GetComponent<CharacterMovement>().StopForwardMovement(true, true); 
         Player.GetComponent<CharacterMovement>().SetLane(3);
         Player.transform.eulerAngles = new Vector3(0,90,0);
@@ -115,9 +136,9 @@ public class Boss_3_Manager : BossManager
     public void MayAnimate()// the player triggers this class
     {
        
-        if (CurrrentStage == 4)
+        if (CurrrentStage == 3)
         {
-            //animator.ActivatePlatform();
+            animator.ActivatePlatform();
         }else
         {
             _mayAnimate = true; //the animator gets permission to be called
@@ -126,14 +147,20 @@ public class Boss_3_Manager : BossManager
     }
 
     public override void IncreaseStage()
-    { 
+    {
         if ((_playerRotations >= _rotationsNeededForNextStage) && !Boss_3_Animator.Animated)
-        { 
+        {
             base.IncreaseStage();
-        
-            _rotationsNeededForNextStage += 3;
-            _switchRotation = true;
-                
+
+            if (CurrrentStage == 3)
+            {
+                EndBoss();
+            }
+            else
+            {
+                _rotationsNeededForNextStage += 3;
+                _switchRotation = true;
+            }
         }
     }
 
@@ -150,4 +177,13 @@ public class Boss_3_Manager : BossManager
 
         base.EndBoss(); 
     }
+
+//    public void SpawnerNotGrounded()
+//    {
+//        stopAttacking = true;
+//    }
+//    public void SpawnerGrounded()
+//    {
+//        stopAttacking = false;
+//    }
 }

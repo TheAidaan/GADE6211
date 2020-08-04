@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
        
         _spawn = GetComponent<Spawner>();
         _UI = GetComponentInChildren<GameUI>();
-        //_UI.Begin();
 
         World = new GameObject();
         _spawn.SetWorldHeight(0);
@@ -89,15 +88,15 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (CharacterStats.Distance > _bossSpawnPoint)
-        //{
-        if (!_disablingSpawner)
+        if (CharacterStats.Distance > _bossSpawnPoint)
+        {
+            if (!_disablingSpawner)
             {
                 DisableSpawner();
                 _spawnBoss = true;
 
             }
-        //}
+        }
 
         if (updateMetrics != null)
         {
@@ -112,12 +111,12 @@ public class GameManager : MonoBehaviour
         {
             if (_spawnActive)
             {
-               
-                    if (Player.position.z > (spawnPoint - 15))
-                    {
-                        _spawn.SpawnBuildingBlocks(spawnPoint, _spawn.PickObject());
-                        spawnPoint++;
-                    }
+              
+               if (Player.position.z > (spawnPoint - 15))
+               {
+                    _spawn.SpawnBuildingBlocks(spawnPoint, _spawn.PickObject());
+                    spawnPoint++;
+               }
          
             }
             else
