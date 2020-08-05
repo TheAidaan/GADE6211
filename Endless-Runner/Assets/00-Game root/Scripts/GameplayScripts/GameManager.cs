@@ -51,6 +51,11 @@ public class GameManager : MonoBehaviour
         _bossMode = false;
         _currentLevel = Levels.one;
 
+        if (CurrentLevel > 1)
+        {
+            _characterAbility = true;
+        }
+
         _bossOneSpawned = 0;
         _bossTwoSpawned = 0;
         _bossThreeSpawned = 0;
