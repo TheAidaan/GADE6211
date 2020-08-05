@@ -315,7 +315,6 @@ public class Spawner : MonoBehaviour
         Instantiate(World[2], new Vector3(randLane, _worldHeight - 3.49f, _spawnPoint - 1), World[2].rotation, _parent); // the raiser
         Instantiate(Triggers[2], new Vector3(_firstLane + 1, 1.5f, _spawnPoint + 1), Triggers[2].rotation, _parent); // the gone trigger
 
-        Debug.Log(_spawnPoint-1);
         ClearPath(3);
 
     }

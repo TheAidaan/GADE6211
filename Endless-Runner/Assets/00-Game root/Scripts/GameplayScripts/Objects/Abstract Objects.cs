@@ -93,12 +93,6 @@ public abstract class Obstacle : Objects
     {
         HeightDestroy();
     }
-
-    public override void test()
-    {
-        Time.timeScale = 0;
-    }
-
 }
 
 public abstract class Trigger : Objects
@@ -140,14 +134,9 @@ public abstract class World : MonoBehaviour
         {
             if (gameObject.transform.position.z < GameManager.Player.position.z - 6)
             {
-                test();
                 Destroy(gameObject);
             }
         }
-    }
-    public virtual void test()
-    {
-        
     }
 
     public virtual void HeightDestroy()

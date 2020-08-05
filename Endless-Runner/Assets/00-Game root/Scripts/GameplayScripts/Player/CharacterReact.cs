@@ -86,7 +86,6 @@ public class CharacterReact : MonoBehaviour
         SoundManager.PlaySoundEffect(3);
         GameManager.gameManager.updateMetrics += UpdateFling;
 
-        animator.Fling(true);
         _flingActive = true;
 
         PreviousResistanceLevel = CurrentResistanceLevel;
@@ -100,7 +99,6 @@ public class CharacterReact : MonoBehaviour
     {
         ability.Shoot();
 
-        animator.Fling(false);
         _flingActive = false;
 
         CurrentResistanceLevel = PreviousResistanceLevel;
@@ -153,7 +151,6 @@ public class CharacterReact : MonoBehaviour
 
     public void Transition()
     {
-        animator.Fling(true);
         Movement.Transition();
 
     }

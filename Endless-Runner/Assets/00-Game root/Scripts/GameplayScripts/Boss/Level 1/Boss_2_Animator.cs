@@ -16,15 +16,6 @@ public class Boss_2_Animator : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void TestSmash()
-    {
-        anim.SetTrigger("Prepare");
-
-        anim.SetTrigger(prefix + "Middle");
-
-        anim.SetTrigger("Smash");
-    }
-
     public IEnumerator Smash()
     {
         anim.SetTrigger("Prepare");
@@ -33,9 +24,12 @@ public class Boss_2_Animator : MonoBehaviour
         anim.SetTrigger(prefix + RandLane);
 
         yield return new WaitForSeconds(1.5f);
-            
-        anim.SetTrigger("Smash");
-        manager.Attacking();
+
+        anim.SetBool("Smash", true);
+
+        yield return new WaitForSeconds(1f);
+        anim.SetBool("Smash", false);
+        manager.StartAttacking();
 
 
     }

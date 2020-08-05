@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 2910367617868062489}
   - component: {fileID: 8889888540680823776}
   - component: {fileID: 8606644272638944449}
-  - component: {fileID: 7569024940426539742}
   - component: {fileID: -1792010006936180881}
   - component: {fileID: -4875337440941588232}
   m_Layer: 11
-  m_Name: Ammo
+  m_Name: Boss_2_Ammo
   m_TagString: Single
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,19 +93,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: -0.1, z: 0}
---- !u!114 &7569024940426539742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7161827911065573180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8963f9973a2581e4683b962150391a4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
 --- !u!114 &-1792010006936180881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb039d3a64491f4ebfc852d25b5ee70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {x: 0, y: 0, z: 0}
-  speed: 0
+  Player: {fileID: 0}
 --- !u!54 &-4875337440941588232
 Rigidbody:
   m_ObjectHideFlags: 0

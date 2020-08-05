@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
-        _currentLevel = Levels.three;
+        _currentLevel = Levels.one;
 
         _bossOneSpawned = 0;
         _bossTwoSpawned = 0;
@@ -88,15 +88,15 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CharacterStats.Distance > _bossSpawnPoint)
-        {
+        //if (CharacterStats.Distance > _bossSpawnPoint)
+        //{
             if (!_disablingSpawner)
             {
                 DisableSpawner();
                 _spawnBoss = true;
 
             }
-        }
+        //}
 
         if (updateMetrics != null)
         {
@@ -205,6 +205,9 @@ public class GameManager : MonoBehaviour
         _spawn.SetLanes((int)Player.transform.position.x-1);
         Player.GetComponent<CharacterMovement>().SetLane(2);
         SpawnStartPlatform();
+
+        _clearPath = true;
+        _clearDist = 3;
 
         _spawnActive = true;
         _spawn.SetParent(World);

@@ -30,7 +30,7 @@ public class CharacterMovement : MonoBehaviour
     private void Start()
     {
         _forwardIncrease = 1;
-        _maxIncrease = 2.5f;
+        _maxIncrease = 2f;
         _increaseSpeedPoint = 200;
 
         _rb = GetComponent<Rigidbody>();
@@ -90,12 +90,18 @@ public class CharacterMovement : MonoBehaviour
 
         if (OnGround()) 
         {
+            _jumpLock = false;
             if (_endFling)
             {
                 _endFling = false;
                 _react.EndFling();
+                
             }
-            _jumpLock = false;
+
+            if (_superSize)
+            {
+                _jumpLock = true;
+            }
         }
        
     }
@@ -112,8 +118,8 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (_forwardIncrease<=_maxIncrease)
                 {
-                    _forwardIncrease += .3f;
-                    _increaseSpeedPoint += 100;
+                    _forwardIncrease += .2f;
+                    _increaseSpeedPoint += 200;
 
                 }
                 

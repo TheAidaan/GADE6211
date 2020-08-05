@@ -6,7 +6,7 @@ public class Boss_2_Manager : BossManager
 {
     Rigidbody _rb;
     Boss_2_Animator _animator;
-    Boss_2_Laser _gun;
+    Boss_2_Gun _gun;
 
     bool _maySpawn,_moveForward, _attacking,_assessing;
 
@@ -17,7 +17,7 @@ public class Boss_2_Manager : BossManager
     {
         base.Start();
         _animator = GetComponentInChildren<Boss_2_Animator>();
-        _gun = GetComponentInChildren<Boss_2_Laser>();
+        _gun = GetComponentInChildren<Boss_2_Gun>();
         _rb = GetComponent<Rigidbody>();
 
         _startPosition = transform.position.z;
@@ -45,8 +45,8 @@ public class Boss_2_Manager : BossManager
         {
             if (bossActive)
             {
-                if (mayAttack)
-                { 
+                if (mayAttack&& !stopAttacking)
+                {
                    Attack();
                 }
                 
@@ -84,6 +84,7 @@ public class Boss_2_Manager : BossManager
 
     public override void ActivateBoss()
     {
+        mayAttack = true;
         _forwardSpeed = Player.GetComponent<CharacterMovement>().CurrentSpeed();
         _gun.Activate(Player);
         _moveForward = true;
@@ -96,18 +97,23 @@ public class Boss_2_Manager : BossManager
 
         if (RandNum<4)
         {
+            StartCoroutine(CoolOff());
+            stopAttacking = true;
+
             StartCoroutine(_animator.Smash());
-            Attacking();
+            
         }
         else
         {
             if (RandNum > 7)
             {
-                _animator.Aim();
-                StartCoroutine(_gun.Shoot());
+                StartCoroutine(CoolOff());
+                stopAttacking = true;
 
-                Attacking();
-            }else
+                _animator.Aim();
+                StartCoroutine(_gun.Shoot());  
+            }
+            else
             {
                 StartCoroutine(CoolOff());
             }
@@ -137,9 +143,9 @@ public class Boss_2_Manager : BossManager
         Destroy(gameObject);
     }
 
-    public void Attacking()
+    public void StartAttacking()
     {
-        StartCoroutine(CoolOff());
+        stopAttacking = false;
     }
 
 

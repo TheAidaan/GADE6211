@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Boss_2_Hammer : Obstacle
 {
+    public override void Effect()
+    {
+        if (Player.GetComponent<CharacterReact>() != null)
+        {
+            Player.GetComponent<CharacterReact>().Die(true, true);
+        }
+
+    }
     public override void CollisionEffect()
     {
         switch (PlayerResistance())
@@ -20,4 +28,6 @@ public class Boss_2_Hammer : Obstacle
                 break;
         }
     }
+
+    public override void DestroyCondition() { }
 }

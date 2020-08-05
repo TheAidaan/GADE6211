@@ -9,7 +9,7 @@ public class BasicMoving_Obstacle : Obstacle
 
         if (Random.Range(0, 2) == 0)
         {
-            transform.eulerAngles= new Vector3(0, 180, 0);
+            transform.Rotate(0, 180, 0);
         }
         
     }

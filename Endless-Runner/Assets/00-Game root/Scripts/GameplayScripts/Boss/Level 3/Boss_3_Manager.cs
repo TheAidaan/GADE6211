@@ -35,7 +35,7 @@ public class Boss_3_Manager : BossManager
         _rotationsNeededForNextStage = 3;
 
         coolOffTime = 0.35f;
-
+        _clockwiseRotation = false;
         _pos = GetComponentInChildren<Circle_SpawnPositions>();
 
     }
