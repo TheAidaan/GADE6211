@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     public static Transform Player;
 
     enum Levels { one=1, two, three }
+    [SerializeField] Levels levelChoice = Levels.one;
     static Levels _currentLevel;
+
     public static int CurrentLevel { get { return (int)_currentLevel; } }
 
     Material[] environmentMaterial = new Material[4];
@@ -44,12 +46,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _currentLevel = levelChoice;
         gameManager = this;
 
         _characterAbility = false;
         characterDeath = false;
         _bossMode = false;
-        _currentLevel = Levels.one;
 
         if (CurrentLevel > 1)
         {
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
         _bossThreeSpawned = 0;
         _bossesBeaten = 0;
 
-        _bossSpawnPoint = 1000;
+        _bossSpawnPoint = 750;
 
         //Instantiate(Character, new Vector3(0, .9f, 0), Character.rotation);
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -93,15 +95,15 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (CharacterStats.Distance > _bossSpawnPoint)
-        //{
+        if (CharacterStats.Distance > _bossSpawnPoint)
+        {
             if (!_disablingSpawner)
             {
                 DisableSpawner();
                 _spawnBoss = true;
 
             }
-        //}
+        }
 
         if (updateMetrics != null)
         {
